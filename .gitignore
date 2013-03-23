@@ -1,0 +1,12 @@
+.DS_Store
+
+kittens/WEB-INF
+
+*.esproj
+
+*.md
+
+*.db
+*.sqlite3
+
+*.class

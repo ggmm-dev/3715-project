@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="utf-8"?>
+<web-app
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns="http://java.sun.com/xml/ns/javaee"
+	xmlns:web="http://java.sun.com/xml/ns/javaee/web-app_3_0.xsd"
+	xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-app_3_0.xsd"
+	version="3.0">
+
+	<!-- serve static files via DefaultServlet -->
+
+	<servlet>
+		<servlet-name>JettyDefaultServlet</servlet-name>
+		<servlet-class>org.eclipse.jetty.servlet.DefaultServlet</servlet-class>
+	</servlet>
+
+	<servlet-mapping>
+		<servlet-name>JettyDefaultServlet</servlet-name>
+		<url-pattern>*.js</url-pattern>
+		<url-pattern>*.css</url-pattern>
+		<url-pattern>*.png</url-pattern>
+		<url-pattern>*.jpg</url-pattern>
+	</servlet-mapping>
+
+	<!-- handle errors -->
+
+	<servlet>
+		<servlet-name>ErrorController</servlet-name>
+		<servlet-class>com.kittens.controller.ErrorController</servlet-class>
+	</servlet>
+
+	<servlet-mapping>
+		<servlet-name>ErrorController</servlet-name>
+		<url-pattern>/error</url-pattern>
+	</servlet-mapping>
+
+	<error-page>
+		<error-code>404</error-code>
+		<location>/error</location>
+	</error-page>
+
+	<error-page>
+		<error-code>405</error-code>
+		<location>/error</location>
+	</error-page>
+
+	<!-- various other controllers -->
+
+	<servlet>
+		<servlet-name>HomeController</servlet-name>
+		<servlet-class>com.kittens.controller.HomeController</servlet-class>
+	</servlet>
+
+	<servlet-mapping>
+		<servlet-name>HomeController</servlet-name>
+		<!-- this mean '/' -->
+		<url-pattern></url-pattern>
+	</servlet-mapping>
+
+	<servlet>
+		<servlet-name>UsersController</servlet-name>
+		<servlet-class>com.kittens.controller.UsersController</servlet-class>
+	</servlet>
+
+	<servlet-mapping>
+		<servlet-name>UsersController</servlet-name>
+		<url-pattern>/users/authenticate</url-pattern>
+		<url-pattern>/users/register</url-pattern>
+		<url-pattern>/users/logout</url-pattern>
+	</servlet-mapping>
+
+	<servlet>
+		<servlet-name>ProjectsController</servlet-name>
+		<servlet-class>com.kittens.controller.ProjectsController</servlet-class>
+	</servlet>
+
+	<servlet-mapping>
+		<servlet-name>ProjectsController</servlet-name>
+		<url-pattern>/projects</url-pattern>
+		<url-pattern>/projects/data</url-pattern>
+		<url-pattern>/projects/stats</url-pattern>
+	</servlet-mapping>
+
+</web-app>

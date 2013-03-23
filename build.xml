@@ -1,0 +1,107 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- NOTE the base directory -->
+<project name="kittens" default="run" basedir=".">
+
+	<!-- let&quot;s set some vars -->
+	<!-- where is our WAR directory going? -->
+	<property name="war.dir" value="${ant.project.name}" />
+	<!-- where are all our libraries? -->
+	<property name="libs.dir" value="libs" />
+	<!-- on what port are we running our server? -->
+	<property name="port" value="8888" />
+	<!-- where did we put our Java sources? -->
+	<property name="src.dir" value="app" />
+	<!-- where are the views? -->
+	<property name="views.dir" value="views" />
+	<!-- and any configuration files? -->
+	<property name="config.dir" value="conf" />
+
+	<!-- define a path for our JAR files -->
+	<path id="all-jars">
+		<fileset dir="${libs.dir}/">
+			<include name="**/*.jar" />
+		</fileset>
+	</path>
+
+	<!-- the master path for the entire application -->
+	<path id="master-path">
+		<path refid="all-jars" />
+		<!-- add any config files to the classpath -->
+		<pathelement path="${conf.dir}"/>
+		<!-- add the views to the class path -->
+		<pathelement path="${views.dir}"/>
+	</path>
+
+	<!--
+	By commenting this out, we no longer create the WAR
+	folder structure when compiling our application.
+	This allows us to edit HTML/CSS/JS directly in said
+	folder, and see the live feedback we all love.
+	WARNING: Always know what file you are editing (or
+	delete the `html` folder and keep a single copy of
+	your files).
+
+	<target name="mkwar">
+		<mkdir dir="${war.dir}" />
+		<mkdir dir="${war.dir}/WEB-INF" />
+		<mkdir dir="${war.dir}/WEB-INF/classes" />
+		<mkdir dir="${war.dir}/WEB-INF/lib" />
+	</target>
+
+	We also removed the `war-dir` dependancy from the `jetty` task.
+	Put that back if this gets uncommented out.
+	-->
+
+	<!-- because Git won't commit empty folders -->
+	<target name="git-fix">
+		<!-- recreate all the folders -->
+		<mkdir dir="${war.dir}" />
+		<mkdir dir="${war.dir}/WEB-INF" />
+		<mkdir dir="${war.dir}/WEB-INF/classes" />
+		<mkdir dir="${war.dir}/WEB-INF/lib" />
+	</target>
+
+	<!-- compile our server-side stuff -->
+	<target name="compile">
+		<javac includeantruntime="false" srcdir="${src.dir}" destdir="${war.dir}/WEB-INF/classes">
+			<classpath>
+				<path refid="all-jars" />
+			</classpath>
+			<compilerarg value="-Xlint:all"/>
+		</javac>
+	</target>
+
+	<!-- run Jetty -->
+	<target name="run"  depends="compile">
+		<!--
+			since we removed the `mkwar` task, we still
+			need to update our web XML file in the WAR dir
+			with changes.
+		-->
+		<copy file="${config.dir}/web.xml" todir="${war.dir}/WEB-INF" />
+		<!-- the server class should be in this dir -->
+		<java classname="com.kittens.JettyServer" fork="true">
+			<classpath path="${war.dir}/WEB-INF/classes">
+				<path refid="master-path" />
+			</classpath>
+			<arg value="${port}" />
+			<!-- WAR directory -->
+			<arg value="${war.dir}" />
+			<!-- context -->
+			<arg value="/" />
+		</java>
+	</target>
+
+	<target name="clean">
+		<!-- delete the WAR folder -->
+		<!--
+		<delete dir="${war.dir}" />
+		-->
+		<!-- delete all the class and database files -->
+		<delete>
+			<fileset dir="." includes="**/*.db" />
+			<fileset dir="." includes="**/*.class"/>
+		</delete>
+	</target>
+
+</project>

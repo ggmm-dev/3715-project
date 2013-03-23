@@ -1,0 +1,53 @@
+* {
+	box-sizing: border-box;
+}
+
+body {
+	width: 1001px;
+	margin: 15px 0 0 15px;
+}
+
+fieldset {
+	display: inline-block;
+	margin: 5px;
+	padding: 5px;
+}
+
+fieldset > legend {
+	padding: 0 10px;
+}
+
+input {
+	display: block;
+	margin: 5px;
+	width: 200px;
+	padding: 5px;
+}
+
+header {
+	margin: 5px;
+	padding: 5px;
+}
+
+header input {
+	margin: 0;
+}
+
+a {
+	display: block;
+	padding: 5px 0;
+	margin: 5px 0;
+}
+
+h1, p {
+	padding: 5px;
+	margin: 5px;
+	font: normal 1.1em/1.5em "Helvetica Neue", Arial, Helvetica, Geneva, sans-serif;
+}
+
+p {
+	text-align: justify;
+	-webkit-hyphens: auto;
+	-moz-hyphens: auto;
+	hyphens: auto;
+}
