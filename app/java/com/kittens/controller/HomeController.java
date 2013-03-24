@@ -26,6 +26,9 @@ public class HomeController extends Controller {
 		// set some values
 		final HashMap<String, String> values = new HashMap<String, String>();
 		values.put("title", "Group Data - Collaborate on group projects");
+		values.put("logo", "Group Data");
+		values.put("about", "Data management made simple");
+		values.put("tagline", "Collaborate with groups and report on results");
 		// render the view
 		response.setContentType("text/html");
 		ViewRenderer.render(response, "index", values);

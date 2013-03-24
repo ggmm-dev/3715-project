@@ -54,6 +54,7 @@
 		<servlet-name>HomeController</servlet-name>
 		<!-- this mean '/' -->
 		<url-pattern></url-pattern>
+		<url-pattern>/invalid</url-pattern>
 	</servlet-mapping>
 
 	<servlet>
@@ -63,8 +64,8 @@
 
 	<servlet-mapping>
 		<servlet-name>UsersController</servlet-name>
-		<url-pattern>/users/authenticate</url-pattern>
 		<url-pattern>/users/register</url-pattern>
+		<url-pattern>/users/login</url-pattern>
 		<url-pattern>/users/logout</url-pattern>
 	</servlet-mapping>
 

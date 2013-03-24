@@ -14,12 +14,19 @@ public class User extends Object {
 	private boolean isAdmin;
 
 	/**
-	 * Creates a user with the given values for the fields.
+	 * Creates a user with the given values.
 	 */
 	public User(String username, String email, String password, boolean isAdmin) {
+		this(username, email, password, isAdmin, true);
+	}
+	/**
+	 * Creates a user with the given values for the fields.
+	 * CAUTION! Passing {@code false} for hash results in the password not being hashed.
+	 */
+	User(String username, String email, String password, boolean isAdmin, boolean hash) {
 		this.username = username;
 		this.email = email;
-		this.password = BCrypt.hashpw(password, BCrypt.gensalt(/* work factor = 10 */));
+		this.password = (hash) ? BCrypt.hashpw(password, BCrypt.gensalt(/* work factor = 10 */)) : password;
 		this.isAdmin = isAdmin;
 	}
 	/**

@@ -32,6 +32,17 @@ public class UsersController extends Controller {
 		return new User(username, email, password, /* is admin */ false);
 	}
 	/**
+	 * Returns the appropriate user from the given credentials.
+	 */
+	private User getLoginCredentialsFromRequest(HttpServletRequest request) throws SQLException {
+		String email    = request.getParameter("email");
+		String password = request.getParameter("password");
+		if (email == null || password == null) {
+			return null;
+		}
+		return database.getUserWithCredentials(email, password);
+	}
+	/**
 	 * Register the user.
 	 */
 	private void register(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
@@ -66,6 +77,18 @@ public class UsersController extends Controller {
 	 */
 	private void login(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		Utils.pleaseDontCache(response);
+		User user;
+		try {
+			 user = getLoginCredentialsFromRequest(request);
+		}
+		catch (SQLException sqle) {
+			sqle.printStackTrace();
+			user = null;
+		}
+		if (user == null) {
+			response.sendRedirect("/invalid");
+		}
+		login(request, response, user);
 	}
 	/**
 	 * Handle logging in the user without any checks.

@@ -29,11 +29,7 @@ public class ProjectsController extends Controller {
 	/**
 	 * Displays all the user's projects, allowing them to edit
 	 */
-	private void projects(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// ask for this response to not be cached
-		Utils.pleaseDontCache(response);
-		// get/set some things
-		final User currentSessionUser = getUserFromRequest(request);
+	private void projects(HttpServletRequest request, HttpServletResponse response, final User currentSessionUser) throws ServletException, IOException {
 		// render the view
 		response.setContentType("text/html");
 		ViewRenderer.render(response, "projects/index", new Object() {
@@ -44,11 +40,7 @@ public class ProjectsController extends Controller {
 	/**
 	 * Displays all the user's projects, allowing them to edit
 	 */
-	private void data(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// ask for this response to not be cached
-		Utils.pleaseDontCache(response);
-		// get/set some things
-		final User currentSessionUser = getUserFromRequest(request);
+	private void data(HttpServletRequest request, HttpServletResponse response, final User currentSessionUser) throws ServletException, IOException {
 		// render the view
 		response.setContentType("text/html");
 		ViewRenderer.render(response, "projects/data", new Object() {
@@ -59,11 +51,7 @@ public class ProjectsController extends Controller {
 	/**
 	 * Displays all the user's projects, allowing them to edit
 	 */
-	private void stats(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// ask for this response to not be cached
-		Utils.pleaseDontCache(response);
-		// get/set some things
-		final User currentSessionUser = getUserFromRequest(request);
+	private void stats(HttpServletRequest request, HttpServletResponse response, final User currentSessionUser) throws ServletException, IOException {
 		// render the view
 		response.setContentType("text/html");
 		ViewRenderer.render(response, "projects/stats", new Object() {
@@ -81,9 +69,17 @@ public class ProjectsController extends Controller {
 			response.sendError(500);
 			return;
 		}
-		else if (requestUri.endsWith("data")) { data(request, response); }
-		else if (requestUri.endsWith("stats")) { stats(request, response); }
-		else { projects(request, response); }
+		// ask for this response to not be cached
+		Utils.pleaseDontCache(response);
+		// get/set some things
+		final User currentSessionUser = getUserFromRequest(request);
+		if (currentSessionUser == null) {
+			response.sendRedirect("/");
+			return;
+		}
+		else if (requestUri.endsWith("data")) { data(request, response, currentSessionUser); }
+		else if (requestUri.endsWith("stats")) { stats(request, response, currentSessionUser); }
+		else { projects(request, response, currentSessionUser); }
 	}
 
 }

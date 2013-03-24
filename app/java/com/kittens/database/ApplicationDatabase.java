@@ -1,6 +1,6 @@
 package com.kittens.database;
 
-import com.kittens.database.User;
+import com.kittens.BCrypt;
 
 import java.io.File;
 import java.lang.Class;
@@ -141,10 +141,27 @@ public class ApplicationDatabase extends Object {
 		return emails.contains(email);
 	}
 	/**
-	 * Returns whether the given credentials match a valid user.
+	 * Returns the user with the given credientials if they exist,
+	 * @return null if the user does not exist
 	 */
-	public boolean isValidUser(String email, String password) {
-		return false;
+	public User getUserWithCredentials(String email, String password) throws SQLException {
+		User user = null;
+		try {
+			openConnection();
+			PreparedStatement ps = db.prepareStatement("select username, email, password from users where email = ?");
+			ps.setString(1, email);
+			ResultSet rs = ps.executeQuery();
+			// the email should be unique
+			// and thus the result set should
+			// at max contain one result
+			while (rs.next()) user = new User(/* username */ rs.getString(1), /* email */ rs.getString(2), /* password */ rs.getString(3), /* is admin */ false, /* hash? */ false);
+			rs.close();
+			ps.close();
+		}
+		finally {
+			closeConnection();
+		}
+		return (user != null && BCrypt.checkpw(password, user.getPassword())) ? user : null;
 	}
 
 }
