@@ -1,4 +1,4 @@
-package com.kittens.security;
+package com.kittens;
 
 /*
  * Copyright (c) 2006 Damien Miller <djm@mindrot.org>

@@ -2,7 +2,7 @@ package com.kittens.controller;
 
 import com.kittens.Controller;
 import com.kittens.database.User;
-import com.kittens.util.Utils;
+import com.kittens.Utils;
 
 import java.io.IOException;
 import java.lang.String;

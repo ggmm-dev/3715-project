@@ -1,6 +1,6 @@
 package com.kittens.database;
 
-import com.kittens.security.BCrypt;
+import com.kittens.BCrypt;
 
 import java.lang.Object;
 import java.lang.String;

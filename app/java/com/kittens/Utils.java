@@ -1,4 +1,4 @@
-package com.kittens.util;
+package com.kittens;
 
 import java.io.IOException;
 import java.io.PrintWriter;

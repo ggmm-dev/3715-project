@@ -1,8 +1,8 @@
 package com.kittens.controller;
 
 import com.kittens.Controller;
-import com.kittens.util.Utils;
 import com.kittens.database.User;
+import com.kittens.Utils;
 import com.kittens.view.ViewRenderer;
 
 import java.io.IOException;
