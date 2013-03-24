@@ -1,55 +1,84 @@
 {{>html5}}
 	<head>
 		{{>meta}}
-		<link rel="stylesheet" href="/css/normalize.css" />
-		<link rel="stylesheet" href="/css/styles.css" />
+		<link rel="stylesheet" href="/css/index.css" />
 	</head>
 	<body>
-		<h1>Super awesome website!</h1>
-		<div id="main" role="main">
-			<form id="login" action="/users/authenticate" method="post">
-				<fieldset>
-					<legend>Login</legend>
-					<input type="email" name="email" placeholder="Email" required />
-					<input type="password" name="password" placeholder="Password" required />
-					<input type="submit" value="Login" />
-				</fieldset>
-			</form>
-			<form id="register" action="/users/register" method="post">
-				<fieldset>
-					<legend>Register</legend>
-					<input type="text" name="username" placeholder="Pick a username" required />
-					<input type="email" name="email" placeholder="Your email" required />
-					<input type="password" name="password" placeholder="Create a password" pattern="^.{6,}$" required />
+		<header>
+			<nav>
+				<div class="left">
+					<h1>Group Data</h1>
+				</div>
+				<div class="right">
+					<form action="/users/authenticate" method="post">
+						<input type="email" name="email" placeholder="email" required />
+						<input type="password" name="password" placeholder="password" required />
+						<input type="submit" value="Login" />
+					</form>
+				</div>
+			</nav>
+		</header>
+		<div id="main" role="main" class="clearfix">
+			<h2 class="left">
+				<span class="collecting">Collecting</span>&nbsp;<span class="data">data</span><br /><span class="trw">the right way</span>
+			</h2>
+			<form class="right" id="register" action="/users/register" method="post">
+					<input type="text" name="username" placeholder="pick a username" required />
+					<input type="email" name="email" placeholder="email address" required />
+					<input type="password" name="password" placeholder="password" pattern="^.{6,}$" required />
+					<input type="password" name="confirm-password" placeholder="confirm password" pattern="^.{6,}$" required />
 					<input type="submit" value="Sign Up" />
-				</fieldset>
 			</form>
 		</div>
-		<aside>
-			<p>
-				Pellentesque habitant morbi tristique senectus
-				et netus et malesuada fames ac turpis egestas.
-				Vestibulum tortor quam, feugiat vitae, ultricies
-				eget, tempor sit amet, ante. Donec eu libero sit
-				amet quam egestas semper. Aenean ultricies miv
-				Mauris placerat eleifend leo. Quisque sit amet
-				est et sapien ullamcorper pharetra. Vestibulum
-				erat wisi, condimentum sed, commodo vitae, ornare sit
-				amet, wisi. Aenean fermentum, elit eget tincidunt
-				condimentum, eros ipsum rutrum orci, sagittis tempus
-				lacus enim ac dui. Donec non enim in turpis pulvinar 
-				acilisis. Ut felis. Praesent dapibus, neque id cursu
-				faucibus, tortor neque egestas augue, eu vulputatemag
-				fana eros eu erat. Aliquam erat volutpat. Nam dui mi,
-				tincidunt quis, accumsan porttitor, facilisis luctus.
-				Pellentesque habitant morbi tristique senectus
-				et netus et malesuada fames ac turpis egestas.
-				Vestibulum tortor quam, feugiat vitae, ultricies
-				eget, tempor sit amet, ante. Donec eu libero sit
-				amet quam egestas semper. Aenean ultricies mi
-				dola vitae est. Mauris placerat eleifend leo metus.
-			</p>
-		</aside>
-		<script src="js/main.js"></script>
+		<div id="about">
+			<aside>
+				<h3>Data management made simple</h1>
+				<h4>Collaborate with groups and report on results</h2>
+				<img class="sheet" src="imgs/sheet.png" alt="Image of a spreadsheet" />
+				<p>
+					Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+					Duis sit amet eros metus, a fermentum risus. Vestibulum
+					viverra mollis rutrum. Class aptent taciti sociosqu ad
+					litora torquent per conubia nostra, per inceptos himenaeos.
+					Aenean tortor sem, sagittis et consectetur ac, tempus
+					egestas mauris. Aenean consectetur pellentesque augue
+					quis adipiscing. Sed eget est non velit porttitor euismod.
+					Cras ultrices velit vitae lectus facilisis laoreet.
+				</p>
+				<p>
+					Pellentesque imperdiet scelerisque risus non egestas.
+					Integer ut justo nulla. Sed aliquam imperdiet graida.
+					Vestibulum vel augue quis dui porta pellentesque nam
+					eget ornare urna. Nam id justo lectus. Nam scelerisque
+					condimentum tincidunt. Cras eleifend metus vitae orci
+					congue iaculis. Nulla laoreet felis ut nisi blandit vel
+					hendrerit metus volutpat. Nullam eleifend viverra purus,
+					in commodo turpis lobortis in. Curabitur velit diam,
+					pulvinar ac posuere eu, lobortis vel quam.
+				</p>
+				<p>
+					Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+					Duis sit amet eros metus, a fermentum risus. Vestibulum
+					viverra mollis rutrum. Class aptent taciti sociosqu ad
+					litora torquent per conubia nostra, per inceptos himenaeos.
+					Aenean tortor sem, sagittis et consectetur ac, tempus
+					egestas mauris. Aenean consectetur pellentesque augue
+					quis adipiscing. Sed eget est non velit porttitor euismod.
+					Cras ultrices velit vitae lectus facilisis laoreet.
+				</p>
+				<p>
+					Pellentesque imperdiet scelerisque risus non egestas.
+					Integer ut justo nulla. Sed aliquam imperdiet graida.
+					Vestibulum vel augue quis dui porta pellentesque nam
+					eget ornare urna. Nam id justo lectus. Nam scelerisque
+					condimentum tincidunt. Cras eleifend metus vitae orci
+					congue iaculis. Nulla laoreet felis ut nisi blandit vel
+					hendrerit metus volutpat. Nullam eleifend viverra purus,
+					in commodo turpis lobortis in. Curabitur velit diam,
+					pulvinar ac posuere eu, lobortis vel quam.
+				</p>
+			</aside>
+		</div>
+		<script src="js/index.js"></script>
 	</body>
 {{>close}}

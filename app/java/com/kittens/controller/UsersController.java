@@ -65,12 +65,13 @@ public class UsersController extends Controller {
 	 * Handle logging in the user.
 	 */
 	private void login(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// login
+		Utils.pleaseDontCache(response);
 	}
 	/**
 	 * Handle logging in the user without any checks.
 	 */
 	private void login(HttpServletRequest request, HttpServletResponse response, User user) throws ServletException, IOException {
+		Utils.pleaseDontCache(response);
 		HttpSession session = request.getSession();
 		session.setAttribute(Utils.CURRENT_SESSION_USER, user);
 		response.sendRedirect("/projects");

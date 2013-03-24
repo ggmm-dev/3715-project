@@ -1,0 +1,196 @@
+@charset "utf-8";
+
+@font-face {
+	font-family: 'Avenir Light';
+	src: url('fonts/avenirlight-webfont.eot');
+	src: url('fonts/avenirlight-webfont.eot?#iefix') format('embedded-opentype'),
+	     url('fonts/avenirlight-webfont.woff') format('woff'),
+	     url('fonts/avenirlight-webfont.ttf') format('truetype'),
+	     url('fonts/avenirlight-webfont.svg#avenirlight') format('svg');
+	font-weight: normal;
+	font-style: normal;
+}
+@font-face {
+	font-family: 'Avenir Heavy';
+	src: url('fonts/avenir-heavy-webfont.eot');
+	src: url('fonts/avenir-heavy-webfont.eot?#iefix') format('embedded-opentype'),
+	     url('fonts/avenir-heavy-webfont.woff') format('woff'),
+	     url('fonts/avenir-heavy-webfont.ttf') format('truetype'),
+	     url('fonts/avenir-heavy-webfont.svg#avenir_85_heavyregular') format('svg');
+	font-weight: normal;
+	font-style: normal;
+}
+
+.clearfix:before,
+.clearfix:after {
+	content: " ";
+	display: table;
+}
+
+.clearfix:after {
+	clear: both;
+}
+
+body {
+	background: url("../imgs/bg.jpg") no-repeat center center fixed;
+	-webkit-background-size: cover;
+	-moz-background-size: cover;
+	background-size: cover;
+	margin: 0;
+	padding: 0;
+}
+
+header {
+	background: rgba(0, 0, 0, 0.7);
+	height: 94px;
+	width: 100%;
+	border-bottom: 1px solid #000;
+	text-align: center;
+	margin-bottom: 100px;
+	box-shadow: inset 0px -1px 0px rgba(255, 255, 255, 0.3);
+}
+
+header h1 {
+	width: 202px;
+	height: 0;
+	margin: 0;
+	padding: 116px 0 0 0;
+	background: url("../imgs/logo.png") no-repeat;
+	overflow: hidden;
+}
+
+nav, #main, aside {
+	font: 10pt sans-serif;
+	width: 966px;
+	margin: 0 auto;
+}
+
+nav .left {
+	float: left;
+	width: 200px;
+}
+
+nav .right {
+	float: right;
+	width: 500px;
+	padding-top: 30px;
+	text-align: right;
+}
+
+nav input {
+	background: #676767;
+	color: #fff;
+	border: 1px solid #1a1a1a;
+	box-shadow: inset 0px 0px 1px rgba(255, 255, 255, 0.6);
+	font: 13pt sans-serif;
+	padding: 5px 10px 5px 10px;
+	margin-right: 5px;
+	text-shadow: 1px 1px 0px rgba(0, 0, 0, 0.8);
+	width: 150px;
+}
+
+nav input[type="submit"] {
+	background: #459386;
+	color: #fff;
+	border: 1px solid #1d2c2a;
+	box-shadow: inset 0px 0px 1px rgba(255, 255, 255, 0.8);
+	font: 14pt sans-serif;
+	padding: 4px 10px 4px 10px;
+	margin-right: 5px;
+	text-shadow: 1px 1px 0px rgba(0, 0, 0, 0.8);
+	width: 100px;
+	text-transform: uppercase;
+}
+
+#main {
+	color: #2e2e2e;
+	padding-bottom: 100px;
+}
+
+#main .left,
+#main .right {
+	font-size: 30pt;
+	float: left;
+}
+
+#main .left {
+	width: 540px;
+	padding-right: 20px;
+	margin: 0;
+	text-align: right;
+}
+
+.collecting, .data {
+	font: 43pt "Avenir Heavy";
+	text-transform: uppercase;
+}
+
+.data {
+	color: #459386;
+}
+
+.trw {
+	font: 35pt "Avenir Light";
+}
+
+#main .right {
+	width: 360px;
+	text-align: left;
+	border-left: 5px solid #2e2e2e;
+	padding-left: 20px;
+}
+
+#main input {
+	background: #dadedd;
+	color: #2e2e2e;
+	border: 1px solid #7e8a88;
+	box-shadow: inset 0px 0px 2px #fff;
+	font: 15pt sans-serif;
+	padding: 5px 10px 5px 10px;
+	margin-right: 0px;
+	margin-bottom: 7px;
+	text-shadow: 1px 1px 0px rgba(255, 255, 255, 0.5);
+	width: 332px;
+}
+
+#main input[type="submit"] {
+	background: #eccc59;
+	color: #2e2e2e;
+	border: 1px solid #787052;
+	box-shadow: inset 0px 0px 2px #fff;
+	font: 14pt "Avenir Heavy";
+	padding: 4px 10px 4px 10px;
+	margin-right: 5px;
+	text-shadow: 1px 1px 0px rgba(255, 255, 255, 0.5);
+	width: 100px;
+	text-transform: uppercase;
+}
+
+#about {
+	background: #f6f6f6;
+	width: 100%;
+	border-top: 1px solid #c9cccb;
+	box-shadow: 0px -1px 30px rgba(0, 0, 0, 0.1);
+	height: 500px;
+	padding-top: 50px;
+}
+
+#about h3 {
+	font: 26pt/20px "Avenir Heavy";
+	text-shadow: 1px 1px 0px #ffffff;
+	color: #2e2e2e;
+}
+
+#about h4 {
+	font: 18pt/20px "Avenir Light";
+	text-shadow: 1px 1px 0px #ffffff;
+	color: #2e2e2e;
+	margin-bottom: 50px;
+}
+
+#about > aside > img.sheet {
+	width: 250px;
+	height: 250px;
+	padding: 5px;
+	float: right;
+}

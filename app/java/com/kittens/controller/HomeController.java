@@ -25,7 +25,7 @@ public class HomeController extends Controller {
 		Utils.pleaseDontCache(response);
 		// set some values
 		final HashMap<String, String> values = new HashMap<String, String>();
-		values.put("title", "Project awesome!");
+		values.put("title", "Group Data - Collaborate on group projects");
 		// render the view
 		response.setContentType("text/html");
 		ViewRenderer.render(response, "index", values);
