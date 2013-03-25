@@ -1,6 +1,7 @@
 {{>html5}}
 	<head>
 		{{>meta}}
+		<link rel="stylesheet" href="/css/hint.min.css" />
 		<link rel="stylesheet" href="/css/font-awesome.min.css" />
 		<link rel="stylesheet" href="/css/styles.css" />
 	</head>
@@ -10,8 +11,8 @@
 			<div id="main" role="main">
 				<section id="data">
 					<h2>Test Project 1</h2>
-					<a class="cloud"><i class="icon-cloud-upload"></i></a>
-					<a class="plus-add-btn"><i class="icon-plus"></i></a>
+					<a class="cloud hint--left" data-hint="Import dataset"><i class="icon-cloud-upload"></i></a>
+					<a class="plus-add-btn hint--left" data-hint="Add a column"><i class="icon-plus"></i></a>
 					<table>
 						<thead>
 							<tr>
@@ -43,8 +44,8 @@
 							<tr><td>1</td><td>2</td><td>3</td><td>4</td></tr>
 						</tbody>
 					</table>
-					<a class="cloud bottom"><i class="icon-cloud-download"></i></a>
-					<a class="plus-add-btn"><i class="icon-plus"></i></a>
+					<a class="cloud bottom hint--left" data-hint="Export dataset"><i class="icon-cloud-download"></i></a>
+					<a class="plus-add-btn hint--left" data-hint="Add a row"><i class="icon-plus"></i></a>
 					<a class="green">Save</a>
 				</section>
 			</div>
