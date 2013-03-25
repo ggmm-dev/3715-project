@@ -1,35 +1,7 @@
 @charset "utf-8";
 
-@font-face {
-	font-family: 'Avenir Light';
-	src: url('fonts/avenirlight-webfont.eot');
-	src: url('fonts/avenirlight-webfont.eot?#iefix') format('embedded-opentype'),
-	     url('fonts/avenirlight-webfont.woff') format('woff'),
-	     url('fonts/avenirlight-webfont.ttf') format('truetype'),
-	     url('fonts/avenirlight-webfont.svg#avenirlight') format('svg');
-	font-weight: normal;
-	font-style: normal;
-}
-@font-face {
-	font-family: 'Avenir Heavy';
-	src: url('fonts/avenir-heavy-webfont.eot');
-	src: url('fonts/avenir-heavy-webfont.eot?#iefix') format('embedded-opentype'),
-	     url('fonts/avenir-heavy-webfont.woff') format('woff'),
-	     url('fonts/avenir-heavy-webfont.ttf') format('truetype'),
-	     url('fonts/avenir-heavy-webfont.svg#avenir_85_heavyregular') format('svg');
-	font-weight: normal;
-	font-style: normal;
-}
-
-.clearfix:before,
-.clearfix:after {
-	content: " ";
-	display: table;
-}
-
-.clearfix:after {
-	clear: both;
-}
+@import "fonts.css";
+@import "common.css";
 
 body {
 	background: url("../imgs/bg.jpg") no-repeat center center fixed;
@@ -59,12 +31,6 @@ header h1 {
 	overflow: hidden;
 }
 
-nav, #main, aside {
-	font: 10pt sans-serif;
-	width: 966px;
-	margin: 0 auto;
-}
-
 nav .left {
 	float: left;
 	width: 200px;
@@ -72,9 +38,20 @@ nav .left {
 
 nav .right {
 	float: right;
-	width: 500px;
+	width: -webkit-calc(100% - 210px);
+	width: calc(100% - 210px);
 	padding-top: 30px;
 	text-align: right;
+}
+
+nav .right p.error {
+	display: inline-block;
+	border: 1px solid #f00;
+	font: 13pt sans-serif;
+	padding: 5px 10px 5px 10px;
+	margin: 0;
+	text-align: left;
+	width: 200px;
 }
 
 nav input {
@@ -94,7 +71,7 @@ nav input[type="submit"] {
 	color: #fff;
 	border: 1px solid #1d2c2a;
 	box-shadow: inset 0px 0px 1px rgba(255, 255, 255, 0.8);
-	font: 14pt sans-serif;
+	font: 13pt sans-serif;
 	padding: 4px 10px 4px 10px;
 	margin-right: 5px;
 	text-shadow: 1px 1px 0px rgba(0, 0, 0, 0.8);
@@ -159,11 +136,18 @@ nav input[type="submit"] {
 	border: 1px solid #787052;
 	box-shadow: inset 0px 0px 2px #fff;
 	font: 14pt "Avenir Heavy";
-	padding: 4px 10px 4px 10px;
 	margin-right: 5px;
 	text-shadow: 1px 1px 0px rgba(255, 255, 255, 0.5);
 	width: 100px;
 	text-transform: uppercase;
+}
+
+#main .right p.error {
+	border: 1px solid #f00;
+	font: 15pt sans-serif;
+	padding: 5px 10px 5px 10px;
+	margin: 7px 0;
+	width: 332px;
 }
 
 #about {

@@ -1,0 +1,17 @@
+@charset "utf-8";
+
+.clearfix:before,
+.clearfix:after {
+	content: " ";
+	display: table;
+}
+
+.clearfix:after {
+	clear: both;
+}
+
+nav, #main, aside {
+	font: 10pt sans-serif;
+	width: 966px;
+	margin: 0 auto;
+}

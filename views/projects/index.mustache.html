@@ -1,24 +1,50 @@
 {{>html5}}
 	<head>
 		{{>meta}}
-		<link rel="stylesheet" href="/css/normalize.css" />
+		<link rel="stylesheet" href="/css/font-awesome.min.css" />
 		<link rel="stylesheet" href="/css/styles.css" />
 	</head>
 	<body>
 		<header>
 			<nav>
-				<form action="/users/logout" method="post">
-					<input type="submit" value="Logout" />
-				</form>
-				<a href="/projects">Show me my projects</a>
-				<a href="/projects/data">Edit the data</a>
-				<a href="/projects/stats">Show me some statistics</a>
+				<div class="left">
+					<h1>{{logo}}</h1>
+				</div>
+				{{>projectlinks}}
+				{{>logout}}
 			</nav>
 		</header>
-		<h1>Welcome {{user.username}}!</h1>
-		<p>
-			These are all of your projects.
-		</p>
-		<script src="js/main.js"></script>
+		<div id="main" role="main" class="clearfix">
+			<section id="description">
+				<h1>Test Project 1</h1>
+				<time datetime="2001-05-15 19:00">May 15</time>
+				<p>
+					Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+					Ut non massa mi, at rutrum diam. Pellentesque luctus aue
+					farnec ipsum sit ulmcorper sit amet ornare lorem feugit.
+				</p>
+			</section>
+			<section id="collaborators">
+				<h2>Collaborators</h2>
+				<ul>
+					<li>John Doe</li>
+					<li>Jane Smith</li>
+					<li>Curly Chris</li>
+				</ul>
+				<a class="plus-add align-right icon-plus"></a>
+			</section>
+		</div>
+		<aside>
+			<menu>
+				<a class="grey add" href="#">Create Project</a>
+				<ul>
+					<li><a>Test Project 1</a></li>
+					<li><a>Test Project 2</a></li>
+					<li><a>Test Project 3</a></li>
+					<li><a>Test Project 4</a></li>
+					<li><a>Test Project 5</a></li>
+				</ul>
+			</menu>
+		</aside>
 	</body>
 {{>close}}

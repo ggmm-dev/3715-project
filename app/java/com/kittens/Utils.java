@@ -1,5 +1,7 @@
 package com.kittens;
 
+import com.kittens.database.User;
+
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.lang.Object;
@@ -8,6 +10,7 @@ import java.lang.StringBuilder;
 import java.util.Enumeration;
 import java.util.Map;
 
+import javax.servlet.http.HttpSession;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
@@ -15,6 +18,18 @@ public class Utils extends Object {
 
 	// tag for session
 	public static final String CURRENT_SESSION_USER = "currentUserInSession";
+	// the root of the webapp
+	public static final String APP_ROOT = "/";
+	// a custom list of possible erro codes
+	public static final class ErrorCode extends Object {
+
+		public static final String ERROR_MSG = "emessage";
+		public static final String INVALID_CREDENTIALS = "Invalid credentials";
+		public static final String EMAIL_IN_USE = "Please choose a different email";
+		public static final String USERNAME_IN_USE = "Please choose a different username";
+		public static final String COMPLETE_FORM = "Please fill out the form";
+
+	}
 
 	/**
 	 * Ask for the response to not be cached by the client.
@@ -63,6 +78,19 @@ public class Utils extends Object {
 			for (String val : vals) s.append("" + key + ": " + val + "\n");
 		}
 		return s.toString();
+	}
+	/**
+	 * Returns the user from the current session.
+	 */
+	public static User getUserFromRequest(HttpServletRequest request) {
+		HttpSession session = request.getSession();
+		return (User) session.getAttribute(CURRENT_SESSION_USER);
+	}
+	/**
+	 * Returns the error message from the current session, null otherwise.
+	 */
+	public static String getErrorMessageFromRequest(HttpServletRequest request) {
+		return (String) request.getSession().getAttribute(Utils.ErrorCode.ERROR_MSG);
 	}
 
 }

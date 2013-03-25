@@ -5,12 +5,17 @@
 	</head>
 	<body>
 		<header>
-			<nav>
+			<nav class="clearfix">
 				<div class="left">
 					<h1>{{logo}}</h1>
 				</div>
 				<div class="right">
 					<form id="login" action="/users/login" method="post">
+						{{#lerror}}
+						<p class="error">
+							{{emessage}}
+						</p>
+						{{/lerror}}
 						<input type="email" name="email" placeholder="email" required />
 						<input type="password" name="password" placeholder="password" required />
 						<input type="submit" value="Login" />
@@ -23,11 +28,15 @@
 				<span class="collecting">Collecting</span>&nbsp;<span class="data">data</span><br /><span class="trw">the right way</span>
 			</h2>
 			<form class="right" id="register" action="/users/register" method="post">
-					<input type="text" name="username" placeholder="pick a username" required />
-					<input type="email" name="email" placeholder="email address" required />
-					<input type="password" name="password" placeholder="password" pattern="^.{6,}$" required />
-					<input type="password" name="confirm-password" placeholder="confirm password" pattern="^.{6,}$" required />
-					<input type="submit" value="Sign Up" />
+				{{#rerror}}
+				<p class="error">
+					{{emessage}}
+				</p>
+				{{/rerror}}
+				<input type="text" name="username" placeholder="pick a username" required />
+				<input type="email" name="email" placeholder="email address" required />
+				<input type="password" name="password" placeholder="password" pattern="^.{6,}$" required />
+				<input type="submit" value="Sign Up" />
 			</form>
 		</div>
 		<div id="about">
@@ -79,6 +88,6 @@
 				</p>
 			</aside>
 		</div>
-		<script src="js/index.js"></script>
+		<script src="/js/index.js"></script>
 	</body>
 {{>close}}

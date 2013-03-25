@@ -8,6 +8,7 @@ import com.kittens.view.ViewRenderer;
 import java.io.IOException;
 import java.lang.String;
 import java.lang.Object;
+import java.util.HashMap;
 
 import javax.servlet.http.HttpSession;
 import javax.servlet.http.HttpServletRequest;
@@ -20,22 +21,20 @@ public class ProjectsController extends Controller {
 	public static final long serialVersionUID = 42;
 
 	/**
-	 * Returns the user from the current session.
-	 */
-	private User getUserFromRequest(HttpServletRequest request) {
-		HttpSession session = request.getSession();
-		return (User) session.getAttribute(Utils.CURRENT_SESSION_USER);
-	}
-	/**
 	 * Displays all the user's projects, allowing them to edit
 	 */
 	private void projects(HttpServletRequest request, HttpServletResponse response, final User currentSessionUser) throws ServletException, IOException {
 		// render the view
 		response.setContentType("text/html");
-		ViewRenderer.render(response, "projects/index", new Object() {
-			public String title = "All your projects";
-			public User user = currentSessionUser;
-		});
+		final HashMap<String, Object> values = new HashMap<String, Object>();
+		values.put("title", String.format(
+			"Group Data - %s Projects",
+			currentSessionUser.getUsername() + ((currentSessionUser.getUsername().endsWith("s")) ? "\'" : "\'s")
+		));
+		values.put("logo", "Group Data");
+		values.put("empty", "You have no projects yet");
+		values.put("user", currentSessionUser);
+		ViewRenderer.render(response, "projects/index", values);
 	}
 	/**
 	 * Displays all the user's projects, allowing them to edit
@@ -43,10 +42,11 @@ public class ProjectsController extends Controller {
 	private void data(HttpServletRequest request, HttpServletResponse response, final User currentSessionUser) throws ServletException, IOException {
 		// render the view
 		response.setContentType("text/html");
-		ViewRenderer.render(response, "projects/data", new Object() {
-			public String title = "You are editing your data";
-			public User user = currentSessionUser;
-		});
+		// set some values
+		final HashMap<String, Object> values = new HashMap<String, Object>();
+		values.put("title", "You are editing your data");
+		values.put("user", currentSessionUser);
+		ViewRenderer.render(response, "projects/data", values);
 	}
 	/**
 	 * Displays all the user's projects, allowing them to edit
@@ -54,10 +54,11 @@ public class ProjectsController extends Controller {
 	private void stats(HttpServletRequest request, HttpServletResponse response, final User currentSessionUser) throws ServletException, IOException {
 		// render the view
 		response.setContentType("text/html");
-		ViewRenderer.render(response, "projects/stats", new Object() {
-			public String title = "You are viewing your stats";
-			public User user = currentSessionUser;
-		});
+		// set some values
+		final HashMap<String, Object> values = new HashMap<String, Object>();
+		values.put("title", "You are reviewing your stats");
+		values.put("user", currentSessionUser);
+		ViewRenderer.render(response, "projects/stats", values);
 	}
 	/**
 	 * Handle GET requests.
@@ -72,7 +73,7 @@ public class ProjectsController extends Controller {
 		// ask for this response to not be cached
 		Utils.pleaseDontCache(response);
 		// get/set some things
-		final User currentSessionUser = getUserFromRequest(request);
+		final User currentSessionUser = Utils.getUserFromRequest(request);
 		if (currentSessionUser == null) {
 			response.sendRedirect("/");
 			return;

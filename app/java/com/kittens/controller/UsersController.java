@@ -1,5 +1,7 @@
 package com.kittens.controller;
 
+import com.google.common.base.Strings;
+
 import com.kittens.Controller;
 import com.kittens.database.User;
 import com.kittens.Utils;
@@ -8,9 +10,9 @@ import java.io.IOException;
 import java.lang.String;
 import java.sql.SQLException;
 
-import javax.servlet.http.HttpSession;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 import javax.servlet.ServletException;
 
 public class UsersController extends Controller {
@@ -19,13 +21,22 @@ public class UsersController extends Controller {
 	public static final long serialVersionUID = 42;
 
 	/**
+	 * Attaches the given message to the
+	 * session and redirects the user to
+	 * the application root (the login form).
+	 */
+	private void setErrorAndRedirect(HttpServletRequest request, HttpServletResponse response, String message) throws IOException {
+		request.getSession().setAttribute(Utils.ErrorCode.ERROR_MSG, message);
+		response.sendRedirect(Utils.APP_ROOT);
+	}
+	/**
 	 * Try to create a user from the parameters given.
 	 */
 	private User getUserFromRequest(HttpServletRequest request) {
 		String email    = request.getParameter("email");
 		String username = request.getParameter("username");
 		String password = request.getParameter("password");
-		if (email == null || username == null || password == null) {
+		if (Strings.isNullOrEmpty(email) || Strings.isNullOrEmpty(username) || Strings.isNullOrEmpty(password)) {
 			// error
 			return null;
 		}
@@ -47,56 +58,80 @@ public class UsersController extends Controller {
 	 */
 	private void register(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		final User user = getUserFromRequest(request);
+		if (user == null) {
+			// the form was not filled out properly
+			setErrorAndRedirect(request, response, Utils.ErrorCode.COMPLETE_FORM);
+			return;
+		}
+		boolean uAe = false; // the username is already in use
+		boolean eAe = false; // the email address is already in use
 		try {
-			if (user == null) {
-				// the form was not filled out properly
-				response.sendRedirect("/");
-				return;
+			uAe = database.usernameAlreadyExists(user.getUsername());
+			eAe = database.emailAlreadyExists(user.getEmail());
+			if (!uAe && !eAe) /* !(uAe || eAe) */ {
+				// the username is available
+				// for use, and the email
+				// address is available for use
+				database.createUser(user);
 			}
-			else if (database.usernameAlreadyExists(user.getUsername())) {
-				// the requested username already exists
-				response.sendRedirect("/");
-				return;
-			}
-			else if (database.emailAlreadyExists(user.getEmail())) {
-				// the email address has already been used
-				response.sendRedirect("/");
-				return;
-			}
-			database.createUser(user);
 		}
 		catch (SQLException sqle) {
 			sqle.printStackTrace();
 			return;
 		}
-		// allow access
+		if (uAe) {
+			// the requested username already exists
+			setErrorAndRedirect(request, response, Utils.ErrorCode.USERNAME_IN_USE);
+			return;
+		}
+		if (eAe) {
+			// the email address has already been used
+			setErrorAndRedirect(request, response, Utils.ErrorCode.EMAIL_IN_USE);
+			return;
+		}
+		// at this point in time the
+		// user has been created
+		// since (!uAe && !eAe) => create user
+		// allow access to the user
 		login(request, response, user);
 	}
 	/**
 	 * Handle logging in the user.
 	 */
 	private void login(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		Utils.pleaseDontCache(response);
 		User user;
 		try {
+			// attempt to get the user
 			 user = getLoginCredentialsFromRequest(request);
 		}
 		catch (SQLException sqle) {
+			// problems
 			sqle.printStackTrace();
 			user = null;
 		}
 		if (user == null) {
-			response.sendRedirect("/invalid");
+			// the user has given invalid
+			// credentials, redirect them
+			// back to the login form and
+			// alert them of their mistake
+			setErrorAndRedirect(request, response, Utils.ErrorCode.INVALID_CREDENTIALS);
+			return;
 		}
+		// user exists/is valid
+		// go ahead and log in
 		login(request, response, user);
 	}
 	/**
 	 * Handle logging in the user without any checks.
 	 */
 	private void login(HttpServletRequest request, HttpServletResponse response, User user) throws ServletException, IOException {
+		// ask for the response to not be cached
 		Utils.pleaseDontCache(response);
+		// get the session
 		HttpSession session = request.getSession();
+		// attach the user to the session
 		session.setAttribute(Utils.CURRENT_SESSION_USER, user);
+		// show them their projects
 		response.sendRedirect("/projects");
 	}
 	/**
@@ -106,7 +141,7 @@ public class UsersController extends Controller {
 		Utils.pleaseDontCache(response);
 		// invalidate our current session
 		request.getSession().invalidate();
-		response.sendRedirect("/");
+		response.sendRedirect(Utils.APP_ROOT);
 	}
 	/**
 	 * Handle POST requests.
@@ -114,7 +149,7 @@ public class UsersController extends Controller {
 	@Override protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		final String requestUri = request.getRequestURI().substring(1);
 		if (database == null) {
-			// serious database issues
+			// serious issues
 			response.sendError(500);
 			return;
 		}

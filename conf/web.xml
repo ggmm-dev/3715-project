@@ -54,7 +54,6 @@
 		<servlet-name>HomeController</servlet-name>
 		<!-- this mean '/' -->
 		<url-pattern></url-pattern>
-		<url-pattern>/invalid</url-pattern>
 	</servlet-mapping>
 
 	<servlet>
