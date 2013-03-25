@@ -10,8 +10,37 @@
 	clear: both;
 }
 
-nav, #main, aside {
-	font: 10pt sans-serif;
-	width: 966px;
-	margin: 0 auto;
+a {
+	cursor: pointer;
+}
+
+input[type="button"],
+input[type="submit"] {
+	cursor: pointer;
+}
+
+menu {
+	padding-left: 0;
+}
+
+.projects-page .projects-link,
+.data-page .data-link {
+	background: #f6f6f6;
+	display: inline-block;
+	font: 16pt "Avenir Heavy";
+	text-transform: uppercase;
+	color: #2e2e2e;
+	padding: 10px 20px 10px 20px;
+	border-bottom: 1px solid #f6f6f6;
+	border-left: 1px solid #9b9a9a;
+	border-right: 1px solid #9b9a9a;
+	border-top: 1px solid #9b9a9a;
+	text-shadow: 1px 1px 0px #fff;
+	text-decoration: none;
+	box-shadow: none;
+}
+
+.projects-page .projects-link:hover {
+	color: #656565;
+	background-color: #f6f6f6;
 }

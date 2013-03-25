@@ -1,24 +1,74 @@
 {{>html5}}
 	<head>
 		{{>meta}}
-		<link rel="stylesheet" href="/css/normalize.css" />
+		<link rel="stylesheet" href="/css/font-awesome.min.css" />
 		<link rel="stylesheet" href="/css/styles.css" />
 	</head>
-	<body>
+	<body class="data-page">
 		<header>
-			<nav>
-				<form action="/users/logout" method="post">
-					<input type="submit" value="Logout" />
-				</form>
-				<a href="/projects">Show me my projects</a>
-				<a href="/projects/data">Edit the data</a>
-				<a href="/projects/stats">Show me some statistics</a>
+			<nav class="clearfix">
+				<div class="left">
+					<h1>{{logo}}</h1>
+				</div>
+				<div class="right">
+					{{>projectlinks}}
+					{{>logout}}
+				</div>
 			</nav>
 		</header>
-		<h1>Welcome {{user.username}}!</h1>
-		<p>
-			This is all your data.
-		</p>
-		<script src="js/main.js"></script>
+		<div class="wrapper clearfix">
+			<div id="main" role="main">
+				<section id="data">
+					<h2>Test Project 1</h2>
+					<a class="cloud"><i class="icon-cloud-upload"></i></a>
+					<table>
+						<thead>
+							<tr>
+								<th>
+									<h6 contenteditable>Date</h6>
+									{{>types}}
+								</th>
+								<th>
+									<h6 contenteditable>Time</h6>
+									{{>types}}
+								</th>
+								<th>
+									<h6 contenteditable>Temperature</h6>
+									{{>types}}
+								</th>
+								<th>
+									<h6 contenteditable>Wind Speed</h6>
+									{{>types}}
+								</th>
+							</tr>
+						</thead>
+						<tbody>
+							<tr><td>1</td><td>2</td><td>3</td><td>4</td></tr>
+							<tr><td>1</td><td>2</td><td>3</td><td>4</td></tr>
+							<tr><td>1</td><td>2</td><td>3</td><td>4</td></tr>
+							<tr><td>1</td><td>2</td><td>3</td><td>4</td></tr>
+							<tr><td>1</td><td>2</td><td>3</td><td>4</td></tr>
+							<tr><td>1</td><td>2</td><td>3</td><td>4</td></tr>
+							<tr><td>1</td><td>2</td><td>3</td><td>4</td></tr>
+						</tbody>
+					</table>
+					<a class="cloud bottom"><i class="icon-cloud-download"></i></a>
+					<a class="plus-add-btn"><i class="icon-plus"></i></a>
+					<a class="green">Save</a>
+				</section>
+			</div>
+			<aside>
+				<menu>
+					<a class="grey-add-btn">Create Project</a>
+					<ul>
+						<li class="manage current"><a>Test Project 1</a></li>
+						<li><a>Test Project 2</a></li>
+						<li><a>Test Project 3</a></li>
+						<li><a>Test Project 4</a></li>
+						<li><a>Test Project 5</a></li>
+					</ul>
+				</menu>
+			</aside>
+		</div>
 	</body>
 {{>close}}

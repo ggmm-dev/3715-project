@@ -21,35 +21,38 @@ public class ProjectsController extends Controller {
 	public static final long serialVersionUID = 42;
 
 	/**
-	 * Displays all the user's projects, allowing them to edit
+	 * Returns the possessive form of the given user's name.
+	 */
+	private String possessive(final User user) {
+		return user.getUsername() + ((user.getUsername().endsWith("s")) ? "\'" : "\'s");
+	}
+	/**
+	 * Displays all the user's projects, allowing them to edit.
 	 */
 	private void projects(HttpServletRequest request, HttpServletResponse response, final User currentSessionUser) throws ServletException, IOException {
 		// render the view
 		response.setContentType("text/html");
 		final HashMap<String, Object> values = new HashMap<String, Object>();
-		values.put("title", String.format(
-			"Group Data - %s Projects",
-			currentSessionUser.getUsername() + ((currentSessionUser.getUsername().endsWith("s")) ? "\'" : "\'s")
-		));
+		values.put("title", String.format("Group Data - %s Projects", possessive(currentSessionUser)));
 		values.put("logo", "Group Data");
-		values.put("empty", "You have no projects yet");
 		values.put("user", currentSessionUser);
 		ViewRenderer.render(response, "projects/index", values);
 	}
 	/**
-	 * Displays all the user's projects, allowing them to edit
+	 * Displays all the user's datasets for all the user's projects.
 	 */
 	private void data(HttpServletRequest request, HttpServletResponse response, final User currentSessionUser) throws ServletException, IOException {
 		// render the view
 		response.setContentType("text/html");
 		// set some values
 		final HashMap<String, Object> values = new HashMap<String, Object>();
-		values.put("title", "You are editing your data");
+		values.put("title", String.format("Group Data - %s Datasets", possessive(currentSessionUser)));
+		values.put("logo", "Group Data");
 		values.put("user", currentSessionUser);
 		ViewRenderer.render(response, "projects/data", values);
 	}
 	/**
-	 * Displays all the user's projects, allowing them to edit
+	 * Displays the reports for the given user.
 	 */
 	private void stats(HttpServletRequest request, HttpServletResponse response, final User currentSessionUser) throws ServletException, IOException {
 		// render the view

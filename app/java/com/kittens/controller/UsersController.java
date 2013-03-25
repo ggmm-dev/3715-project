@@ -157,5 +157,17 @@ public class UsersController extends Controller {
 		else if (requestUri.endsWith("login"))    { login(request, response); }
 		else if (requestUri.endsWith("logout"))   { logout(request, response); }
 	}
+	/**
+	 *
+	 */
+	@Override protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		final String requestUri = request.getRequestURI().substring(1);
+		if (requestUri.endsWith("logout")) {
+			logout(request, response);
+			return;
+		}
+		// don't respond to anythin but logout
+		response.sendError(404);
+	}
 
 }

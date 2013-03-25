@@ -31,6 +31,12 @@ header h1 {
 	overflow: hidden;
 }
 
+nav, #main, aside {
+	font: 10pt sans-serif;
+	width: 966px;
+	margin: 0 auto;
+}
+
 nav .left {
 	float: left;
 	width: 200px;

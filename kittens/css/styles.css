@@ -6,17 +6,32 @@
 body {
 	background: #e2e1e1;
 	margin: 0;
-	background-image: url("../images/surface.png");
+	background-image: url("../imgs/surface.png");
 }
 
-nav {
+header {
 	background: rgba(0, 0, 0, 0.7);
 	height: 94px;
 	width: 100%;
-	border-bottom: 1px solid #000000;
+	border-bottom: 1px solid #000;
 	text-align: center;
 	margin-bottom: 50px;
 	box-shadow: inset 0px -1px 0px rgba(255, 255, 255, 0.3);
+}
+
+header h1 {
+	width: 202px;
+	height: 0;
+	margin: 0;
+	padding: 116px 0 0 0;
+	background: url("../imgs/logo.png") no-repeat;
+	overflow: hidden;
+}
+
+nav {
+	font: 10pt sans-serif;
+	width: 966px;
+	margin: 0 auto;
 }
 
 nav .left {
@@ -25,7 +40,7 @@ nav .left {
 }
 
 nav .right {
-	width: 920px;
+	width: 926px;
 	position: relative;
 	padding-top: 47px;
 	text-align: left;
@@ -33,175 +48,127 @@ nav .right {
 	z-index: 500;
 }
 
-nav .active {
-	padding: 10px 20px 10px 20px;
-	background: #f6f6f6;
-	display: inline-block;
-	font-family: avenirheavy;
-	text-transform: uppercase;
-	color: #2e2e2e;
-	font-size: 16pt;
-	margin-right: 10px;
-	border-bottom: 1px solid #f6f6f6;
-	border-left: 1px solid #9b9a9a;
-	border-right: 1px solid #9b9a9a;
-	border-top: 1px solid #9b9a9a;
-	text-shadow: 1px 1px 0px #ffffff;
-	text-decoration: none;
-}
-
-nav a.active:hover {
-	color: #656565;
-}
-
-nav .inactive {
+nav .tab {
 	padding: 10px 20px 10px 20px;
 	background: #edebeb;
 	display: inline-block;
-	font-family: avenirheavy;
+	font: 16pt "Avenir Heavy";
 	text-transform: uppercase;
 	color: #9a9a9a;
-	font-size: 16pt;
-	margin-right: 10px;
 	border-bottom: 1px solid #9b9a9a;
-	text-shadow: 1px 1px 0px #ffffff;
+	text-shadow: 1px 1px 0px #fff;
 	box-shadow: inset 0px -3px 15px rgba(0, 0, 0, 0.1);
 	text-decoration: none;
 }
 
-nav a.inactive:hover {
+nav .tab:hover {
 	color: #757575;
 	background-color: #e5e3e3;
 }
 
-.logout {
+nav .logout {
 	padding: 20px 20px 10px 20px;
 	display: inline-block;
-	font-family: avenirheavy;
+	font: 13pt "Avenir Heavy";
 	text-transform: uppercase;
 	color: #f6f6f6;
-	font-size: 13pt;
-	margin-right: 10px;
-	text-shadow: 1px 1px 0px #000000;
+	text-shadow: 1px 1px 0px #000;
 	float: right;
 	text-decoration: none;
 }
 
-a.logout:hover {
+nav logout:hover {
 	color: #e4e4e4;
 }
 
-/*** MAIN CONTENT ***/
-
-#content {
-	
+.wrapper {
+	font: 10pt sans-serif;
+	width: 966px;
+	margin: 0 auto;
 }
 
-#content .left {
-	width: 240px;
-	float: left;
-}
-
-#content .right {
-	width: 660px;
-	float: left;
+#main {
+	width: 684px;
+	min-height: 500px;
+	float: right;
 	background: #f6f6f6;
 	margin-top: -51px;
 	border: 1px solid #9b9a9a;
-	/*height: 400px;*/
 	box-shadow: 0px 0px 40px rgba(0, 0, 0, 0.2);
-	padding: 10px 0px 50px 40px;
+	padding: 20px;
 }
 
-#content h1 {
-	font-family: avenirheavy;
-	font-size: 22pt;
-	text-shadow: 1px 1px 0px #ffffff;
+#main h2,
+#main h3 {
+	font-family: "Avenir Heavy";
+	text-shadow: 1px 1px 0px #fff;
 	color: #2e2e2e;
 	line-height: 20px;
 	margin: 0;
 	display: inline-block;
 }
 
-#content h2 {
-	font-family: avenirheavy;
-	font-size: 16pt;
-	text-shadow: 1px 1px 0px #ffffff;
-	color: #2e2e2e;
-	line-height: 20px;
-	margin: 0;
-	text-transform: uppercase;
+#main h2 {
+	font-size: 22pt;
 }
 
-#content h3 {
-	font-family: avenirheavy;
+#main h3 {
 	font-size: 13pt;
-	text-shadow: 1px 1px 0px #ffffff;
-	color: #2e2e2e;
-	line-height: 20px;
-	margin: 0;
 	text-transform: uppercase;
 }
 
-/*** LEFT NAV ***/
+aside {
+	width: 240px;
+	float: left;
+}
 
-ul.nav {
+aside ul {
 	list-style-type: none;
 	font-size: 13pt;
 	margin-top: 20px;
 	padding: 0;
-	text-shadow: 1px 1px 0px #ffffff;
+	text-shadow: 1px 1px 0px #fff;
 	border-top: 1px solid #d0cfcf;
 	padding-top: 0px;
 	border-left: 1px solid #d0cfcf;
 }
 
-ul.nav li {
-	padding-bottom: 7px;
+aside ul li {
+	padding: 6px 0 6px 35px;
 	margin-top: 0px;
-	padding-left: 35px;
-	padding-top: 7px;
 	border-bottom: 1px solid #d0cfcf;
 	box-shadow: inset -10px 10px 10px rgba(255, 255, 255, 0.2);
 }
 
-ul.nav li a:link,
-ul.nav li a:active,
-ul.nav li a:visited {
-	color: #000000;
+aside ul li a:link,
+aside ul li a:active,
+aside ul li a:visited {
+	color: #000;
 	text-decoration: none;
 }
 
-ul.nav li a:hover {
-	color: #555555;
+aside ul li a:hover {
+	color: #555;
 }
 
-ul.nav li:hover {
-	background-color: rgba(255,255,255,0.2);
+aside ul li:hover {
+	background-color: rgba(255, 255, 255, 0.2);
 }
 
-li.manage {
-	background-image: url(../images/star.png);
-	background-repeat: no-repeat;
-	background-position: top left;
+aside ul li.manage {
+	background: url("../imgs/star.png") no-repeat top left;
 }
 
-li.current {
-	background-color: rgba(170,170,170,0.1);
+aside ul li.current {
+	background-color: rgba(170, 170, 170, 0.1);
 }
 
-/*** BUTTONS ***/
-
-.grey-add {
-	background: #c1bfbf;
-	background-image: url(../images/addicon.png);
-	background-position: top left;
-	background-repeat: no-repeat;
-	color: #ffffff;
-	border: 1px solid #908e8e;
-	box-shadow: 1px 1px 0px #ffffff;
-	font-family: avenirheavy;
-	font-size: 11pt;
+a.grey-add-btn,
+a.green-add-btn {
+	background: url("../imgs/addicon.png") no-repeat top left;
+	color: #fff;
+	box-shadow: 1px 1px 0px #fff;
+	font: 11pt "Avenir Heavy";
 	padding: 5px 20px 4px 40px;
 	margin-right: 5px;
 	text-shadow: 1px 1px 0px rgba(0, 0, 0, 0.5);
@@ -212,41 +179,30 @@ li.current {
 	text-decoration: none;
 }
 
-a.grey-add:hover {
+a.grey-add-btn {
+	background-color: #c1bfbf;
+	border: 1px solid #908e8e;
+}
+
+a.grey-add-btn:hover {
 	background-color: #b6b6b6;
 }
 
-.green-add {
-	background: #54b2a2;
-	background-image: url(../images/addicon.png);
-	background-position: top left;
-	background-repeat: no-repeat;
-	color: #ffffff;
+a.green-add-btn {
+	background-color: #54b2a2;
 	border: 1px solid #44756d;
-	box-shadow: 1px 1px 0px #ffffff;
-	font-family: avenirheavy;
-	font-size: 10pt;
-	padding: 7px 20px 4px 40px;
-	margin-right: 5px;
-	text-shadow: 1px 1px 0px rgba(0, 0, 0, 0.5);
-	text-transform: uppercase;
-	border-radius: 15px;
-	display: inline-block;
-	height: 18px;
-	text-decoration: none;
 }
 
-a.green-add:hover {
+a.green-add-btn:hover {
 	background-color: #479e8f;
 }
 
 .green {
 	background: #54b2a2;
-	color: #ffffff;
+	color: #fff;
 	border: 1px solid #44756d;
-	box-shadow: 1px 1px 0px #ffffff;
-	font-family: avenirheavy;
-	font-size: 12pt;
+	box-shadow: 1px 1px 0px #fff;
+	font: 12pt "Avenir Heavy";
 	padding: 5px 20px 5px 20px;
 	margin-right: 5px;
 	text-shadow: 1px 1px 0px rgba(0, 0, 0, 0.5);
@@ -257,11 +213,11 @@ a.green-add:hover {
 	text-decoration: none;
 }
 
-a.green:hover {
+.green:hover {
 	background-color: #479e8f;
 }
 
-.plus-add {
+.plus-add-btn {
 	background: #54b2a2;
 	border: 1px solid #44756d;
 	border-radius: 20px;
@@ -272,14 +228,13 @@ a.green:hover {
 	color: #f6f6f6;
 	text-decoration: none;
 	font-size: 12pt;
-	text-shadow:
-   -1px -1px 0 #44756d,  
-    1px -1px 0 #44756d,
-    -1px 1px 0 #44756d,
-     1px 1px 0 #44756d;
+	text-shadow: -1px -1px 0 #44756d,
+	              1px -1px 0 #44756d,
+	             -1px  1px 0 #44756d,
+	              1px  1px 0 #44756d;
 }
 
-a.plus-add:hover {
+.plus-add-btn:hover {
 	background: #479e8f;
 }
 
@@ -287,18 +242,16 @@ a.plus-add:hover {
 	float: right;
 }
 
-/*** PROJECT TAB ***/
-
-.right .project-left {
+#description {
 	width: 380px;
 	float: left;
-	margin: 25px 0 0 0;
+	margin: 20px 0 0;
 	padding: 0 20px 0 0;
 	border-right: 1px solid #e6e5e5;
 	height: 90%;
 }
 
-.right .project-right {
+#collaborators {
 	float: left;
 	width: 200px;
 	padding-left: 20px;
@@ -306,62 +259,53 @@ a.plus-add:hover {
 	border-left: 1px solid #e6e5e5;
 }
 
-.date {
+time {
+	display: block;
 	background: #e6e5e5;
 	color: #878787;
 	margin: 15px 0 15px 0;
-	padding: 3px;
-	text-shadow: 1px 1px 0px rgba(255,255,255,0.6);
+	padding: 5px;
+	text-shadow: 1px 1px 0px rgba(255, 255, 255, 0.6);
 	font-size: 9pt;
 }
 
-ul.collaborators {
-	border-top: 1px solid #c6c6c6;
-	border-left: 1px solid #c6c6c6;
-	border-right: 1px solid #c6c6c6;
-	border-bottom: 2px solid #c6c6c6;
+#collaborators ul {
+	border: 1px solid #c6c6c6,
+	        1px solid #c6c6c6,
+	        1px solid #c6c6c6,
+	        2px solid #c6c6c6;
 	background: #f0efef;
-	text-shadow: 1px 1px 0 #ffffff;
+	text-shadow: 1px 1px 0 #fff;
 	padding: 0;
 }
 
-ul.collaborators li {
+#collaborators ul li {
 	list-style-type: none;
 	padding: 8px 0px 8px 33px;
 }
 
-ul.collaborators li:nth-child(odd) {
+#collaborators ul li:nth-child(odd) {
 	background-color: #e6e5e5;
 }
 
-ul.collaborators li.manage {
-	background-image: url(../images/star.png);
-	background-repeat: no-repeat;
-	background-position: top left;
+#collaborators ul li.manage {
+	background: url("../imgs/star.png") no-repeat background-position: top left;
 }
 
-/*** DATA TAB ***/
-
-.data-left {
-	width: 500px;
-	float: left;
-	margin: 20px 0 25px 0;
+#data {
+	width: 100%;
+	margin: 20px 20px 20px 0;
 }
 
-.data-right {
-	width: 100px;
-	float: left;
-	margin-top: 25px;
-}
-
-.data-main {
-	width: 600px;
+#data a {
+	cursor: pointer;
+	float: right;
+	margin-right: 20px;
 }
 
 .cloud {
 	font-size: 20pt;
-	margin-left: 15px;
-	color: #000000;
+	color: #000;
 	text-decoration: none;
 }
 
@@ -369,57 +313,69 @@ ul.collaborators li.manage {
 	color: #343434;
 }
 
-table.data {
+#data table {
 	width: 100%;
+	margin-right: 20px;
+	margin-top: 15px;
 	border-collapse: collapse;
 }
 
-table.data thead {
+#data table thead {
 	background: #c1bfbf;
-	color: #555555;
+	color: #555;
 	text-transform: uppercase;
-	font-family: avenirheavy;
-	font-size: 14pt;
+	font: 14pt "Avenir Heavy";
 	text-shadow: 1px 1px 0px rgba(255,255,255,0.5);
 	text-align: left;
 }
 
-table.data thead > tr {
+#data table thead tr {
 	border: 1px solid #3a4745;
 }
 
-table.data td {
-	padding: 5px 0 5px 10px;
-	text-shadow: 1px 1px 0px #ffffff;
-}
-
-table.data th {
+#data table th {
 	padding: 5px 0 5px 10px;
 }
 
-table.data th:last-child {
+#data table th h6 {
+	padding: 5px;
+	margin: 0;
+	text-align: center;
+}
+
+#data table th:last-child {
 	padding-right: 10px;
 }
 
-table.data tbody > tr {
+#data table td {
+	text-align: center;
+	padding: 5px 0 5px 10px;
+	text-shadow: 1px 1px 0px #fff;
+}
+
+#data table tbody tr {
 	border-left: 1px solid #a2a2a2;
 	border-right: 1px solid #a2a2a2;
 	background-color: #e8e8e8;
 }
 
-table.data > tbody > tr:nth-child(odd) > td {
+#data table tbody tr:nth-child(odd) td {
 	background-color: #efefef;
 }
 
-table.data > tbody:last-child {
+#data table tbody:last-child {
 	border-bottom: 2px solid #a2a2a2;
 }
 
-table.data select {
+#data table select {
 	background: #e8e8e8;
 	border: 1px solid #a4a3a3;
 	font-size: 9pt;
 	width: 100%;
+}
+
+#data table ~ a {
+	margin-top: 15px;
 }
 
 .data-bottom-left {
