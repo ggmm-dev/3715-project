@@ -253,7 +253,7 @@ a.green-add-btn:hover {
 
 #collaborators {
 	float: left;
-	width: 200px;
+	width: -webkit-calc(100% - 421px);
 	padding-left: 20px;
 	margin: 60px 0 0 -1px;
 	border-left: 1px solid #e6e5e5;
@@ -264,7 +264,7 @@ time {
 	background: #e6e5e5;
 	color: #878787;
 	margin: 15px 0 15px 0;
-	padding: 5px;
+	padding: 5px 10px;
 	text-shadow: 1px 1px 0px rgba(255, 255, 255, 0.6);
 	font-size: 9pt;
 }
@@ -289,7 +289,7 @@ time {
 }
 
 #collaborators ul li.manage {
-	background: url("../imgs/star.png") no-repeat background-position: top left;
+	background: url("../imgs/star.png") no-repeat top left;
 }
 
 #data {
@@ -315,7 +315,6 @@ time {
 
 #data table {
 	width: 100%;
-	margin-right: 20px;
 	margin-top: 15px;
 	border-collapse: collapse;
 }
@@ -378,80 +377,50 @@ time {
 	margin-top: 15px;
 }
 
-.data-bottom-left {
-	width: 450px;
-	float: left;
-	margin: 25px 0 0 0;
+#statistics {
+	margin-top: 20px;
 }
 
-.data-bottom-right {
+#statistics dt,
+#statistics dd {
+	width: 300px;
+	display: inline-block;
+	margin: 0;
+	font: 13pt "Avenir Heavy";
+}
+
+#statistics dt {
+	text-transform: uppercase;
 	text-align: right;
-	width: 150px;
-	float: left;
-	margin: 20px 0 0 0;
+	padding-right: 5px;
 }
 
-.data-bottom-right .bottom {
-	margin: 0 15px -10px 0;
+#statistics dd {
+	padding-left: 5px;
+	text-align: left;
 }
 
-/*** STATS TAB ***/
-
-.stats-top {
-	margin: 25px 0 0 0;
-}
-
-.stats-left {
-	float: left;
-	width: 150px;
-	margin: 60px 30px 0 0;
-}
-
-.stats-right {
-	float: left;
-	width: 450px;
-	margin: 25px 0 0 0;
-}
-
-.stats-right a.active {
+#charts a.tab {
 	display: inline-block;
 	background: #edebeb;
-	border-top: 1px solid #a5a4a4;
-	border-right: 1px solid #a5a4a4;
-	border-bottom: 0px;
-	border-left: 1px solid #a5a4a4;
+	border: 1px solid #a5a4a4;
 	font-size: 12pt;
-	text-shadow: 1px 1px 0px #ffffff;
-	padding: 5px 10px 5px 10px;
+	text-shadow: 1px 1px 0px #fff;
+	padding: 5px 10px;
+	margin-right: -5px;
 	text-decoration: none;
-	color: #000000;
-	
+	color: #000;	
 }
 
-.stats-right a.inactive {
-	display: inline-block;
+#charts a.inactive {
 	background: #dad9d9;
-	border-top: 1px solid #a5a4a4;
-	border-right: 1px solid #a5a4a4;
-	border-bottom: 0px;
-	border-left: 1px solid #a5a4a4;
-	font-size: 12pt;
-	text-shadow: 1px 1px 0px #ffffff;
-	padding: 5px 10px 5px 10px;
-	color: #000000;
-	text-decoration: none;
 	box-shadow: inset 0px -1px 0px #a5a4a4;
 }
 
-.stats-right .charts {
-	width: 420px;
+#chart {
+	box-sizing: border-box;
 	background: #edebeb;
 	border: 1px solid #a5a4a4;
-	height: 300px;
+	min-height: 342px;
 	margin-top: -1px;
-}
-
-.stats-bottom {
-	float: left;
-	margin: -30px 0 0 0;
 }

@@ -1,24 +1,31 @@
 {{>html5}}
 	<head>
 		{{>meta}}
-		<link rel="stylesheet" href="/css/normalize.css" />
+		<link rel="stylesheet" href="/css/font-awesome.min.css" />
 		<link rel="stylesheet" href="/css/styles.css" />
 	</head>
-	<body>
-		<header>
-			<nav>
-				<form action="/users/logout" method="post">
-					<input type="submit" value="Logout" />
-				</form>
-				<a href="/projects">Show me my projects</a>
-				<a href="/projects/data">Edit the data</a>
-				<a href="/projects/stats">Show me some statistics</a>
-			</nav>
-		</header>
-		<h1>Welcome {{user.username}}!</h1>
-		<p>
-			These are the statistical reports for your projects.
-		</p>
-		<script src="js/main.js"></script>
+	<body class="stats-page">
+		{{>uheader}}
+		<div class="wrapper clearfix">
+			<div id="main" role="main">
+				<section id="statistics">
+					<h2>Test Project 1</h2>
+					<dl>
+						<dt>Mean</dt>
+						<dd>30.0</dd>
+						<dt>Medium</dt>
+						<dd>3.50</dd>
+						<dt>Standard Deviation</dt>
+						<dd>3.00</dd>
+					</dl>
+				</section>
+				<section id="charts">
+					<a class="tab">Apple Pie</a>
+					<a class="tab">Some Lines</a>
+					<div id="chart"></div>
+				</section>
+			</div>
+			{{>plist}}
+		</div>
 	</body>
 {{>close}}

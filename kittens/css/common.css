@@ -1,5 +1,13 @@
 @charset "utf-8";
 
+html {
+	-webkit-text-size-adjust: 100%;
+}
+
+body {
+	padding-bottom: 95px;
+}
+
 .clearfix:before,
 .clearfix:after {
 	content: " ";
@@ -10,21 +18,62 @@
 	clear: both;
 }
 
-a {
-	cursor: pointer;
-}
-
+a,
 input[type="button"],
 input[type="submit"] {
 	cursor: pointer;
 }
 
+@-webkit-keyframes barberpole {
+	from { background-position: 0 0; }
+	to   { background-position: 60px 30px; }
+}
+
+@-moz-keyframes barberpole {
+	from { background-position: 0 0; }
+	to   { background-position: 60px 30px; }
+}
+
+/*
+[contentEditable="true"]:focus {
+	-webkit-animation: barberpole 0.5s linear infinite;
+	animation: barberpole 0.5s linear infinite;
+	-webkit-transition: background-color 1s ease;
+	-moz-transition: background-color 1s ease;
+	outline: none;
+	background-color: rgba(0, 0, 0, 0.03);
+	background-size: 30px 30px;
+	background-image: -moz-linear-gradient(
+	    45deg,
+	    #fff 25%,
+	    transparent 25%,
+	    transparent 50%,
+	    #fff 50%,
+	    #fff 75%,
+	    transparent 75%,
+	    transparent
+	);
+	background-image: -webkit-linear-gradient(
+	    180deg,
+	    rgba(0, 0, 0, 0.04) 25%,
+	    transparent 25%,
+	    transparent 50%,
+	    rgba(0, 0, 0, 0.04) 50%,
+	    rgba(0, 0, 0, 0.04) 75%,
+	    transparent 75%,
+	    transparent
+	);
+}
+*/
+
 menu {
+	margin: 0;
 	padding-left: 0;
 }
 
 .projects-page .projects-link,
-.data-page .data-link {
+.data-page .data-link,
+.stats-page .stats-link {
 	background: #f6f6f6;
 	display: inline-block;
 	font: 16pt "Avenir Heavy";

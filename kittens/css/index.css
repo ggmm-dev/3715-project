@@ -32,7 +32,7 @@ header h1 {
 }
 
 nav, #main, aside {
-	font: 10pt sans-serif;
+	font: 11pt sans-serif;
 	width: 966px;
 	margin: 0 auto;
 }
@@ -161,8 +161,7 @@ nav input[type="submit"] {
 	width: 100%;
 	border-top: 1px solid #c9cccb;
 	box-shadow: 0px -1px 30px rgba(0, 0, 0, 0.1);
-	height: 500px;
-	padding-top: 50px;
+	padding: 50px 0 100px;
 }
 
 #about h3 {

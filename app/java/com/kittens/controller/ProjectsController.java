@@ -59,7 +59,8 @@ public class ProjectsController extends Controller {
 		response.setContentType("text/html");
 		// set some values
 		final HashMap<String, Object> values = new HashMap<String, Object>();
-		values.put("title", "You are reviewing your stats");
+		values.put("title", String.format("Group Data - %s Stats", possessive(currentSessionUser)));
+		values.put("logo", "Group Data");
 		values.put("user", currentSessionUser);
 		ViewRenderer.render(response, "projects/stats", values);
 	}
