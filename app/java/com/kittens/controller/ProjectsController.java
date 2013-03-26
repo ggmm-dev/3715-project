@@ -6,13 +6,13 @@ import com.kittens.Utils;
 import com.kittens.view.ViewRenderer;
 
 import java.io.IOException;
-import java.lang.String;
 import java.lang.Object;
+import java.lang.String;
 import java.util.HashMap;
 
-import javax.servlet.http.HttpSession;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 import javax.servlet.ServletException;
 
 public class ProjectsController extends Controller {
@@ -71,7 +71,7 @@ public class ProjectsController extends Controller {
 		final String requestUri = request.getRequestURI().substring(1);
 		if (database == null) {
 			// serious database issues
-			response.sendError(500);
+			response.sendError(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
 			return;
 		}
 		// ask for this response to not be cached
@@ -79,7 +79,7 @@ public class ProjectsController extends Controller {
 		// get/set some things
 		final User currentSessionUser = Utils.getUserFromRequest(request);
 		if (currentSessionUser == null) {
-			response.sendRedirect("/");
+			response.sendRedirect(Utils.APP_ROOT);
 			return;
 		}
 		else if (requestUri.endsWith("data")) { data(request, response, currentSessionUser); }

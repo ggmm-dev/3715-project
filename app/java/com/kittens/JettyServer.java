@@ -12,14 +12,12 @@ import org.eclipse.jetty.webapp.WebAppContext;
 public class JettyServer extends Object {
 
 	public static void main(String[] args) throws Exception {
-		if (args.length != 3) {
+		final int argc = 3;
+		if (args.length != argc) {
 			// not enough arguments
-			System.out.println("You done messed up.");
-			System.exit(3);
+			System.out.println("Moar arguments!");
+			System.exit(argc);
 		}
-
-		String wardir = args[1];
-		String path = args[2];
 
 		SelectChannelConnector conn = new SelectChannelConnector();
 		conn.setPort(Integer.parseInt(args[0]));
@@ -27,8 +25,9 @@ public class JettyServer extends Object {
 		Server server = new Server();
 		server.setConnectors(conns);
 
-		server.setHandler(new WebAppContext(wardir, path));
-		server.setGracefulShutdown(2000);
+		server.setHandler(new WebAppContext(/* wardir */ args[1], /* path */ args[2]));
+		int timeoutMS = 2000;
+		server.setGracefulShutdown(timeoutMS);
 		server.start();
 		server.join();
 	}

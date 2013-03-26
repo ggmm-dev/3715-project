@@ -1,6 +1,7 @@
 package com.kittens;
 
 import com.kittens.database.ApplicationDatabase;
+import com.kittens.Utils;
 
 import java.lang.Object;
 import java.lang.String;
@@ -23,7 +24,7 @@ public class Controller extends HttpServlet {
 	@Override public void init(ServletConfig config) throws ServletException {
 		super.init(config);
 		// the root of the webapp context
-		String webPath = config.getServletContext().getRealPath("/");
+		String webPath = config.getServletContext().getRealPath(Utils.APP_ROOT);
 		try { database = new ApplicationDatabase(webPath); }
 		// print stack traces
 		catch (SQLException sqle) { sqle.printStackTrace(); }

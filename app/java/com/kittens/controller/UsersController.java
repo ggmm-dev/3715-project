@@ -150,7 +150,7 @@ public class UsersController extends Controller {
 		final String requestUri = request.getRequestURI().substring(1);
 		if (database == null) {
 			// serious issues
-			response.sendError(500);
+			response.sendError(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
 			return;
 		}
 		else if (requestUri.endsWith("register")) { register(request, response); }
@@ -166,8 +166,8 @@ public class UsersController extends Controller {
 			logout(request, response);
 			return;
 		}
-		// don't respond to anythin but logout
-		response.sendError(404);
+		// don't respond to anything but logout
+		response.sendError(HttpServletResponse.SC_NOT_FOUND);
 	}
 
 }

@@ -10,3 +10,8 @@ Getting started
 2. Run `ant`.
 3. Open <http://localhost:8888/> in your browser.
 4. Enjoy.
+
+How do I use the application?
+-----------------------------
+
+Eventually there'll be something here.
