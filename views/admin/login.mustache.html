@@ -1,0 +1,28 @@
+{{>html5}}
+	<head>
+		{{>meta}}
+		<link rel="stylesheet" href="/css/admin-login.css" />
+	</head>
+	<body>
+		<header>
+			<nav class="clearfix">
+				<div class="left">
+					<h1>{{logo}}</h1>
+				</div>
+			</nav>
+		</header>
+		<div id="glow" role="main" class="clearfix">
+			<form class="login-box clearfix" id="admin-login" action="/admin/login" method="post">
+				<h1>Admin Login</h1>
+				{{#lerror}}
+				<p class="error">
+					{{emessage}}
+				</p>
+				{{/lerror}}
+				<input type="email" name="email" placeholder="email address" required />
+				<input type="password" name="password" placeholder="password" pattern="^.{6,}$" required />
+				<input type="submit" value="Login" />
+			</form>
+		</div>
+	</body>
+{{>close}}

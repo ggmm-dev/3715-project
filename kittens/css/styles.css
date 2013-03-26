@@ -122,6 +122,12 @@ aside {
 	float: left;
 }
 
+aside menu h6 {
+	margin: 20px 0;
+	padding-left: 35px;
+	font: 13pt sans-serif;
+}
+
 aside ul {
 	list-style-type: none;
 	font-size: 13pt;

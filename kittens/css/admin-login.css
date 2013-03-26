@@ -1,0 +1,99 @@
+@charset "utf-8";
+
+@import "fonts.css";
+@import "common.css";
+
+body {
+	background: #5a5e5d;
+	margin: 0;
+	text-align: center;
+}
+
+header {
+	background: rgba(0, 0, 0, 0.7);
+	height: 94px;
+	width: 100%;
+	border-bottom: 1px solid #000;
+	text-align: center;
+	margin-bottom: 100px;
+	box-shadow: inset 0px -1px 0px rgba(255, 255, 255, 0.3);
+}
+
+header h1 {
+	width: 202px;
+	height: 0;
+	margin: 0;
+	border: none;
+	padding: 116px 0 0 0;
+	background: transparent url("../imgs/logo.png") no-repeat;
+	overflow: hidden;
+}
+
+nav {
+	font: 11pt sans-serif;
+	width: 966px;
+	margin: 0 auto;
+}
+
+nav .left {
+	float: left;
+	width: 200px;
+}
+
+#glow {
+	border: 1px solid #454948;
+	box-shadow: 0px 0px 300px #fff;
+	margin: 0 auto;
+	width: 400px;
+}
+
+.login-box {
+	background: #dadedd;
+	box-shadow:
+	   inset -1px -1px 0 #fff,
+	   inset  1px -1px 0 #fff,
+	   inset -1px  1px 0 #fff,
+	   inset  1px  1px 0 #fff;
+	padding: 10px 20px 20px 20px;
+}
+
+.login-box h1 {
+	font: 20pt "Avenir Heavy";
+	text-transform: uppercase;
+	border-bottom: 1px solid #babdbd;
+	text-align: left;
+	line-height: 20px;
+	padding: 0 0 20px 0;
+	text-shadow: 1px 1px 0px #fff;
+}
+
+.login-box input[type="password"],
+.login-box input[type="email"] {
+	background: #eff0f0;
+	color: #2e2e2e;
+	border: 1px solid #7e8a88;
+	box-shadow: inset 0px 0px 2px #fff;
+	font: 15pt sans-serif;
+	padding: 5px 10px 5px 10px;
+	margin-right: 0px;
+	margin-bottom: 7px;
+	text-shadow: 1px 1px 0px rgba(255, 255, 255, 0.5);
+	width: 340px;
+}
+
+.login-box input[type="submit"] {
+	background: #459386;
+	color: #fff;
+	border: 1px solid #1d2c2a;
+	box-shadow: inset 0px 0px 1px rgba(255, 255, 255, 0.8);
+	font: 14pt sans-serif;
+	padding: 4px 10px 4px 10px;
+	text-shadow: 1px 1px 0px rgba(0, 0, 0, 0.8);
+	width: 100px;
+	text-transform: uppercase;
+	float: right;
+}
+
+.login-box input[type="submit"]:hover {
+	background: #479e8f;
+}
