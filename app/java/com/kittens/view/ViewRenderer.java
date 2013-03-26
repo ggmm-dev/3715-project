@@ -33,7 +33,7 @@ public class ViewRenderer extends Object {
 	private static final HashMap<String, Template> templates = new HashMap<String, Template>();
 
 	/**
-	 * Constructor.
+	 * No args constructor.
 	 */
 	public ViewRenderer() {
 		// empty

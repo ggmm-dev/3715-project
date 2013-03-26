@@ -27,7 +27,7 @@ public class Controller extends HttpServlet {
 		String webPath = config.getServletContext().getRealPath(Utils.APP_ROOT);
 		try { database = new ApplicationDatabase(webPath); }
 		// print stack traces
-		catch (SQLException sqle) { sqle.printStackTrace(); }
+		catch (SQLException sqle) { sqle.printStackTrace(); return; }
 	}
 
 }
