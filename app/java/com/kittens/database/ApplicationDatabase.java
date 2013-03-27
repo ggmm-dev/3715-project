@@ -64,16 +64,32 @@ public class ApplicationDatabase extends Object {
 	public ApplicationDatabase(String webPath) throws SQLException {
 		DB_PATH = webPath + File.separator + DB_NAME;
 		Statement s = null;
+		PreparedStatement ps = null;
 		try {
 			openConnection();
 			s = db.createStatement();
-			s.executeUpdate("CREATE TABLE IF NOT EXISTS users(id INTEGER PRIMARY KEY AUTOINCREMENT, username TEXT NOT NULL UNIQUE, email TEXT NOT NULL UNIQUE, password TEXT NOT NULL);");
-			s.close();
+			s.executeUpdate("CREATE TABLE IF NOT EXISTS users(id INTEGER PRIMARY KEY AUTOINCREMENT, username TEXT NOT NULL UNIQUE, email TEXT NOT NULL UNIQUE, password TEXT NOT NULL, admin BOOLEAN NOT NULL);");
+			// s.close()
+			// ----------------------
+			// ----------------------
+			// THIS NEEDS TO BE FIXED
+			// ----------------------
+			// ----------------------
+			ps = db.prepareStatement("INSERT OR IGNORE INTO users(username, email, password, admin) VALUES(?, ?, ?, ?);");
+			ps.setString(1, "root");
+			ps.setString(2, "root@root");
+			ps.setString(3, "$2a$10$SAKIIqe5qOU286UvEcLqcexVgnf5mOtvlNO/OQ4NVfAC4I.i6NC/S" /* password */);
+			ps.setBoolean(4, true);
+			ps.executeUpdate();
+			// ps.close()
 		}
 		finally {
 			// cleanup all the things
 			if (s != null) {
 				s.close();
+			}
+			if (ps != null) {
+				ps.close();
 			}
 			closeConnection();
 		}
@@ -84,10 +100,11 @@ public class ApplicationDatabase extends Object {
 	public boolean createUser(User user) throws SQLException {
 		try {
 			openConnection();
-			PreparedStatement ps = db.prepareStatement("INSERT INTO users(username, email, password) VALUES(?, ?, ?);");
+			PreparedStatement ps = db.prepareStatement("INSERT INTO users(username, email, password, admin) VALUES(?, ?, ?, ?);");
 			ps.setString(1, user.getUsername());
 			ps.setString(2, user.getEmail());
 			ps.setString(3, user.getPassword());
+			ps.setBoolean(4, user.isAdmin());
 			ps.executeUpdate();
 			ps.close();
 			return true;
@@ -148,13 +165,13 @@ public class ApplicationDatabase extends Object {
 		User user = null;
 		try {
 			openConnection();
-			PreparedStatement ps = db.prepareStatement("select username, email, password from users where email = ?");
+			PreparedStatement ps = db.prepareStatement("select username, email, password, admin from users where email = ?");
 			ps.setString(1, email);
 			ResultSet rs = ps.executeQuery();
 			// the email should be unique
 			// and thus the result set should
 			// at max contain one result
-			while (rs.next()) user = new User(/* username */ rs.getString(1), /* email */ rs.getString(2), /* password */ rs.getString(3), /* is admin */ false, /* hash? */ false);
+			while (rs.next()) user = new User(/* username */ rs.getString(1), /* email */ rs.getString(2), /* password */ rs.getString(3), /* is admin */ rs.getBoolean(4), /* hash? */ false);
 			rs.close();
 			ps.close();
 		}

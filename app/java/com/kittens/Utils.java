@@ -43,6 +43,13 @@ public class Utils extends Object {
 		res.setHeader("Pragma", "no-cache");
 	}
 	/**
+	 * Invalidates the session associated with the request and redirects.
+	 */
+	public static void invalidateSession(HttpServletRequest req, HttpServletResponse res) throws IOException {
+		req.getSession().invalidate();
+		res.sendRedirect(APP_ROOT);
+	}
+	/**
 	 * Dumps the request to the user.
 	 */
 	public static void dumpRequest(HttpServletRequest req, HttpServletResponse res) throws IOException {

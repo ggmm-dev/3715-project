@@ -45,10 +45,10 @@ public class UsersController extends Controller {
 	/**
 	 * Returns the appropriate user from the given credentials.
 	 */
-	private User getLoginCredentialsFromRequest(HttpServletRequest request) throws SQLException {
+	private User getUserFromRequestViaCredentials(HttpServletRequest request) throws SQLException {
 		String email    = request.getParameter("email");
 		String password = request.getParameter("password");
-		if (email == null || password == null) {
+		if (Strings.isNullOrEmpty(email) || Strings.isNullOrEmpty(password)) {
 			return null;
 		}
 		return database.getUserWithCredentials(email, password);
@@ -102,7 +102,7 @@ public class UsersController extends Controller {
 		User user;
 		try {
 			// attempt to get the user
-			 user = getLoginCredentialsFromRequest(request);
+			 user = getUserFromRequestViaCredentials(request);
 		}
 		catch (SQLException sqle) {
 			// problems
@@ -138,10 +138,10 @@ public class UsersController extends Controller {
 	 * Handle logging out the user.
 	 */
 	private void logout(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		// no cache
 		Utils.pleaseDontCache(response);
 		// invalidate our current session
-		request.getSession().invalidate();
-		response.sendRedirect(Utils.APP_ROOT);
+		Utils.invalidateSession(request, response);
 	}
 	/**
 	 * Handle POST requests.
