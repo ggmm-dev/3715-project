@@ -18,8 +18,6 @@ kittens/WEB-INF
 
 *.esproj
 
-docs/*.md
-
 *.db
 *.sqlite3
 
