@@ -18,6 +18,8 @@ public class Utils extends Object {
 
 	// tag for session
 	public static final String CURRENT_SESSION_USER = "currentUserInSession";
+	// the administrator's section root
+	public static final String ADMIN_ROOT = "/admin";
 	// the root of the webapp
 	public static final String APP_ROOT = "/";
 	// a custom list of possible erro codes

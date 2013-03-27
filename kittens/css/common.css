@@ -73,7 +73,9 @@ menu {
 
 .projects-page .projects-link,
 .data-page .data-link,
-.stats-page .stats-link {
+.stats-page .stats-link,
+.admin-projects .admin-projects-tab,
+.admin-users .admin-users-tab {
 	background: #f6f6f6;
 	display: inline-block;
 	font: 16pt "Avenir Heavy";
@@ -92,4 +94,9 @@ menu {
 .projects-page .projects-link:hover {
 	color: #656565;
 	background-color: #f6f6f6;
+}
+
+.hint--right,
+.hint--left {
+	font-weight: normal;
 }

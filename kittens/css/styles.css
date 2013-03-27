@@ -89,7 +89,6 @@ nav logout:hover {
 
 #main {
 	width: 684px;
-	min-height: 500px;
 	float: right;
 	background: #f6f6f6;
 	margin-top: -51px;
@@ -223,7 +222,7 @@ a.green-add-btn:hover {
 	background-color: #479e8f;
 }
 
-.plus-add-btn {
+.circle-btn {
 	background: #54b2a2;
 	border: 1px solid #44756d;
 	border-radius: 20px;
@@ -240,7 +239,7 @@ a.green-add-btn:hover {
 	              1px  1px 0 #44756d;
 }
 
-.plus-add-btn:hover {
+.circle-btn:hover {
 	background: #479e8f;
 }
 
@@ -429,4 +428,127 @@ time {
 	border: 1px solid #a5a4a4;
 	min-height: 342px;
 	margin-top: -1px;
+}
+
+/***************************
+ ADMINISTRATORS PROJECT LIST
+ ***************************/
+
+#left-list {
+	float: left;
+	width: 221px;
+	border-right: 1px solid #6b6b6b;
+	padding-top: 20px;
+}
+
+#left-list a {
+	margin-top: 20px;
+}
+
+#left-list > table {
+	border-collapse: collapse;
+	background: #e8e8e8;
+	width: 200px;
+	box-sizing: border-box;
+	border: 1px solid #6b6b6b;
+}
+
+#left-list > table th:first-child,
+#left-list > table td:first-child {
+	background: #dcdcdc;
+	width: 20px;
+	padding: 0 5px;
+	border-right: 1px solid #6b6b6b;
+}
+
+#left-list > table th:last-child {
+	background: #c1bfbf;
+	font: 13pt "Avenir Heavy";
+	padding: 5px 10px;
+	text-transform: uppercase;
+	text-shadow: 1px 1px 0px rgba(255,255,255,0.5);
+}
+
+#left-list > table thead tr {
+	border-bottom: 1px solid #6b6b6b;
+}
+
+#left-list > table tr:nth-child(odd) {
+	background: #efefef;
+}
+
+#left-list > table td {
+	padding: 7px 0px 7px 0px;
+}
+
+#left-list > table td:last-child {
+	padding-left: 10px;
+}
+
+/*************************
+ ADMINISTRATORS RIGHT LIST
+ *************************/
+
+#right-list {
+	float: left;
+	width: 421px;
+	border: 1px solid #6b6b6b;
+	margin-left: -1px;
+	background: #e8e8e8;
+	padding: 20px;
+}
+
+#right-list h1 {
+	margin: 0;
+}
+
+#right-list > p {
+	background: #dcdcdc;
+	padding: 15px;
+	float: left;
+	margin: 20px 20px 0 0;
+	width: 140px;
+}
+
+#right-list table {
+	border-collapse: collapse;
+	background: #e8e8e8;
+	width: 190px;
+	margin: 0 0 15px 0;
+	border: 1px solid #6b6b6b;
+}
+#right-list table td:first-child {
+	border-right: 1px solid #6b6b6b;
+	border-left: 1px solid #6b6b6b;
+	background: #dcdcdc;
+	padding: 0 5px 0 5px;
+	width: 20px;
+}
+
+#right-list table tr:nth-child(odd) {
+	background: #efefef;
+}
+
+#right-list table td {
+	padding: 7px 0px 7px 30px;
+}
+
+#right-list table td.manage {
+	background: url('../imgs/star.png') no-repeat left top;
+}
+
+#right-list p a.circle-btn {
+	display: block;
+	margin-top: 10px;
+}
+
+.table-right {
+	float: left;
+	width: 190px;
+	margin: 20px 0 0 0;
+}
+
+.table-right a {
+	float: right;
+	margin-left: 5px;
 }
