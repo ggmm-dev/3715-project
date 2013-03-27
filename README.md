@@ -15,3 +15,9 @@ How do I use the application?
 -----------------------------
 
 Eventually there'll be something here.
+
+Ideas for improvement
+---------------------
+
+- Intro.js
+- Realtime via <https://github.com/videlalvaro/gifsockets>?
