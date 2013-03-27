@@ -529,6 +529,7 @@ public class BCrypt {
 	/**
 	 * Initialise the Blowfish key schedule
 	 */
+	@SuppressWarnings("cast")
 	private void init_key() {
 		P = (int[]) P_orig.clone();
 		S = (int[]) S_orig.clone();
@@ -599,6 +600,7 @@ public class BCrypt {
 	 * of rounds of hashing to apply
 	 * @return	an array containing the binary hashed password
 	 */
+	@SuppressWarnings("cast")
 	private byte[] crypt_raw(byte password[], byte salt[], int log_rounds) {
 		int rounds, i, j;
 		int cdata[] = (int[]) bf_crypt_ciphertext.clone();
