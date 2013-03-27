@@ -19,5 +19,5 @@ Eventually there'll be something here.
 Ideas for improvement
 ---------------------
 
-- Intro.js
+- [Intro.js](http://usablica.github.com/intro.js/)
 - Realtime via <https://github.com/videlalvaro/gifsockets>?
