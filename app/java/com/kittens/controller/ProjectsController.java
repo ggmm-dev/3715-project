@@ -16,8 +16,8 @@ import javax.servlet.ServletException;
 
 public class ProjectsController extends BaseController {
 
-	// Java complains without this
-	public static final long serialVersionUID = 42;
+	// the version of this object
+	public static final long serialVersionUID = 0L;
 
 	/**
 	 * Returns the possessive form of the given user's name.

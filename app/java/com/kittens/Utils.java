@@ -28,7 +28,6 @@ public class Utils extends Object {
 		public static final String ERROR_MSG = "emessage";
 		public static final String INVALID_CREDENTIALS = "Invalid credentials";
 		public static final String EMAIL_IN_USE = "Please choose a different email";
-		public static final String USERNAME_IN_USE = "Please choose a different username";
 		public static final String COMPLETE_FORM = "Please fill out the form";
 
 	}
@@ -100,6 +99,12 @@ public class Utils extends Object {
 	 */
 	public static String getErrorMessageFromRequest(HttpServletRequest request) {
 		return (String) request.getSession().getAttribute(Utils.ErrorCode.ERROR_MSG);
+	}
+	/**
+	 * Returns a random uuid as a string.
+	 */
+	public static String uuid() {
+		return java.util.UUID.randomUUID().toString();
 	}
 
 }

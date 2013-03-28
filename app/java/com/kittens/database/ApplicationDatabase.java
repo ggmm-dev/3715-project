@@ -77,9 +77,10 @@ public class ApplicationDatabase extends Object {
 			s = database.createStatement();
 			// s.executeUpdate("PRAGMA foreign_keys = ON;");
 			s.executeUpdate(String.format(
-				"CREATE TABLE IF NOT EXISTS users(%s, %s, %s, %s, %s);",
+				"CREATE TABLE IF NOT EXISTS users(%s, %s, %s, %s, %s, %s);",
 				"id INTEGER PRIMARY KEY",
-				"name TEXT NOT NULL UNIQUE",
+				"uuid TEXT NOT NULL UNIQUE",
+				"name TEXT NOT NULL",
 				"email TEXT NOT NULL UNIQUE",
 				"password TEXT NOT NULL",
 				"admin BOOLEAN NOT NULL"
@@ -87,40 +88,17 @@ public class ApplicationDatabase extends Object {
 			if (needsDefaultAdministrator) {
 				p = database.prepareStatement(String.format(
 					"INSERT INTO %s %s;",
-					"users(name, email, password, admin)",
-					"VALUES(?, ?, ?, ?)"
+					"users(uuid, name, email, password, admin)",
+					"VALUES(?, ?, ?, ?, ?)"
 				));
-				User defaultAdmin = new User(
-					"root", "root@root", "$2a$10$q9yRNn2oxFY6hXnxBhRKGu1tMqYSpBh8cLpbRW8PyAjIdaP8qEnf2", true, false
-				);
-				p.setString(1, defaultAdmin.getUsername());
-				p.setString(2, defaultAdmin.getEmail());
-				p.setString(3, defaultAdmin.getPassword());
-				p.setBoolean(4, defaultAdmin.isAdmin());
+				User defaultAdmin = new User("Admin", "admin@localhost", "password", /* is admin */ true);
+				p.setString(1, defaultAdmin.getUUID());
+				p.setString(2, defaultAdmin.getUsername());
+				p.setString(3, defaultAdmin.getEmail());
+				p.setString(4, defaultAdmin.getPassword());
+				p.setBoolean(5, defaultAdmin.isAdmin());
 				p.executeUpdate();
 			}
-			// add some more tables
-			s.executeUpdate(String.format(
-				"CREATE TABLE IF NOT EXISTS datasets(%s, %s, %s);",
-				"id INTEGER PRIMARY KEY",
-				"name TEXT NOT NULL",
-				"desc TEXT NOT NULL"
-			));
-			s.executeUpdate(String.format(
-				"CREATE TABLE IF NOT EXISTS fields(%s, %s, %s, %s, %s);",
-				"id INTEGER PRIMARY KEY",
-				"did INTEGER NOT NULL",
-				"name TEXT NOT NULL",
-				"value TEXT NOT NULL",
-				"FOREIGN KEY (did) REFERENCES datasets(id)"
-			));
-			s.executeUpdate(String.format(
-				"CREATE TABLE IF NOT EXISTS owners(%s, %s, %s, %s);",
-				"uid INTEGER NOT NULL",
-				"did INTEGER NOT NULL",
-				"FOREIGN KEY (uid) REFERENCES users(id)",
-				"FOREIGN KEY (did) REFERENCES datasets(id)"
-			));
 		}
 		finally {
 			if (s != null) {
@@ -142,11 +120,16 @@ public class ApplicationDatabase extends Object {
 	public void createUser(User user) throws SQLException {
 		try {
 			openConnection();
-			PreparedStatement ps = database.prepareStatement("INSERT INTO users(name, email, password, admin) VALUES(?, ?, ?, ?);");
-			ps.setString(1, user.getUsername());
-			ps.setString(2, user.getEmail());
-			ps.setString(3, user.getPassword());
-			ps.setBoolean(4, user.isAdmin());
+			PreparedStatement ps = database.prepareStatement(String.format(
+				"INSERT INTO %s %s;",
+				"users(uuid, name, email, password, admin)",
+				"VALUES(?, ?, ?, ?, ?)"
+			));
+			ps.setString(1, user.getUUID());
+			ps.setString(2, user.getUsername());
+			ps.setString(3, user.getEmail());
+			ps.setString(4, user.getPassword());
+			ps.setBoolean(5, user.isAdmin());
 			ps.executeUpdate();
 			ps.close();
 		}
@@ -155,56 +138,9 @@ public class ApplicationDatabase extends Object {
 		}
 	}
 	/**
-	 * Returns the id for a user.
+	 * Returns whether the given email address is already in use in the database.
 	 */
-	public long getIdForUser(User user) throws SQLException {
-		long id = -42; // not in database
-		try {
-			openConnection();
-			PreparedStatement ps = database.prepareStatement("SELECT id FROM users WHERE email = ?;");
-			ps.setString(1, user.getEmail());
-			ResultSet rs = ps.executeQuery();
-			if (rs.next()) {
-				id = rs.getLong(1);
-			}
-			rs.close();
-			ps.close();
-		}
-		finally {
-			closeConnection();
-		}
-		return id;
-	}
-	/**
-	 * Returns a list of all the users in the database.
-	 */
-	public ArrayList<String> getAllUsers() throws SQLException {
-		ArrayList<String> usernames = new ArrayList<String>();
-		try {
-			openConnection();
-			PreparedStatement ps = database.prepareStatement("SELECT name FROM users;");
-			ResultSet rs = ps.executeQuery();
-			while (rs.next()) usernames.add(rs.getString(1));
-			rs.close();
-			ps.close();
-		}
-		finally {
-			closeConnection();
-		}
-		return usernames;
-	}
-	/**
-	 * Returns whether the given username is
-	 * already in use in the database.
-	 */
-	public boolean usernameAlreadyExists(String username) throws SQLException {
-		return getAllUsers().contains(username);
-	}
-	/**
-	 * Returns whether the given username is
-	 * already in use in the database.
-	 */
-	public boolean emailAlreadyExists(String email) throws SQLException {
+	public boolean emailInDatabase(String email) throws SQLException {
 		ArrayList<String> emails = new ArrayList<String>();
 		try {
 			openConnection();
@@ -220,26 +156,21 @@ public class ApplicationDatabase extends Object {
 		return emails.contains(email);
 	}
 	/**
-	 * Returns the user with the given credientials if they exist,
+	 * Returns the user matching the given credientials if they exist.
 	 * @return null if the user does not exist
 	 */
 	public User getUserWithCredentials(String email, String password) throws SQLException {
 		User user = null;
 		try {
 			openConnection();
-			PreparedStatement ps = database.prepareStatement("SELECT name, email, password, admin FROM users WHERE email = ?;");
+			PreparedStatement ps = database.prepareStatement(String.format(
+				"SELECT uuid, name, email, password, admin FROM users WHERE email = ?;"
+			));
 			ps.setString(1, email);
 			ResultSet rs = ps.executeQuery();
-			// the email should be unique
-			// and thus the result set should
-			// at max contain one result
-			while (rs.next()) user = new User(
-			                                    /* username */ rs.getString(1),
-			                                    /* email */ rs.getString(2),
-			                                    /* password */ rs.getString(3),
-			                                    /* is admin */ rs.getBoolean(4),
-			                                    /* hash? */ false
-			);
+			if (rs.next()) {
+				user = new User(rs.getString(1), rs.getString(2), rs.getString(3), rs.getString(4), rs.getBoolean(5));
+			}
 			rs.close();
 			ps.close();
 		}

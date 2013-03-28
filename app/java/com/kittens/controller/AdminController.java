@@ -20,8 +20,8 @@ import javax.servlet.ServletException;
 
 public class AdminController extends BaseController {
 
-	// Java complains without this
-	public static final long serialVersionUID = 42;
+	// the version of this object
+	public static final long serialVersionUID = 0L;
 
 	/**
 	 * Displays the list of all the projects.

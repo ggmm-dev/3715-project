@@ -13,8 +13,8 @@ import javax.servlet.ServletException;
 
 public class ErrorController extends BaseController {
 
-	// Java complains without this
-	public static final long serialVersionUID = 42;
+	// the version of this object
+	public static final long serialVersionUID = 0L;
 
 	/**
 	 * Process GET requests.

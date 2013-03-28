@@ -1,5 +1,7 @@
 package com.kittens.database;
 
+import com.kittens.Utils;
+
 import java.lang.Object;
 import java.lang.String;
 import java.util.ArrayList;
@@ -9,46 +11,34 @@ public class Dataset extends Object {
 	/**
 	 * A row in a dataset.
 	 */
-	public static class Row extends Object {
+	public static final class Row extends Object {
 
-		// the size of a row
-		// i.e. the number of entries/columns
-		private int size;
 		// the array of values in this row
-		private ArrayList<String> values;
+		private String[] values;
 
 		/**
-		 * Creates a row with the given values,
-		 * setting size to the appropriate number.
+		 * Creates a row with the given values.
 		 */
 		public Row(String ... values) {
-			size = values.length;
-			this.values = new ArrayList<String>(size);
-			for (String value : values) {
-				this.values.add(value);
-			}
+			this.values = values;
 		}
 		/**
-		 * Returns the size of the row.
+		 * Returns the size/width of this row.
 		 */
-		public int getSize() {
-			return size;
+		public int getWidth() {
+			return values.length;
 		}
 		/**
 		 * Sets the values contained in the row.
 		 */
-		public void setValues(String ... values) {
-			if (size < values.length) {
-				size = values.length;
-			}
-			for (String value : values) {
-				this.values.add(value);
-			}
+		public Row setValues(String ... values) {
+			this.values = values;
+			return this;
 		}
 		/**
 		 * Returns the values in this row.
 		 */
-		public ArrayList<String> getValues() {
+		public String[] getValues() {
 			return values;
 		}
 
@@ -57,7 +47,6 @@ public class Dataset extends Object {
 	// the owner/manager of the dataset
 	protected User owner;
 	// the dataset name
-	// (project name)
 	protected String name;
 	// the dataset description
 	protected String description;
@@ -66,13 +55,9 @@ public class Dataset extends Object {
 	// the rows of data
 	// the first (0th) row will be the headers
 	protected ArrayList<Row> rows;
+	// uuid
+	private final String UUID;
 
-	/**
-	 * No args constructor.
-	 */
-	Dataset() {
-		// empty
-	}
 	/**
 	 * Creates an empty dataset given an owner, name, and description.
 	 */
@@ -80,6 +65,14 @@ public class Dataset extends Object {
 		this.owner = owner;
 		this.name = name;
 		this.description = description;
+		rows = new ArrayList<Row>(/* 16 */);
+		UUID = Utils.uuid();
+	}
+	/**
+	 * Returns this dataset's UUID.
+	 */
+	public String getUUID() {
+		return UUID;
 	}
 	/**
 	 * Returns the owner of this dataset.
@@ -88,10 +81,24 @@ public class Dataset extends Object {
 		return owner;
 	}
 	/**
+	 * Sets the owner of the dataset.
+	 */
+	public Dataset setOwner(User owner) {
+		this.owner = owner;
+		return this;
+	}
+	/**
 	 * Returns the name of this dataset.
 	 */
 	public String getName() {
 		return name;
+	}
+	/**
+	 * Sets the name of this dataset.
+	 */
+	public Dataset setName(String name) {
+		this.name = name;
+		return this;
 	}
 	/**
 	 * Returns the description of the dataset.
@@ -100,22 +107,11 @@ public class Dataset extends Object {
 		return description;
 	}
 	/**
-	 * Sets the owner of the dataset.
+	 * Sets the description of this dataset.
 	 */
-	public void setOwner(User newOwner) {
-		owner = newOwner;
-	}
-	/**
-	 * Sets the name of this dataset.
-	 */
-	public void setNam(String newName) {
-		name = newName;
-	}
-	/**
-	 * Sets the description of the dataset.
-	 */
-	public void setDescription(String newDescription) {
-		description = newDescription;
+	public Dataset setDescription(String description) {
+		this.description = description;
+		return this;
 	}
 	/**
 	 * Returns the rows of this dataset.
@@ -127,24 +123,35 @@ public class Dataset extends Object {
 	 * Returns the values in a particular row.
 	 */
 	public Dataset.Row getRow(int y) {
+		if (y >= rows.size()) {
+			return null;
+		}
 		return rows.get(y);
 	}
 	/**
 	 * Adds the specified rows to the dataset.
 	 */
-	public void addRows(Dataset.Row ... rows) {
-		for (Dataset.Row row : rows)
+	public Dataset addRows(Dataset.Row ... rows) {
+		for (Dataset.Row row : rows) {
 			this.rows.add(row);
+		}
+		return this;
+	}
+	/**
+	 * Clears all rows in the table to set the given rows.
+	 */
+	public Dataset setRows(Dataset.Row ... rows) {
+		this.rows = new ArrayList<Dataset.Row>(rows.length);
+		for (Dataset.Row row : rows) {
+			this.rows.add(row);
+		}
+		return this;
 	}
 	/**
 	 * Returns the width of this dataset.
 	 */
-	public int width() {
-		int w = 0;
-		for (Dataset.Row row : rows) {
-			w = (row.getSize() > w) ? row.getSize() : w;
-		}
-		return w;
+	public int rowCount() {
+		return rows.size();
 	}
 
 }

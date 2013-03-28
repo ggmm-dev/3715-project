@@ -2,6 +2,7 @@ package com.kittens.controller;
 
 import com.google.common.base.Strings;
 
+import com.kittens.database.Dataset;
 import com.kittens.database.User;
 import com.kittens.Utils;
 
@@ -16,8 +17,8 @@ import javax.servlet.ServletException;
 
 public class UsersController extends BaseController {
 
-	// Java complains without this
-	public static final long serialVersionUID = 42;
+	// the version of this object
+	public static final long serialVersionUID = 0L;
 
 	/**
 	 * Attaches the given message to the
@@ -62,35 +63,25 @@ public class UsersController extends BaseController {
 			setErrorAndRedirect(request, response, Utils.ErrorCode.COMPLETE_FORM);
 			return;
 		}
-		boolean uAe = false; // the username is already in use
-		boolean eAe = false; // the email address is already in use
 		try {
-			uAe = database.usernameAlreadyExists(user.getUsername());
-			eAe = database.emailAlreadyExists(user.getEmail());
-			if (!uAe && !eAe) /* !(uAe || eAe) */ {
-				// the username is available
-				// for use, and the email
-				// address is available for use
-				database.createUser(user);
+			if (database.emailInDatabase(user.getEmail())) {
+				setErrorAndRedirect(request, response, Utils.ErrorCode.EMAIL_IN_USE);
+				return;
 			}
+			database.createUser(user);
+			// database.addDataset(
+			// 	user,
+			// 	new Dataset(user, "Sample Dataset", "A sample dataset.").addRows(
+			// 		new Dataset.Row("foo", "bar", "baz"),
+			// 		new Dataset.Row("12", "10", "42"),
+			// 		new Dataset.Row("31", "41", "91")
+			// 	)
+			// );
 		}
 		catch (SQLException sqle) {
 			sqle.printStackTrace();
 			return;
 		}
-		if (uAe) {
-			// the requested username already exists
-			setErrorAndRedirect(request, response, Utils.ErrorCode.USERNAME_IN_USE);
-			return;
-		}
-		if (eAe) {
-			// the email address has already been used
-			setErrorAndRedirect(request, response, Utils.ErrorCode.EMAIL_IN_USE);
-			return;
-		}
-		// at this point in time the
-		// user has been created
-		// since (!uAe && !eAe) => create user
 		// allow access to the user
 		login(request, response, user);
 	}
