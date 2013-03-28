@@ -2,7 +2,6 @@ package com.kittens.controller;
 
 import com.google.common.base.Strings;
 
-import com.kittens.Controller;
 import com.kittens.database.User;
 import com.kittens.Utils;
 
@@ -15,7 +14,7 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import javax.servlet.ServletException;
 
-public class UsersController extends Controller {
+public class UsersController extends BaseController {
 
 	// Java complains without this
 	public static final long serialVersionUID = 42;

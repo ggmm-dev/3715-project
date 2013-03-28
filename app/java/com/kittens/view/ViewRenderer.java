@@ -9,6 +9,7 @@ import java.io.IOException;
 import java.io.PrintWriter;
 import java.io.Reader;
 import java.lang.ClassLoader;
+import java.lang.Exception;
 import java.lang.Object;
 import java.lang.String;
 import java.util.HashMap;
@@ -19,7 +20,7 @@ public class ViewRenderer extends Object {
 
 	// loads partial templates
 	private static final Mustache.TemplateLoader templateLoader = new Mustache.TemplateLoader() {
-		// https://github.com/samskivert/jmustache/blob/master/src/main/java/com/samskivert/mustache/Mustache.java#L153
+		// http://git.io/oFzz3w
 		public Reader getTemplate(String fname) throws Exception {
 			String filename = "partials" + File.separator + fname + TEMPLATE_EXT;
 			return new InputStreamReader(ClassLoader.getSystemResourceAsStream(filename));

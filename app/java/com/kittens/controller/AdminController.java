@@ -2,7 +2,6 @@ package com.kittens.controller;
 
 import com.google.common.base.Strings;
 
-import com.kittens.Controller;
 import com.kittens.database.User;
 import com.kittens.Utils;
 import com.kittens.view.ViewRenderer;
@@ -19,7 +18,7 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import javax.servlet.ServletException;
 
-public class AdminController extends Controller {
+public class AdminController extends BaseController {
 
 	// Java complains without this
 	public static final long serialVersionUID = 42;
@@ -129,7 +128,7 @@ public class AdminController extends Controller {
 			}
 		}
 		catch (Exception e) {
-			e.printStackTrace();
+			// e.printStackTrace()
 			if (e instanceof SQLException) {
 				response.sendError(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
 			}

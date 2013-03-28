@@ -1,9 +1,8 @@
-package com.kittens;
+package com.kittens.controller;
 
 import com.kittens.database.ApplicationDatabase;
 import com.kittens.Utils;
 
-import java.lang.Object;
 import java.lang.String;
 import java.sql.SQLException;
 
@@ -11,7 +10,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.ServletConfig;
 import javax.servlet.ServletException;
 
-public class Controller extends HttpServlet {
+class BaseController extends HttpServlet {
 
 	// Java complains without this
 	public static final long serialVersionUID = 42;
@@ -27,7 +26,7 @@ public class Controller extends HttpServlet {
 		String webPath = config.getServletContext().getRealPath(Utils.APP_ROOT);
 		try { database = new ApplicationDatabase(webPath); }
 		// print stack traces
-		catch (SQLException sqle) { sqle.printStackTrace(); return; }
+		catch (SQLException e) { e.printStackTrace(); return; }
 	}
 
 }

@@ -1,6 +1,5 @@
 package com.kittens.controller;
 
-import com.kittens.Controller;
 import com.kittens.database.User;
 import com.kittens.Utils;
 import com.kittens.view.ViewRenderer;
@@ -15,7 +14,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.ServletException;
 
-public class HomeController extends Controller {
+public class HomeController extends BaseController {
 
 	// Java complains without this
 	public static final long serialVersionUID = 42;
@@ -30,7 +29,12 @@ public class HomeController extends Controller {
 		final User currentSessionUser = Utils.getUserFromRequest(request);
 		if (currentSessionUser != null) {
 			// a user is logged in
-			response.sendRedirect("/projects");
+			if (currentSessionUser.isAdmin()) {
+				response.sendRedirect(Utils.ADMIN_ROOT);
+			}
+			else {
+				response.sendRedirect("/projects");
+			}
 			return;
 		}
 		// set some values

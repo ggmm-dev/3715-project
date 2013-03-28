@@ -1,6 +1,5 @@
 package com.kittens.controller;
 
-import com.kittens.Controller;
 import com.kittens.Utils;
 import com.kittens.view.ViewRenderer;
 
@@ -12,7 +11,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.ServletException;
 
-public class ErrorController extends Controller {
+public class ErrorController extends BaseController {
 
 	// Java complains without this
 	public static final long serialVersionUID = 42;

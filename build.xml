@@ -63,7 +63,7 @@
 
 	<!-- compile our server-side stuff -->
 	<target name="compile">
-		<javac includeantruntime="false" srcdir="${src.dir}" destdir="${war.dir}/WEB-INF/classes">
+		<javac debug="true" includeantruntime="false" srcdir="${src.dir}" destdir="${war.dir}/WEB-INF/classes">
 			<classpath>
 				<path refid="all-jars" />
 			</classpath>

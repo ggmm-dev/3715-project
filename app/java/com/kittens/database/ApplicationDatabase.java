@@ -6,6 +6,7 @@ import java.io.File;
 import java.lang.Class;
 import java.lang.Object;
 import java.lang.String;
+import java.lang.Exception;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
@@ -16,13 +17,9 @@ import java.util.ArrayList;
 
 public class ApplicationDatabase extends Object {
 
-	/**
-	 * Has the database module been loaded successfully?
-	 */
+	// has the database module been loaded successfully?
 	private static boolean loaded = false;
-	/**
-	 * Try to load the database class...
-	 */
+	// try to load the database class
 	static {
 		try {
 			Class.forName("org.sqlite.JDBC");
@@ -32,95 +29,160 @@ public class ApplicationDatabase extends Object {
 			loaded = false;
 		}
 	}
-	/**
-	 * A string.
-	 */
+	// the name of the database file
 	private final String DB_NAME = "kittens.sqlite3";
-	/**
-	 * The path to the directory containing the database.
-	 */
+	// the path to the directory containing the database
 	private final String DB_PATH;
-	/**
-	 * The connection to the app's database.
-	 */
-	private Connection db = null;
+	// the connection to the database
+	private Connection database = null;
 
 	/**
 	 * Opens a connection (if possible) to the database.
 	 */
 	private void openConnection() throws SQLException {
-		db = DriverManager.getConnection("jdbc:sqlite:" + DB_PATH);
+		database = DriverManager.getConnection("jdbc:sqlite:" + DB_PATH);
 	}
 	/**
 	 * Closes the open connection (if exists) to the database.
 	 */
 	private void closeConnection() throws SQLException {
-		if (db == null) return;
-		db.close();
+		if (database == null) {
+			return;
+		}
+		database.close();
 	}
 	/**
 	 * Connects to, or creates an application database.
 	 */
-	public ApplicationDatabase(String webPath) throws SQLException {
-		DB_PATH = webPath + File.separator + DB_NAME;
+	public ApplicationDatabase(String path) throws SQLException {
+		DB_PATH = path + File.separator + DB_NAME;
+		boolean needsDefaultAdministrator = false;
 		Statement s = null;
-		PreparedStatement ps = null;
+		PreparedStatement p = null;
+		ResultSet r = null;
 		try {
 			openConnection();
-			s = db.createStatement();
-			s.executeUpdate("CREATE TABLE IF NOT EXISTS users(id INTEGER PRIMARY KEY AUTOINCREMENT, username TEXT NOT NULL UNIQUE, email TEXT NOT NULL UNIQUE, password TEXT NOT NULL, admin BOOLEAN NOT NULL);");
-			// s.close()
-			// ----------------------
-			// ----------------------
-			// THIS NEEDS TO BE FIXED
-			// ----------------------
-			// ----------------------
-			ps = db.prepareStatement("INSERT OR IGNORE INTO users(username, email, password, admin) VALUES(?, ?, ?, ?);");
-			ps.setString(1, "root");
-			ps.setString(2, "root@root");
-			ps.setString(3, "$2a$10$SAKIIqe5qOU286UvEcLqcexVgnf5mOtvlNO/OQ4NVfAC4I.i6NC/S" /* password */);
-			ps.setBoolean(4, true);
-			ps.executeUpdate();
-			// ps.close()
+			// check to see if the `users` table exists
+			p = database.prepareStatement("SELECT name FROM sqlite_master WHERE type = ? AND name = ?;");
+			p.setString(1, "table");
+			p.setString(2, "users");
+			r = p.executeQuery();
+			if (!r.next()) {
+				// the users table has not been created
+				// we will create it now, but while doing
+				// so we need to add the default admin
+				needsDefaultAdministrator = true;
+			}
+			// prepare the database with tables
+			s = database.createStatement();
+			// s.executeUpdate("PRAGMA foreign_keys = ON;");
+			s.executeUpdate(String.format(
+				"CREATE TABLE IF NOT EXISTS users(%s, %s, %s, %s, %s);",
+				"id INTEGER PRIMARY KEY",
+				"name TEXT NOT NULL UNIQUE",
+				"email TEXT NOT NULL UNIQUE",
+				"password TEXT NOT NULL",
+				"admin BOOLEAN NOT NULL"
+			));
+			if (needsDefaultAdministrator) {
+				p = database.prepareStatement(String.format(
+					"INSERT INTO %s %s;",
+					"users(name, email, password, admin)",
+					"VALUES(?, ?, ?, ?)"
+				));
+				User defaultAdmin = new User(
+					"root", "root@root", "$2a$10$q9yRNn2oxFY6hXnxBhRKGu1tMqYSpBh8cLpbRW8PyAjIdaP8qEnf2", true, false
+				);
+				p.setString(1, defaultAdmin.getUsername());
+				p.setString(2, defaultAdmin.getEmail());
+				p.setString(3, defaultAdmin.getPassword());
+				p.setBoolean(4, defaultAdmin.isAdmin());
+				p.executeUpdate();
+			}
+			// add some more tables
+			s.executeUpdate(String.format(
+				"CREATE TABLE IF NOT EXISTS datasets(%s, %s, %s);",
+				"id INTEGER PRIMARY KEY",
+				"name TEXT NOT NULL",
+				"desc TEXT NOT NULL"
+			));
+			s.executeUpdate(String.format(
+				"CREATE TABLE IF NOT EXISTS fields(%s, %s, %s, %s, %s);",
+				"id INTEGER PRIMARY KEY",
+				"did INTEGER NOT NULL",
+				"name TEXT NOT NULL",
+				"value TEXT NOT NULL",
+				"FOREIGN KEY (did) REFERENCES datasets(id)"
+			));
+			s.executeUpdate(String.format(
+				"CREATE TABLE IF NOT EXISTS owners(%s, %s, %s, %s);",
+				"uid INTEGER NOT NULL",
+				"did INTEGER NOT NULL",
+				"FOREIGN KEY (uid) REFERENCES users(id)",
+				"FOREIGN KEY (did) REFERENCES datasets(id)"
+			));
 		}
 		finally {
-			// cleanup all the things
 			if (s != null) {
 				s.close();
 			}
-			if (ps != null) {
-				ps.close();
+			if (p != null) {
+				p.close();
+			}
+			if (r != null) {
+				r.close();
 			}
 			closeConnection();
 		}
+		return;
 	}
 	/**
 	 * Adds the given user to the database.
 	 */
-	public boolean createUser(User user) throws SQLException {
+	public void createUser(User user) throws SQLException {
 		try {
 			openConnection();
-			PreparedStatement ps = db.prepareStatement("INSERT INTO users(username, email, password, admin) VALUES(?, ?, ?, ?);");
+			PreparedStatement ps = database.prepareStatement("INSERT INTO users(name, email, password, admin) VALUES(?, ?, ?, ?);");
 			ps.setString(1, user.getUsername());
 			ps.setString(2, user.getEmail());
 			ps.setString(3, user.getPassword());
 			ps.setBoolean(4, user.isAdmin());
 			ps.executeUpdate();
 			ps.close();
-			return true;
 		}
 		finally {
 			closeConnection();
 		}
 	}
 	/**
-	 *
+	 * Returns the id for a user.
+	 */
+	public long getIdForUser(User user) throws SQLException {
+		long id = -42; // not in database
+		try {
+			openConnection();
+			PreparedStatement ps = database.prepareStatement("SELECT id FROM users WHERE email = ?;");
+			ps.setString(1, user.getEmail());
+			ResultSet rs = ps.executeQuery();
+			if (rs.next()) {
+				id = rs.getLong(1);
+			}
+			rs.close();
+			ps.close();
+		}
+		finally {
+			closeConnection();
+		}
+		return id;
+	}
+	/**
+	 * Returns a list of all the users in the database.
 	 */
 	public ArrayList<String> getAllUsers() throws SQLException {
 		ArrayList<String> usernames = new ArrayList<String>();
 		try {
 			openConnection();
-			PreparedStatement ps = db.prepareStatement("select username from users;");
+			PreparedStatement ps = database.prepareStatement("SELECT name FROM users;");
 			ResultSet rs = ps.executeQuery();
 			while (rs.next()) usernames.add(rs.getString(1));
 			rs.close();
@@ -146,7 +208,7 @@ public class ApplicationDatabase extends Object {
 		ArrayList<String> emails = new ArrayList<String>();
 		try {
 			openConnection();
-			PreparedStatement ps = db.prepareStatement("select email from users;");
+			PreparedStatement ps = database.prepareStatement("SELECT email FROM users;");
 			ResultSet rs = ps.executeQuery();
 			while (rs.next()) emails.add(rs.getString(1));
 			rs.close();
@@ -165,13 +227,19 @@ public class ApplicationDatabase extends Object {
 		User user = null;
 		try {
 			openConnection();
-			PreparedStatement ps = db.prepareStatement("select username, email, password, admin from users where email = ?");
+			PreparedStatement ps = database.prepareStatement("SELECT name, email, password, admin FROM users WHERE email = ?;");
 			ps.setString(1, email);
 			ResultSet rs = ps.executeQuery();
 			// the email should be unique
 			// and thus the result set should
 			// at max contain one result
-			while (rs.next()) user = new User(/* username */ rs.getString(1), /* email */ rs.getString(2), /* password */ rs.getString(3), /* is admin */ rs.getBoolean(4), /* hash? */ false);
+			while (rs.next()) user = new User(
+			                                    /* username */ rs.getString(1),
+			                                    /* email */ rs.getString(2),
+			                                    /* password */ rs.getString(3),
+			                                    /* is admin */ rs.getBoolean(4),
+			                                    /* hash? */ false
+			);
 			rs.close();
 			ps.close();
 		}

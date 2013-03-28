@@ -1,8 +1,12 @@
 package com.kittens;
 
+import com.kittens.Utils;
+
+import java.lang.Exception;
 import java.lang.Integer;
 import java.lang.Object;
 import java.lang.String;
+import java.lang.System;
 
 import org.eclipse.jetty.server.Connector;
 import org.eclipse.jetty.server.nio.SelectChannelConnector;
@@ -11,6 +15,9 @@ import org.eclipse.jetty.webapp.WebAppContext;
 
 public class JettyServer extends Object {
 
+	/**
+	 * Run the server.
+	 */
 	public static void main(String[] args) throws Exception {
 		final int argc = 3;
 		if (args.length != argc) {
@@ -28,8 +35,8 @@ public class JettyServer extends Object {
 		server.setHandler(new WebAppContext(/* wardir */ args[1], /* path */ args[2]));
 		int timeoutMS = 2000;
 		server.setGracefulShutdown(timeoutMS);
-		server.start();
-		server.join();
+		server.start(); // throws Exception
+		server.join();  // throws java.lang.InterruptedException
 	}
 
 }

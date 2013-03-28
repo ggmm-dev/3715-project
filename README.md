@@ -20,4 +20,5 @@ Ideas for improvement
 ---------------------
 
 - [Intro.js](http://usablica.github.com/intro.js/)
+- [Cornify]()
 - Realtime via <https://github.com/videlalvaro/gifsockets>?
