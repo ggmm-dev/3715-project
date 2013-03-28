@@ -7,8 +7,15 @@
 		{{>uheader}}
 		<div class="wrapper clearfix">
 			<div id="main" role="main">
+				{{^datasets}}
+					<p>
+						You have no projects to display.
+					</p>
+				{{/datasets}}
+				{{#datasets}}
+				{{#-first}}
 				<section id="data" class="clearfix">
-					<h2>Test Project 1</h2>
+					<h2>{{name}}</h2>
 					<a class="cloud hint--left" data-hint="Import dataset"><i class="icon-cloud-upload"></i></a>
 					<a class="circle-btn hint--left" data-hint="Add a column"><i class="icon-plus"></i></a>
 					<table>
@@ -46,6 +53,8 @@
 					<a class="circle-btn hint--left" data-hint="Add a row"><i class="icon-plus"></i></a>
 					<a class="circle-btn hint--left" data-hint="Save changes"><i class="icon-save"></i></a>
 				</section>
+				{{/-first}}
+				{{/datasets}}
 			</div>
 			{{>plist}}
 		</div>

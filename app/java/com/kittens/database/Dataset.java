@@ -44,6 +44,24 @@ public class Dataset extends Object {
 
 	}
 
+	/**
+	 *
+	 */
+	public static final Dataset newSampleDataset(final User user) {
+		return new Dataset(
+			user,
+			"Sample Dataset",
+			"A sample dataset just for you."
+		).setHeaders(
+			"person",
+			"place",
+			"thing"
+		).setRows(
+			new Dataset.Row("foo", "bar", "baz"),
+			new Dataset.Row("12", "10", "42")
+		);
+	}
+
 	// uuid
 	private final String UUID;
 	// the dataset name

@@ -7,8 +7,15 @@
 		{{>uheader}}
 		<div class="wrapper clearfix">
 			<div id="main" role="main">
+				{{^datasets}}
+					<p>
+						You have no projects to display.
+					</p>
+				{{/datasets}}
+				{{#datasets}}
+				{{#-first}}
 				<section id="statistics">
-					<h2>Test Project 1</h2>
+					<h2>{{name}}</h2>
 					<dl>
 						<dt>Mean</dt>
 						<dd>30.0</dd>
@@ -23,6 +30,8 @@
 					<a class="tab">Some Lines</a>
 					<div id="chart"></div>
 				</section>
+				{{/-first}}
+				{{/datasets}}
 			</div>
 			{{>plist}}
 		</div>

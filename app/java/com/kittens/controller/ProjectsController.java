@@ -49,6 +49,7 @@ public class ProjectsController extends BaseController {
 		values.put("title", String.format("Group Data - %s Datasets", possessive(currentSessionUser)));
 		values.put("logo", "Group Data");
 		values.put("user", currentSessionUser);
+		values.put("datasets", database.getDatasetsForUser(currentSessionUser));
 		ViewRenderer.render(response, "projects/data", values);
 	}
 	/**
@@ -62,6 +63,7 @@ public class ProjectsController extends BaseController {
 		values.put("title", String.format("Group Data - %s Stats", possessive(currentSessionUser)));
 		values.put("logo", "Group Data");
 		values.put("user", currentSessionUser);
+		values.put("datasets", database.getDatasetsForUser(currentSessionUser));
 		ViewRenderer.render(response, "projects/stats", values);
 	}
 	/**

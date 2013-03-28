@@ -7,14 +7,17 @@
 		{{>uheader}}
 		<div class="wrapper clearfix">
 			<div id="main" role="main">
-				<section id="description">
-					<h2>Test Project 1</h2>
-					<time datetime="2001-05-15 19:00">May 15</time>
+				{{^datasets}}
 					<p>
-						Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-						Ut non massa mi, at rutrum diam. Pellentesque luctus aue
-						farnec ipsum sit ulmcorper sit amet ornare lorem feugit.
+						You have no projects to display.
 					</p>
+				{{/datasets}}
+				{{#datasets}}
+				{{#-first}}
+				<section id="description">
+					<h2>{{name}}</h2>
+					<time datetime="2001-05-15 19:00">May 15</time>
+					<p>{{description}}</p>
 				</section>
 				<section id="collaborators">
 					<h3>Collaborators</h3>
@@ -25,6 +28,8 @@
 					</ul>
 					<a class="circle-btn align-right hint--left" data-hint="Add a collaborator"><i class="icon-plus"></i></a>
 				</section>
+				{{/-first}}
+				{{/datasets}}
 			</div>
 			{{>plist}}
 		</div>

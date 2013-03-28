@@ -2,21 +2,10 @@
 	<menu>
 		<h6>Welcome {{user.username}}!</h6>
 		<a class="grey-add-btn">Create New Project</a>
+		{{#datasets}}
 		<ul>
-			{{#datasets}}
-				<li><a>{{name}}</a></li>
-			{{/datasets}}
-			<!--
-			<li class="manage current">
-				<a>Test Project 1</a>
-			</li>
-			<li>
-				<a>Test Project 2</a>
-			</li>
-			<li>
-				<a>Test Project 3</a>
-			</li>
-			-->
+			<li><a>{{name}}</a></li>
 		</ul>
+		{{/datasets}}
 	</menu>
 </aside>
