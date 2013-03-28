@@ -69,14 +69,22 @@ public class UsersController extends BaseController {
 				return;
 			}
 			database.createUser(user);
-			// database.addDataset(
-			// 	user,
-			// 	new Dataset(user, "Sample Dataset", "A sample dataset.").addRows(
-			// 		new Dataset.Row("foo", "bar", "baz"),
-			// 		new Dataset.Row("12", "10", "42"),
-			// 		new Dataset.Row("31", "41", "91")
-			// 	)
-			// );
+			database.addDataset(
+				user,
+				new Dataset(
+					user,
+					"Sample Dataset",
+					"A sample dataset."
+				).setHeaders(
+					"a1",
+					"a2",
+					"a3"
+				).setRows(
+					new Dataset.Row("foo", "bar", "baz"),
+					new Dataset.Row("12", "10", "42"),
+					new Dataset.Row("31", "41", "91")
+				)
+			);
 		}
 		catch (SQLException sqle) {
 			sqle.printStackTrace();

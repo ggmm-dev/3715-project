@@ -1,5 +1,7 @@
 package com.kittens.database;
 
+import com.google.common.base.Joiner;
+
 import com.kittens.BCrypt;
 
 import java.io.File;
@@ -99,6 +101,19 @@ public class ApplicationDatabase extends Object {
 				p.setBoolean(5, defaultAdmin.isAdmin());
 				p.executeUpdate();
 			}
+			s.executeUpdate(String.format(
+				"CREATE TABLE IF NOT EXISTS datasets(%s, %s, %s, %s);",
+				"id INTEGER PRIMARY KEY",
+				"uuid TEXT NOT NULL UNIQUE",
+				"name TEXT NOT NULL",
+				"desc TEXT NOT NULL"
+			));
+			s.executeUpdate(String.format(
+				"CREATE TABLE IF NOT EXISTS access(%s, %s, %s);",
+				"user TEXT NOT NULL PRIMARY KEY",
+				"dataset TEXT NOT NULL",
+				"owner BOOLEAN NOT NULL"
+			));
 		}
 		finally {
 			if (s != null) {
@@ -178,6 +193,87 @@ public class ApplicationDatabase extends Object {
 			closeConnection();
 		}
 		return (user != null && BCrypt.checkpw(password, user.getPassword())) ? user : null;
+	}
+	/**
+	 * Adds the given dataset into the database, setting the user as the owner.
+	 */
+	public void addDataset(final User user, final Dataset dataset) throws SQLException {
+		PreparedStatement ps;
+		Statement s;
+		try {
+			openConnection();
+			// insert the dataset into the datasets table
+			ps = database.prepareStatement(String.format(
+				"INSERT INTO %s %s;",
+				"datasets(uuid, name, desc)",
+				"VALUES(?, ?, ?)"
+			));
+			ps.setString(1, dataset.getUUID());
+			ps.setString(2, dataset.getName());
+			ps.setString(3, dataset.getDescription());
+			ps.executeUpdate();
+			// create the table for the rows
+			s = database.createStatement();
+			s.executeUpdate(String.format(
+				"CREATE TABLE IF NOT EXISTS [%s](%s);",
+				dataset.getUUID(),
+				// join together the headers from the dataset
+				Joiner.on(" TEXT NOT NULL, ").join(dataset.getHeaders()) + " TEXT NOT NULL"
+			));
+			// grant access and ownership to the dataset
+			ps = database.prepareStatement(String.format(
+				"INSERT INTO %s %s;",
+				"access(user, dataset, owner)",
+				"VALUES(?, ?, ?)"
+			));
+			ps.setString(1, user.getUUID());
+			ps.setString(2, dataset.getUUID());
+			ps.setBoolean(3, true);
+			ps.executeUpdate();
+			s.close();
+			ps.close();
+		}
+		finally {
+			closeConnection();
+		}
+	}
+	/**
+	 *
+	 */
+	public ArrayList<Dataset> getDatasetsForUser(final User user) {
+		ArrayList<Dataset> datasets = new ArrayList<Dataset>();
+		try {
+			openConnection();
+			PreparedStatement ps = database.prepareStatement(String.format(
+				"SELECT %s FROM %s WHERE %s;",
+				"user, dataset, owner",
+				"access",
+				"user = ?"
+			));
+			ps.setString(1, user.getUUID());
+			ResultSet r1 = ps.executeQuery();
+			while (r1.next()) {
+				ps = database.prepareStatement(String.format(
+					"SELECT %s FROM %s WHERE %s;",
+					"name, desc",
+					"datasets",
+					"uuid = ?"
+				));
+				final String datasetUUID = r1.getString(2);
+				ps.setString(1, datasetUUID);
+				ResultSet r2 = ps.executeQuery();
+				while (r2.next()) {
+					datasets.add(new Dataset(datasetUUID, r2.getString(1), r2.getString(2)));
+				}
+			}
+			r1.close();
+			ps.close();
+			closeConnection();
+		}
+		catch (SQLException sqle) {
+			// suppress
+		}
+		return datasets;
 	}
 
 }

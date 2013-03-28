@@ -35,6 +35,7 @@ public class ProjectsController extends BaseController {
 		values.put("title", String.format("Group Data - %s Projects", possessive(currentSessionUser)));
 		values.put("logo", "Group Data");
 		values.put("user", currentSessionUser);
+		values.put("datasets", database.getDatasetsForUser(currentSessionUser));
 		ViewRenderer.render(response, "projects/index", values);
 	}
 	/**

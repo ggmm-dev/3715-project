@@ -44,27 +44,32 @@ public class Dataset extends Object {
 
 	}
 
-	// the owner/manager of the dataset
-	protected User owner;
+	// uuid
+	private final String UUID;
 	// the dataset name
 	protected String name;
 	// the dataset description
 	protected String description;
-	// the list of collaborators
-	protected ArrayList<User> collaborators;
+	// the headers of the dataset
+	protected ArrayList<String> headers;
 	// the rows of data
-	// the first (0th) row will be the headers
 	protected ArrayList<Row> rows;
-	// uuid
-	private final String UUID;
 
+	/**
+	 * Creates the dataset given the UUID, name, and desc.
+	 */
+	Dataset(String UUID, String name, String description) {
+		this.UUID = UUID;
+		this.name = name;
+		this.description = description;
+	}
 	/**
 	 * Creates an empty dataset given an owner, name, and description.
 	 */
 	public Dataset(User owner, String name, String description) {
-		this.owner = owner;
 		this.name = name;
 		this.description = description;
+		headers = new ArrayList<String>(/* 16 */);
 		rows = new ArrayList<Row>(/* 16 */);
 		UUID = Utils.uuid();
 	}
@@ -73,19 +78,6 @@ public class Dataset extends Object {
 	 */
 	public String getUUID() {
 		return UUID;
-	}
-	/**
-	 * Returns the owner of this dataset.
-	 */
-	public User getOwner() {
-		return owner;
-	}
-	/**
-	 * Sets the owner of the dataset.
-	 */
-	public Dataset setOwner(User owner) {
-		this.owner = owner;
-		return this;
 	}
 	/**
 	 * Returns the name of this dataset.
@@ -114,6 +106,21 @@ public class Dataset extends Object {
 		return this;
 	}
 	/**
+	 * Returns the headers for this dataset.
+	 */
+	public ArrayList<String> getHeaders() {
+		return headers;
+	}
+	/**
+	 * Sets the heders for the dataset.
+	 */
+	public Dataset setHeaders(String ... headers) {
+		for (String header : headers) {
+			this.headers.add(header);
+		}
+		return this;
+	}
+	/**
 	 * Returns the rows of this dataset.
 	 */
 	public ArrayList<Dataset.Row> getRows() {
@@ -129,29 +136,41 @@ public class Dataset extends Object {
 		return rows.get(y);
 	}
 	/**
-	 * Adds the specified rows to the dataset.
-	 */
-	public Dataset addRows(Dataset.Row ... rows) {
-		for (Dataset.Row row : rows) {
-			this.rows.add(row);
-		}
-		return this;
-	}
-	/**
 	 * Clears all rows in the table to set the given rows.
 	 */
 	public Dataset setRows(Dataset.Row ... rows) {
 		this.rows = new ArrayList<Dataset.Row>(rows.length);
 		for (Dataset.Row row : rows) {
+			if (row.getWidth() < headers.size()) {
+				return null;
+			}
 			this.rows.add(row);
 		}
 		return this;
 	}
 	/**
-	 * Returns the width of this dataset.
+	 * Adds the specified rows to the dataset.
+	 */
+	public Dataset addRows(Dataset.Row ... rows) {
+		for (Dataset.Row row : rows) {
+			if (row.getWidth() < headers.size()) {
+				return null;
+			}
+			this.rows.add(row);
+		}
+		return this;
+	}
+	/**
+	 * Returns the length of this dataset.
 	 */
 	public int rowCount() {
-		return rows.size();
+		return rows.size() + 1;
+	}
+	/**
+	 * Returns the width of the dataset.
+	 */
+	public int width() {
+		return headers.size();
 	}
 
 }

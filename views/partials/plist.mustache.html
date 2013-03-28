@@ -1,8 +1,12 @@
 <aside>
 	<menu>
 		<h6>Welcome {{user.username}}!</h6>
-		<a class="grey-add-btn">Create Project</a>
+		<a class="grey-add-btn">Create New Project</a>
 		<ul>
+			{{#datasets}}
+				<li><a>{{name}}</a></li>
+			{{/datasets}}
+			<!--
 			<li class="manage current">
 				<a>Test Project 1</a>
 			</li>
@@ -12,6 +16,7 @@
 			<li>
 				<a>Test Project 3</a>
 			</li>
+			-->
 		</ul>
 	</menu>
 </aside>
