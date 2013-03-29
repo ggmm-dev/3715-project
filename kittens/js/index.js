@@ -13,9 +13,15 @@
 	};
 	var validate = function (event) {
 		event.preventDefault();
-		var form = event.target;
+		var form = event.target,
+		    warn = document.createElement("p");
+		warn.classList.add("warn");
+		warn.innerHTML = "<strong>Oops. </strong>Make sure your passwords match.";
 		if (form.password.value === form["confirm-password"].value) {
 			event.target.submit();
+		}
+		else {
+			form.insertBefore(warn, form.firstChild);
 		}
 		return false;
 	};

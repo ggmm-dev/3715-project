@@ -8,6 +8,10 @@ body {
 	padding-bottom: 95px;
 }
 
+strong {
+	font-weight: bold;
+}
+
 [placeholder]:focus::-webkit-input-placeholder {
 	transition: text-indent 0.5s 3s ease;
 	text-indent: -100%;

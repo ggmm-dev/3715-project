@@ -52,12 +52,14 @@ nav .right {
 
 nav .right p.error {
 	display: inline-block;
-	border: 1px solid #f00;
 	font: 13pt sans-serif;
-	padding: 5px 10px 5px 10px;
 	margin: 0;
 	text-align: left;
 	width: 200px;
+	padding: 4px 40px 4px 10px;
+	color: #b94a48;
+	background-color: #f2dede;
+	border-color: #eed3d7;
 }
 
 nav input {
@@ -66,7 +68,7 @@ nav input {
 	border: 1px solid #1a1a1a;
 	box-shadow: inset 0px 0px 1px rgba(255, 255, 255, 0.6);
 	font: 13pt sans-serif;
-	padding: 5px 10px 5px 10px;
+	padding: 5px 10px;
 	margin-right: 5px;
 	text-shadow: 1px 1px 0px rgba(0, 0, 0, 0.8);
 	width: 150px;
@@ -78,7 +80,7 @@ nav input[type="submit"] {
 	border: 1px solid #1d2c2a;
 	box-shadow: inset 0px 0px 1px rgba(255, 255, 255, 0.8);
 	font: 13pt sans-serif;
-	padding: 4px 10px 4px 10px;
+	padding: 4px 10px;
 	margin-right: 5px;
 	text-shadow: 1px 1px 0px rgba(0, 0, 0, 0.8);
 	width: 100px;
@@ -134,7 +136,7 @@ nav input[type="submit"] {
 	border: 1px solid #7e8a88;
 	box-shadow: inset 0px 0px 2px #fff;
 	font: 15pt sans-serif;
-	padding: 5px 10px 5px 10px;
+	padding: 5px 10px;
 	margin-right: 0px;
 	margin-bottom: 7px;
 	text-shadow: 1px 1px 0px rgba(255, 255, 255, 0.5);
@@ -153,12 +155,26 @@ nav input[type="submit"] {
 	text-transform: uppercase;
 }
 
-#main .right p.error {
-	border: 1px solid #f00;
-	font: 15pt sans-serif;
-	padding: 5px 10px 5px 10px;
+#main .right p.error > strong,
+#main .right p.warn > strong {
+	display: block;
+}
+
+#main .right p.error,
+#main .right p.warn {
+	padding: 5px 10px;
 	margin: 7px 0;
 	width: 332px;
+	color: #c09853;
+	font: 15pt sans-serif;
+	background-color: #fcf8e3;
+	border: 1px solid #fbeed5;
+}
+
+#main .right p.error {
+	color: #b94a48;
+	background-color: #f2dede;
+	border-color: #eed3d7;
 }
 
 #about {
@@ -171,13 +187,13 @@ nav input[type="submit"] {
 
 #about h3 {
 	font: 26pt/20px "Avenir Heavy";
-	text-shadow: 1px 1px 0px #ffffff;
+	text-shadow: 1px 1px 0px #fff;
 	color: #2e2e2e;
 }
 
 #about h4 {
 	font: 18pt/20px "Avenir Light";
-	text-shadow: 1px 1px 0px #ffffff;
+	text-shadow: 1px 1px 0px #fff;
 	color: #2e2e2e;
 	margin-bottom: 50px;
 }

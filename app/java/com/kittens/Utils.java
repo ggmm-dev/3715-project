@@ -32,9 +32,9 @@ public class Utils extends Object {
 	public static final class ErrorCode extends Object {
 
 		public static final String ERROR_MSG = "emessage";
-		public static final String INVALID_CREDENTIALS = "Invalid credentials";
-		public static final String EMAIL_IN_USE = "Please choose a different email";
-		public static final String COMPLETE_FORM = "Please fill out the form";
+		public static final String INVALID_CREDENTIALS = "Invalid credentials.";
+		public static final String EMAIL_IN_USE = "Please choose a different email.";
+		public static final String COMPLETE_FORM = "Please fill out the form.";
 
 	}
 	// a simple date formatter
