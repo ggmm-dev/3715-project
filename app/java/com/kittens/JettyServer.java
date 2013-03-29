@@ -1,7 +1,5 @@
 package com.kittens;
 
-import com.kittens.Utils;
-
 import java.lang.Exception;
 import java.lang.Integer;
 import java.lang.Object;
