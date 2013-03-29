@@ -89,6 +89,7 @@ nav logout:hover {
 
 #main {
 	width: 684px;
+	min-height: 400px;
 	float: right;
 	background: #f6f6f6;
 	margin-top: -51px;
@@ -414,7 +415,7 @@ time {
 	padding: 5px 10px;
 	margin-right: -5px;
 	text-decoration: none;
-	color: #000;	
+	color: #000;
 }
 
 #charts a.inactive {

@@ -7,6 +7,8 @@ import java.io.PrintWriter;
 import java.lang.Object;
 import java.lang.String;
 import java.lang.StringBuilder;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.Enumeration;
 import java.util.Map;
 
@@ -16,6 +18,8 @@ import javax.servlet.http.HttpSession;
 
 public class Utils extends Object {
 
+	// the newline character for all systems
+	public static final String NEWLINE = "\r\n";
 	// tag for session
 	public static final String CURRENT_SESSION_USER = "currentUserInSession";
 	// the administrator's section root
@@ -31,7 +35,15 @@ public class Utils extends Object {
 		public static final String COMPLETE_FORM = "Please fill out the form";
 
 	}
+	// a simple date formatter
+	private static final SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ssz");
 
+	/**
+	 * Returns the given date in ISO format.
+	 */
+	public static String formatDate(Date d) {
+		return formatter.format(d);
+	}
 	/**
 	 * Ask for the response to not be cached by the client.
 	 */

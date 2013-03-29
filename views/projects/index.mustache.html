@@ -16,16 +16,20 @@
 				{{#-first}}
 				<section id="description">
 					<h2>{{name}}</h2>
-					<time datetime="2001-05-15 19:00">May 15</time>
+					<time id="created" datetime="{{datetime}}">{{datetime}}</time>
 					<p>{{description}}</p>
 				</section>
 				<section id="collaborators">
+					{{#collaborators}}
+					{{#-first}}
 					<h3>Collaborators</h3>
 					<ul>
-						<li class="manage">John Doe</li>
-						<li>Jane Smith</li>
-						<li>Curly Chris</li>
+					{{/-first}}
+						<li data-uid="{{this.UUID}}">{{this.username}}</li>
+					{{#-last}}
 					</ul>
+					{{/-last}}
+					{{/collaborators}}
 					<a class="circle-btn align-right hint--left" data-hint="Add a collaborator"><i class="icon-plus"></i></a>
 				</section>
 				{{/-first}}
@@ -33,5 +37,7 @@
 			</div>
 			{{>plist}}
 		</div>
+		{{>jslibs}}
+		<script src="/js/projects.js"></script>
 	</body>
-{{>close}}
+</html>

@@ -21,32 +21,22 @@
 					<table>
 						<thead>
 							<tr>
+								{{#headers}}
 								<th>
-									<h6 contenteditable="true">Date</h6>
+									<h6 contenteditable="true">{{this}}</h6>
 									{{>types}}
 								</th>
-								<th>
-									<h6 contenteditable="true">Time</h6>
-									{{>types}}
-								</th>
-								<th>
-									<h6 contenteditable="true">Temperature</h6>
-									{{>types}}
-								</th>
-								<th>
-									<h6 contenteditable="true">Wind Speed</h6>
-									{{>types}}
-								</th>
+								{{/headers}}
 							</tr>
 						</thead>
 						<tbody>
-							<tr><td>1</td><td>2</td><td>3</td><td>4</td></tr>
-							<tr><td>1</td><td>2</td><td>3</td><td>4</td></tr>
-							<tr><td>1</td><td>2</td><td>3</td><td>4</td></tr>
-							<tr><td>1</td><td>2</td><td>3</td><td>4</td></tr>
-							<tr><td>1</td><td>2</td><td>3</td><td>4</td></tr>
-							<tr><td>1</td><td>2</td><td>3</td><td>4</td></tr>
-							<tr><td>1</td><td>2</td><td>3</td><td>4</td></tr>
+							{{#rows}}
+							<tr>
+								{{#this.values}}
+								<td contenteditable="true">{{this}}</td>
+								{{/this.values}}
+							</tr>
+							{{/rows}}
 						</tbody>
 					</table>
 					<a class="cloud bottom hint--left" data-hint="Export dataset"><i class="icon-cloud-download"></i></a>
@@ -58,5 +48,6 @@
 			</div>
 			{{>plist}}
 		</div>
+		{{>jslibs}}
 	</body>
-{{>close}}
+</html>

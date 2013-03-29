@@ -25,7 +25,7 @@ class BaseController extends HttpServlet {
 		// the root of the webapp context
 		String webPath = config.getServletContext().getRealPath(Utils.APP_ROOT);
 		try { database = new ApplicationDatabase(webPath); }
-		// print stack traces
+		// print stack trace
 		catch (SQLException e) { e.printStackTrace(); return; }
 	}
 
