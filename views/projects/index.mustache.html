@@ -20,16 +20,12 @@
 					<p>{{description}}</p>
 				</section>
 				<section id="collaborators">
-					{{#collaborators}}
-					{{#-first}}
 					<h3>Collaborators</h3>
 					<ul>
-					{{/-first}}
+						{{#collaborators}}
 						<li data-uid="{{this.UUID}}">{{this.username}}</li>
-					{{#-last}}
+						{{/collaborators}}
 					</ul>
-					{{/-last}}
-					{{/collaborators}}
 					<a class="circle-btn align-right hint--left" data-hint="Add a collaborator"><i class="icon-plus"></i></a>
 				</section>
 				{{/-first}}

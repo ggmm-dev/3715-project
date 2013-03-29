@@ -61,7 +61,6 @@ public class ApplicationDatabase extends Object {
 	 */
 	public ApplicationDatabase(String path) throws SQLException {
 		DB_PATH = path + File.separator + DB_NAME;
-		boolean needsDefaultAdministrator = false;
 		Statement s = null;
 		PreparedStatement p = null;
 		ResultSet r = null;
@@ -72,11 +71,10 @@ public class ApplicationDatabase extends Object {
 			p.setString(1, "table");
 			p.setString(2, "users");
 			r = p.executeQuery();
-			if (!r.next()) {
-				// the users table has not been created
-				// we will create it now, but while doing
-				// so we need to add the default admin
-				needsDefaultAdministrator = true;
+			if (r.next()) {
+				// the users table has been created
+				// assume all table have too
+				return;
 			}
 			// prepare the database with tables
 			s = database.createStatement();
@@ -90,20 +88,18 @@ public class ApplicationDatabase extends Object {
 				"password TEXT NOT NULL",
 				"admin BOOLEAN NOT NULL"
 			));
-			if (needsDefaultAdministrator) {
-				p = database.prepareStatement(String.format(
-					"INSERT INTO %s %s;",
-					"users(uuid, name, email, password, admin)",
-					"VALUES(?, ?, ?, ?, ?)"
-				));
-				User defaultAdmin = new User("Admin", "admin@localhost", "password", /* is admin */ true);
-				p.setString(1, defaultAdmin.getUUID());
-				p.setString(2, defaultAdmin.getUsername());
-				p.setString(3, defaultAdmin.getEmail());
-				p.setString(4, defaultAdmin.getPassword());
-				p.setBoolean(5, defaultAdmin.isAdmin());
-				p.executeUpdate();
-			}
+			p = database.prepareStatement(String.format(
+				"INSERT INTO %s %s;",
+				"users(uuid, name, email, password, admin)",
+				"VALUES(?, ?, ?, ?, ?)"
+			));
+			User defaultAdmin = new User("Admin", "admin@localhost", "password", /* is admin */ true);
+			p.setString(1, defaultAdmin.getUUID());
+			p.setString(2, defaultAdmin.getUsername());
+			p.setString(3, defaultAdmin.getEmail());
+			p.setString(4, defaultAdmin.getPassword());
+			p.setBoolean(5, defaultAdmin.isAdmin());
+			p.executeUpdate();
 			s.executeUpdate(String.format(
 				"CREATE TABLE IF NOT EXISTS datasets(%s, %s, %s, %s, %s);",
 				"id INTEGER PRIMARY KEY",
@@ -113,10 +109,16 @@ public class ApplicationDatabase extends Object {
 				"created INTEGER NOT NULL"
 			));
 			s.executeUpdate(String.format(
-				"CREATE TABLE IF NOT EXISTS access(%s, %s, %s);",
-				"user TEXT NOT NULL PRIMARY KEY",
+				"CREATE TABLE IF NOT EXISTS access(%s, %s, %s, %s);",
+				"id INTEGER PRIMARY KEY",
+				"user TEXT NOT NULL",
 				"dataset TEXT NOT NULL",
 				"owner BOOLEAN NOT NULL"
+			));
+			s.executeUpdate(String.format(
+				"CREATE UNIQUE INDEX %s ON %s;",
+				"user_dataset",
+				"access(user, dataset)"
 			));
 		}
 		finally {

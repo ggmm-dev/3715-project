@@ -1,11 +1,11 @@
 <aside>
 	<menu>
 		<h6>Welcome {{user.username}}!</h6>
-		<a class="grey-add-btn">Create New Project</a>
-		{{#datasets}}
+		<a class="grey-add-btn" id="new-project">Create New Project</a>
 		<ul>
+			{{#datasets}}
 			<li><a data-pid="{{UUID}}">{{name}}</a></li>
+			{{/datasets}}
 		</ul>
-		{{/datasets}}
 	</menu>
 </aside>

@@ -8,6 +8,12 @@ body {
 	padding-bottom: 95px;
 }
 
+[placeholder]:focus::-webkit-input-placeholder {
+	transition: text-indent 0.5s 3s ease;
+	text-indent: -100%;
+	opacity: 1;
+}
+
 .clearfix:before,
 .clearfix:after {
 	content: " ";

@@ -94,4 +94,16 @@
 		<url-pattern>/projects/stats</url-pattern>
 	</servlet-mapping>
 
+	<!-- API -->
+
+	<servlet>
+		<servlet-name>AjaxAPI</servlet-name>
+		<servlet-class>com.kittens.controller.AjaxAPI</servlet-class>
+	</servlet>
+
+	<servlet-mapping>
+		<servlet-name>AjaxAPI</servlet-name>
+		<url-pattern>/api/dataset</url-pattern>
+	</servlet-mapping>
+
 </web-app>

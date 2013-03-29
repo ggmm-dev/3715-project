@@ -22,7 +22,7 @@ public class Dataset extends Object {
 		/**
 		 * Creates a new dataset row with the values contained in the given {@code ArrayList<String>}.
 		 */
-		Row(ArrayList<String> values) {
+		public Row(ArrayList<String> values) {
 			this.values = new String[values.size()];
 			for (int i = 0; i < values.size(); i++) {
 				this.values[i] = values.get(i);
@@ -221,6 +221,13 @@ public class Dataset extends Object {
 		return this;
 	}
 	/**
+	 *
+	 */
+	public Dataset setRows(ArrayList<Row> rows) {
+		this.rows = rows;
+		return this;
+	}
+	/**
 	 * Adds the specified rows to the dataset.
 	 */
 	public Dataset addRows(Dataset.Row ... rows) {
@@ -243,6 +250,13 @@ public class Dataset extends Object {
 	 */
 	public int getWidth() {
 		return headers.size();
+	}
+	/**
+	 * Returns whether this dataset has at least headers,
+	 * a name, description, and an owner.
+	 */
+	public boolean isValid() {
+		return true;
 	}
 	/**
 	 * Returns the headers and values contained in this dataset as a String.

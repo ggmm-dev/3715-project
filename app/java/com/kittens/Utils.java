@@ -2,6 +2,7 @@ package com.kittens;
 
 import com.kittens.database.User;
 
+import java.io.InputStream;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.lang.Object;
@@ -11,6 +12,7 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Enumeration;
 import java.util.Map;
+import java.util.Scanner;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -38,6 +40,14 @@ public class Utils extends Object {
 	// a simple date formatter
 	private static final SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ssz");
 
+	/**
+	 * Reads the whole stream into a string.
+	 * http://weblogs.java.net/blog/pat/archive/2004/10/stupid_scanner.html
+	 */
+	public static String readStream(InputStream stream) throws IOException {
+		Scanner s = new Scanner(stream, "UTF-8").useDelimiter("\\A");
+		return s.hasNext() ? s.next() : "";
+	}
 	/**
 	 * Returns the given date in ISO format.
 	 */
