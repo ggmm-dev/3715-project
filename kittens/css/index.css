@@ -112,6 +112,11 @@ nav input[type="submit"] {
 	color: #459386;
 }
 
+.data:after {
+	content: '\a';
+	white-space: pre;
+}
+
 .trw {
 	font: 35pt "Avenir Light";
 }
