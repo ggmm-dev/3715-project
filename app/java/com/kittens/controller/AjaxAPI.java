@@ -1,5 +1,6 @@
 package com.kittens.controller;
 
+import com.google.gson.Gson;
 import com.google.gson.JsonParser;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonArray;
@@ -9,6 +10,7 @@ import com.kittens.database.Dataset;
 import com.kittens.database.User;
 import com.kittens.Utils;
 
+import java.io.PrintWriter;
 import java.io.IOException;
 import java.sql.SQLException;
 import java.util.ArrayList;
@@ -21,18 +23,33 @@ import javax.servlet.ServletException;
 public class AjaxAPI extends BaseController {
 
 	// the version of this object
-	public static final long serialVersionUID = 0L;
-	// JSON serilaizer/deserializer
-	private final JsonParser parser = new JsonParser();
+	private static final long serialVersionUID = 0L;
+	// JSON serilaizers/deserializers
+	private static final JsonParser parser = new JsonParser();
+	private static final Gson gson = new Gson();
 
+	/**
+	 * Returns the user from the requests, check to ensure authorization,
+	 * sends an error in the case of no user/auth.
+	 */
+	private User getUserOrSendError(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		if (database == null) {
+			response.sendError(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
+			return null;
+		}
+		final User user = Utils.getUserFromRequest(request);
+		if (user == null) {
+			response.sendError(HttpServletResponse.SC_UNAUTHORIZED);
+			return null;
+		}
+		return user;
+	}
 	/**
 	 * Parses a {@code JSONObject} into a dataset.
 	 * <pre>
 	 * {@code
 	 * {
 	 *     "uuid": "xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx",
-	 *     "name": "The name of the dataset",
-	 *     "description": "The description of the dataset."
 	 *     "headers": ["a", "b", "c"],
 	 *     "rows": [
 	 *         ["foo", "bar", "baz"],
@@ -42,20 +59,18 @@ public class AjaxAPI extends BaseController {
 	 * }
 	 * </pre>
 	 */
-	private Dataset parseDataset(JsonObject datasetJson, final User user) {
+	private void updateDatasetData(JsonObject datasetJson) throws SQLException {
 		// fields
-		final String name, description;
+		final String UUID = datasetJson.get("uuid").getAsString();
 		final ArrayList<String> headers = new ArrayList<String>();
 		final ArrayList<Dataset.Row> rows = new ArrayList<Dataset.Row>();
 		// set the fields
-		name = datasetJson.get("name").getAsString();
-		description = datasetJson.get("description").getAsString();
 		JsonArray jsonHeaders = datasetJson.getAsJsonArray("headers");
 		for (JsonElement header : jsonHeaders) {
 			headers.add(header.getAsString());
 		}
-		JsonArray rowsArrayJson = datasetJson.getAsJsonArray("rows");
 		// for each row
+		JsonArray rowsArrayJson = datasetJson.getAsJsonArray("rows");
 		for (JsonElement rowJson : rowsArrayJson) {
 			JsonArray rowArrayJson = rowJson.getAsJsonArray();
 			ArrayList<String> values = new ArrayList<String>();
@@ -64,35 +79,80 @@ public class AjaxAPI extends BaseController {
 			}
 			rows.add(new Dataset.Row(values));
 		}
-		return (new Dataset(user, name, description, new Date())).setHeaders(headers).setRows(rows);
+		database.dropCreateDataset(UUID, headers, rows);
 	}
 	/**
-	 * Handle PUT requests.
+	 * Handle GET requests.
+	 * Returns the dataset associated with the parameterized UUID.
 	 */
-	@Override public void doPut(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		User currentSessionUser = Utils.getUserFromRequest(request);
-		if (database == null) {
-			response.sendError(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
-			return;
-		}
-		if (currentSessionUser == null) {
-			response.sendError(HttpServletResponse.SC_UNAUTHORIZED);
-			return;
-		}
-		String json = Utils.readStream(request.getInputStream());
-		Dataset dataset = parseDataset(parser.parse(json).getAsJsonObject(), currentSessionUser);
-		if (!dataset.isValid()) {
-			response.sendError(HttpServletResponse.SC_BAD_REQUEST);
-			return;
-		}
+	@Override public void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		User currentSessionUser = getUserOrSendError(request, response);
+		if (currentSessionUser == null) return;
+		final String databaseUUID = request.getParameter("uuid");
 		try {
-			database.addDataset(currentSessionUser, dataset);
+			Dataset dataset = database.getDataset(databaseUUID);
+			PrintWriter out = response.getWriter();
+			out.print(gson.toJson(dataset));
+		}
+		catch (SQLException e) {
+			response.sendError(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
+		}
+		return;
+	}
+	/**
+	 * Handle POST requests.
+	 * Creates new datasets for the current user.
+	 */
+	@Override public void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		User currentSessionUser = getUserOrSendError(request, response);
+		if (currentSessionUser == null) return;
+		Dataset newDataset = Dataset.newSampleDataset(currentSessionUser);
+		try {
+			database.addDataset(currentSessionUser, newDataset);
 		}
 		catch (SQLException e) {
 			e.printStackTrace();
 			response.sendError(HttpServletResponse.SC_BAD_REQUEST);
 			return;
 		}
+		PrintWriter out = response.getWriter();
+		out.print(gson.toJson(newDataset));
+	}
+	/**
+	 * Handle PUT requests.
+	 * Updates datasets for the user.
+	 */
+	@Override public void doPut(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		User currentSessionUser = getUserOrSendError(request, response);
+		if (currentSessionUser == null) return;
+		final String json = Utils.readStream(request.getInputStream());
+		// System.out.println(json);
+		final JsonObject datasetChangeRequest = parser.parse(json).getAsJsonObject();
+		final String requestType = datasetChangeRequest.get("type").getAsString();
+		if (requestType.equals("meta")) {
+			// change metadata
+			database.updateDatasetMetadata(
+				datasetChangeRequest.get("uuid").getAsString(),
+				datasetChangeRequest.get("name").getAsString(),
+				datasetChangeRequest.get("description").getAsString()
+			);
+		}
+		else if (requestType.equals("data")) {
+			// update data
+			try {
+				updateDatasetData(datasetChangeRequest);
+			}
+			catch (SQLException e) {
+				e.printStackTrace();
+				response.sendError(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
+				return;
+			}
+		}
+		else {
+			response.sendError(HttpServletResponse.SC_BAD_REQUEST);
+			return;
+		}
+		response.getWriter().print(json);
 	}
 
 }

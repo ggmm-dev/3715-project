@@ -62,24 +62,28 @@ public class Dataset extends Object {
 
 	}
 
-	// s sample set of data
+	// a sample set of data
 	public static final Dataset newSampleDataset(final User user) {
 		return new Dataset(
 			user,
-			"Example Dataset",
-			"A sample dataset just for you. You can go ahead and delete this whenever you\'re ready, or modify it to suit your needs.",
+			"Sample Dataset",
+			"This is a sample dataset just for you. You can go ahead and delete this whenever you\'re ready, or modify it to suit your needs.",
 			new Date()
 		).setHeaders(
-			"person",
-			"place",
-			"thing"
+			"People",
+			"Places",
+			"Things"
 		).setRows(
-			new Dataset.Row("foo", "bar", "baz"),
-			new Dataset.Row("12", "10", "42")
+			new Dataset.Row("33", "43", "12"),
+			new Dataset.Row("12", "10", "42"),
+			new Dataset.Row("R", "G", "B"),
+			new Dataset.Row("Red", "Blue", "Green")
 		);
 	}
 	// uuid
 	private final String UUID;
+	// the owner of this dataset
+	private User owner;
 	// the dataset name
 	protected String name;
 	// the dataset description
@@ -107,6 +111,7 @@ public class Dataset extends Object {
 	 */
 	public Dataset(User owner, String name, String description, Date dateOfCreation) {
 		UUID = Utils.uuid();
+		this.owner = owner;
 		this.name = name;
 		this.description = description;
 		this.dateOfCreation = dateOfCreation;
@@ -116,6 +121,19 @@ public class Dataset extends Object {
 	 */
 	public String getUUID() {
 		return UUID;
+	}
+	/**
+	 * Returns the owner of the dataset.
+	 */
+	public User getOwner() {
+		return owner;
+	}
+	/**
+	 * Sets the owner of the dataset.
+	 */
+	public Dataset setOwner(User user) {
+		this.owner = owner;
+		return this;
 	}
 	/**
 	 * Returns the name of this dataset.
@@ -263,6 +281,8 @@ public class Dataset extends Object {
 	 */
 	@Override public String toString() {
 		StringBuilder s = new StringBuilder();
+		s.append(name + Utils.NEWLINE);
+		s.append(description + Utils.NEWLINE);
 		Joiner.on(",").appendTo(s, headers);
 		s.append(Utils.NEWLINE);
 		for (Row row : rows) {

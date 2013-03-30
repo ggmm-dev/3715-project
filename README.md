@@ -22,3 +22,14 @@ Ideas for improvement
 - [Intro.js](http://usablica.github.com/intro.js/)
 - [Cornify](http://www.cornify.com/)
 - Realtime via <https://github.com/videlalvaro/gifsockets>?
+
+Still to be done
+----------------
+
+- Everything
+- Text at the bottom of the homepage
+- Add/remove collaborators
+- All the data page (remove/add rows/columns AND saving)
+- Changing between datasets
+- Export dataset (import will be difficult.)
+- ?

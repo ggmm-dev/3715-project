@@ -120,6 +120,11 @@ public class ApplicationDatabase extends Object {
 				"user_dataset",
 				"access(user, dataset)"
 			));
+			s.executeUpdate(String.format(
+				"CREATE UNIQUE INDEX %s ON %s;",
+				"dataset_owner",
+				"access(dataset, owner)" // only one owner per
+			));
 		}
 		finally {
 			if (s != null) {
@@ -222,6 +227,36 @@ public class ApplicationDatabase extends Object {
 		return (user != null && BCrypt.checkpw(password, user.getPassword())) ? user : null;
 	}
 	/**
+	 * Returns the dataset that matches the given id.
+	 */
+	public Dataset getDataset(String datasetUUID) throws SQLException {
+		try {
+			openConnection();
+			PreparedStatement ps = database.prepareStatement(String.format(
+				"SELECT %s FROM %s WHERE %s",
+				"name, desc, created",
+				"datasets",
+				"uuid = ?"
+			));
+			ps.setString(1, datasetUUID);
+			ResultSet rs = ps.executeQuery();
+			if (rs.next()) {
+				Dataset dataset = new Dataset(
+					datasetUUID,
+					rs.getString(1),
+					rs.getString(2),
+					new Date(rs.getLong(3))
+				);
+				populateDataset(dataset);
+				return dataset;
+			}
+			return null;
+		}
+		finally {
+			closeConnection();
+		}
+	}
+	/**
 	 * Adds the given dataset into the database, setting the user as the owner.
 	 */
 	public void addDataset(final User user, final Dataset dataset) throws SQLException {
@@ -288,8 +323,7 @@ public class ApplicationDatabase extends Object {
 		final String userUUID = user.getUUID();
 		try {
 			PreparedStatement ps;
-			ResultSet r1, r2, r3, r4;
-			ResultSetMetaData rsmd;
+			ResultSet r1, r2;
 			openConnection();
 			// get all the dataset the user has access to
 			ps = database.prepareStatement(String.format(
@@ -316,9 +350,9 @@ public class ApplicationDatabase extends Object {
 					datasets.add(
 						new Dataset(
 							datasetUUID,
-							/* name */ r2.getString(1),
-							/* desc */ r2.getString(2),
-							/* date */ new Date(r2.getLong(3))
+							r2.getString(1),
+							r2.getString(2),
+							new Date(r2.getLong(3))
 						)
 					);
 				}
@@ -326,43 +360,7 @@ public class ApplicationDatabase extends Object {
 			// fill the datasets with their data
 			final int numberOfDatasets = datasets.size();
 			for (int i = 0; i < numberOfDatasets; i++) {
-				final Dataset dataset = datasets.get(i);
-				final String datasetUUID = dataset.getUUID();
-				final ArrayList<String> headers = new ArrayList<String>();
-				// the data
-				ps = database.prepareStatement(String.format(
-					"SELECT * FROM [%s];",
-					datasetUUID
-				));
-				r3 = ps.executeQuery();
-				// get the metadata
-				rsmd = r3.getMetaData();
-				final int numberOfColumns = rsmd.getColumnCount();
-				for (int j = 1; j <= numberOfColumns; j++) {
-					// add the headers
-					headers.add(rsmd.getColumnName(j));
-				}
-				dataset.setHeaders(headers);
-				while (r3.next()) {
-					// populate the rows
-					final ArrayList<String> values = new ArrayList<String>();
-					for (int j = 1; j <= numberOfColumns; j++) {
-						values.add(r3.getString(j));
-					}
-					dataset.addRows(new Dataset.Row(values));
-				}
-				// add the collaborators back
-				ps = database.prepareStatement(String.format(
-					"SELECT %s FROM %s WHERE %s;",
-					"user",
-					"access",
-					"dataset = ?"
-				));
-				ps.setString(1, datasetUUID);
-				r4 = ps.executeQuery();
-				while (r4.next()) {
-					dataset.addCollaborators(getUserForUUID(r4.getString(1)));
-				}
+				populateDataset(datasets.get(i));
 			}
 			ps.close();
 			closeConnection();
@@ -372,6 +370,115 @@ public class ApplicationDatabase extends Object {
 			return null;
 		}
 		return datasets;
+	}
+	/**
+	 * Updates the name and description of the dataset.
+	 */
+	public void updateDatasetMetadata(String UUID, String name, String description) {
+		try {
+			openConnection();
+			PreparedStatement ps = database.prepareStatement(String.format(
+				"UPDATE %s SET %s WHERE %s;",
+				"datasets",
+				"name = ?, desc = ?",
+				"uuid = ?"
+			));
+			ps.setString(1, name);
+			ps.setString(2, description);
+			ps.setString(3, UUID);
+			ps.executeUpdate();
+			ps.close();
+			closeConnection();
+		}
+		catch (SQLException e) {
+			e.printStackTrace();
+		}
+	}
+	/**
+	 * Populates the given dataset with its headers and rows.
+	 */
+	private void populateDataset(Dataset dataset) throws SQLException {
+		ArrayList<String> headers = new ArrayList<String>();
+		String uuid = dataset.getUUID();
+		PreparedStatement ps = database.prepareStatement(String.format(
+			"SELECT * FROM [%s];",
+			uuid
+		));
+		ResultSet rs = ps.executeQuery();
+		ResultSetMetaData rsmd = rs.getMetaData();
+		// the headers
+		int numberOfColumns = rsmd.getColumnCount();
+		for (int j = 1; j <= numberOfColumns; j++) {
+			// add the headers
+			headers.add(rsmd.getColumnName(j));
+		}
+		dataset.setHeaders(headers);
+		// the data
+		while (rs.next()) {
+			// populate the rows
+			ArrayList<String> values = new ArrayList<String>();
+			for (int j = 1; j <= numberOfColumns; j++) {
+				values.add(rs.getString(j));
+			}
+			dataset.addRows(new Dataset.Row(values));
+		}
+		// add the collaborators back
+		ps = database.prepareStatement(String.format(
+			"SELECT %s FROM %s WHERE %s;",
+			"user, owner",
+			"access",
+			"dataset = ?"
+		));
+		ps.setString(1, uuid);
+		rs = ps.executeQuery();
+		while (rs.next()) {
+			User user = getUserForUUID(rs.getString(1));
+			if (rs.getBoolean(2)) {
+				dataset.setOwner(user);
+			}
+			dataset.addCollaborators(user);
+		}
+		rs.close();
+		ps.close();
+	}
+	/**
+	 * Drop and re-adds the whole database.
+	 * This is probably SUPER INEFFICIENT.
+	 */
+	public void dropCreateDataset(String uuid, ArrayList<String> headers, ArrayList<Dataset.Row> rows) throws SQLException {
+		final int width = headers.size();
+		try {
+			openConnection();
+			PreparedStatement ps = database.prepareStatement(String.format(
+				"DROP TABLE [%s];", uuid
+			));
+			ps.executeUpdate();
+			Statement s = database.createStatement();
+			s.executeUpdate(String.format(
+				"CREATE TABLE IF NOT EXISTS [%s](%s);",
+				uuid,
+				// join together the headers from the dataset
+				Joiner.on(" TEXT NOT NULL, ").join(headers) + " TEXT NOT NULL"
+			));
+			// add the row data
+			for (Dataset.Row row : rows) {
+				final String[] values = row.getValues();
+				ps = database.prepareStatement(String.format(
+					"INSERT INTO [%s] %s;",
+					uuid,
+					"VALUES(" + Joiner.on(",").join(Strings.repeat("?", width).split("(?!^)")) + ")"
+				));
+				for (int i = 1; i <= width; i++) {
+					ps.setString(i, values[i - 1]);
+				}
+				ps.executeUpdate();
+			}
+			s.close();
+			ps.close();
+		}
+		finally {
+			closeConnection();
+		}
 	}
 
 }

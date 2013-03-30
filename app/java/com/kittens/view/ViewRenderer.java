@@ -36,7 +36,7 @@ public class ViewRenderer extends Object {
 	/**
 	 * No args constructor.
 	 */
-	public ViewRenderer() {
+	ViewRenderer() {
 		// empty
 	}
 
@@ -52,17 +52,7 @@ public class ViewRenderer extends Object {
 	public static void render(PrintWriter out, String fname, Object obj) {
 		// store the compiled template if it doesn't already exist
 		// if it already exists, use the precompiled template
-		final Template t;
-		if (templates.containsKey(fname)) {
-			// use precompiled version
-			t = templates.get(fname);
-		}
-		else {
-			// compile
-			t = mCompiler.compile(new InputStreamReader(ClassLoader.getSystemResourceAsStream(fname + TEMPLATE_EXT)));
-			// store
-			templates.put(fname, t);
-		}
+		Template t = mCompiler.compile(new InputStreamReader(ClassLoader.getSystemResourceAsStream(fname + TEMPLATE_EXT)));
 		// execute the template with
 		// the given object's fields
 		out.print(t.execute(obj));

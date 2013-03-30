@@ -161,7 +161,7 @@ aside ul li:hover {
 	background-color: rgba(255, 255, 255, 0.2);
 }
 
-aside ul li.manage {
+aside ul li[data-selected] {
 	background: url("../imgs/star.png") no-repeat top left;
 }
 
@@ -246,6 +246,7 @@ a.green-add-btn:hover {
 
 .align-right {
 	float: right;
+	margin-left: 20px;
 }
 
 #description {
@@ -255,6 +256,7 @@ a.green-add-btn:hover {
 	padding: 0 20px 0 0;
 	border-right: 1px solid #e6e5e5;
 	height: 90%;
+	font-size: 12pt;
 }
 
 #collaborators {
@@ -300,7 +302,7 @@ time {
 
 #data {
 	width: 100%;
-	margin: 20px 20px 20px 0;
+	margin: 20px 0 0;
 }
 
 #data a {
@@ -467,7 +469,7 @@ time {
 	font: 13pt "Avenir Heavy";
 	padding: 5px 10px;
 	text-transform: uppercase;
-	text-shadow: 1px 1px 0px rgba(255,255,255,0.5);
+	text-shadow: 1px 1px 0px rgba(255, 255, 255, 0.5);
 }
 
 #left-list > table thead tr {

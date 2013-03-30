@@ -2,9 +2,9 @@
 	<menu>
 		<h6>Welcome {{user.username}}!</h6>
 		<a class="grey-add-btn" id="new-project">Create New Project</a>
-		<ul>
+		<ul id="projects-list">
 			{{#datasets}}
-			<li><a data-pid="{{UUID}}">{{name}}</a></li>
+			<li><a data-uuid="{{UUID}}">{{name}}</a></li>
 			{{/datasets}}
 		</ul>
 	</menu>

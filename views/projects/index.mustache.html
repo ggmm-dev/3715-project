@@ -7,26 +7,23 @@
 		{{>uheader}}
 		<div class="wrapper clearfix">
 			<div id="main" role="main">
-				{{^datasets}}
-					<p>
-						You have no projects to display.
-					</p>
-				{{/datasets}}
 				{{#datasets}}
 				{{#-first}}
-				<section id="description">
-					<h2>{{name}}</h2>
+				<section id="description" data-uuid="{{UUID}}">
+					<h2 contenteditable="true">{{name}}</h2>
 					<time id="created" datetime="{{datetime}}">{{datetime}}</time>
-					<p>{{description}}</p>
+					<p contenteditable="true">{{description}}</p>
+					<a id="save" class="circle-btn align-right hint--left" data-hint="Save all changes"><i class="icon-save"></i></a>
 				</section>
 				<section id="collaborators">
 					<h3>Collaborators</h3>
 					<ul>
 						{{#collaborators}}
-						<li data-uid="{{this.UUID}}">{{this.username}}</li>
+						<li data-uuid="{{this.UUID}}">{{this.username}}</li>
 						{{/collaborators}}
 					</ul>
-					<a class="circle-btn align-right hint--left" data-hint="Add a collaborator"><i class="icon-plus"></i></a>
+					<a id="rm-c" class="circle-btn align-right hint--left" data-hint="Remove selected collaborators"><i class="icon-minus-sign"></i></a>
+					<a id="add-c" class="circle-btn align-right hint--left" data-hint="Add a collaborator"><i class="icon-plus-sign"></i></a>
 				</section>
 				{{/-first}}
 				{{/datasets}}

@@ -44,6 +44,10 @@ input[type="submit"] {
 	to   { background-position: 60px 30px; }
 }
 
+[contenteditable="true"] {
+	outline: none;
+}
+
 /*
 [contentEditable="true"]:focus {
 	-webkit-animation: barberpole 0.5s linear infinite;
