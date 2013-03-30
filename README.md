@@ -26,10 +26,6 @@ Ideas for improvement
 Still to be done
 ----------------
 
-- Everything
 - Text at the bottom of the homepage
 - Add/remove collaborators
-- All the data page (remove/add rows/columns AND saving)
-- Changing between datasets
 - Export dataset (import will be difficult.)
-- ?

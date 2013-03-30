@@ -19,7 +19,10 @@
 					<h3>Collaborators</h3>
 					<ul>
 						{{#collaborators}}
-						<li data-uuid="{{this.UUID}}">{{this.username}}</li>
+						<li data-uuid="{{this.UUID}}">
+							<input type="checkbox" />
+							{{this.username}}
+						</li>
 						{{/collaborators}}
 					</ul>
 					<a id="rm-c" class="circle-btn align-right hint--left" data-hint="Remove selected collaborators"><i class="icon-minus-sign"></i></a>

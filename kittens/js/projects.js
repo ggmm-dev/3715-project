@@ -7,7 +7,8 @@
 	projectsList = document.getElementById("projects-list"),
 	saveChanges = document.getElementById("save"),
 	collaboratorList = document.querySelector("#collaborators > ul"),
-	addCollaborator = document.getElementById("add-c"),
+	addCollaboratorBtn = document.getElementById("add-c"),
+	rmCollaboratorsBtn = document.getElementById("rm-c"),
 	saveNameDescription = function (e) {
 		console.log(e.target);
 		var newName = document.querySelector("#description > h2").innerText,
@@ -24,6 +25,7 @@
 			data: updateRequest
 		}).done(function (data) {
 			var dataset = JSON.parse(data);
+			console.log(dataset);
 			$(projectsList).find("a[data-uuid=\"" + dataset.uuid +  "\"]").text(dataset.name);
 		});
 	},
@@ -31,6 +33,7 @@
 		console.log(e.target);
 		$.ajax("/api/dataset", { type: "POST" }).done(function (data) {
 			var dataset = JSON.parse(data);
+			console.log(dataset);
 			projectsList.appendChild(function () {
 				var li = document.createElement("li"),
 				a = document.createElement("a");
@@ -61,12 +64,16 @@
 	addCollaborators = function (e) {
 		console.log(e.target);
 	},
+	rmCollaborators = function (e) {
+		console.log(e.target);
+	},
 	initHandlers = function () {
 		saveChanges.addEventListener("click", saveNameDescription);
 		$("aside > menu > ul > li > a").each(function (i, e) {
 			e.addEventListener("click", showProject);
 		});
-		addCollaborator.addEventListener("click", addCollaborators);
+		addCollaboratorBtn.addEventListener("click", addCollaborators);
+		rmCollaboratorsBtn.addEventListener("click", rmCollaborators);
 	};
 	window.addEventListener("DOMContentLoaded", function () {
 		// update the date of creation

@@ -2,6 +2,8 @@
 
 	"use strict";
 	var i = 0,
+	createNewProject = document.getElementById("new-project"),
+	projectsList = document.getElementById("projects-list"),
 	saveChangesBtn = document.getElementById("save"),
 	addRowBtn = document.getElementById("add-row"),
 	rmRowBtn = document.getElementById("rm-row"),
@@ -34,12 +36,12 @@
 		th,
 		j = 0;
 		for (j = 0; j < rowCount; j++) {
-			if (j == 0) {
+			if (j === 0) {
 				// the table header
 				th = document.createElement("th");
 				h6 = document.createElement("h6");
 				h6.contentEditable = true;
-				h6.innerText = "New_column";
+				h6.innerText = "NewColumn";
 				th.appendChild(h6);
 				dataTable.rows[j].appendChild(th);
 				continue;
@@ -52,6 +54,15 @@
 	},
 	rmCol = function (e) {
 		console.log(e.target);
+		var rowCount = dataTable.rows.length,
+		colCount = dataTable.rows[0].cells.length,
+		j = 0;
+		for (j = 0; j < rowCount; j++) {
+			if (colCount <= 1) {
+				return;
+			}
+			dataTable.rows[j].deleteCell(-1);
+		}
 	},
 	saveChanges = function (e) {
 		console.log(e.target);
@@ -81,12 +92,58 @@
 			console.log(data);
 		});
 	},
+	showProject = function (e) {
+		console.log(e.target);
+		$.get("/api/dataset", {
+			"uuid": e.target.dataset.uuid
+		}).done(function (data) {
+			var dataset = JSON.parse(data),
+			newRowCount = dataset.rows.length,
+			headers,
+			rows,
+			head = document.querySelector("#data-table thead tr"),
+			tbody = document.querySelector("#data-table tbody"),
+			j = 0;
+			// set the headers
+			head.innerHTML = dataset.headers.map(function (v) {
+				return "<th><h6 contenteditable=\"true\">" + v + "</h6></th>";
+			}).join("");
+			tbody.innerHTML = dataset.rows.map(function (r) {
+				return "<tr>" + r.values.map(function (v) {
+					return "<td contenteditable=\"true\">" + v + "</td>";
+				}).join("") + "</tr>";
+			}).join("");
+			$("#data > h2").text(dataset.name);
+			document.getElementById("data").dataset.uuid = dataset.UUID;
+		});
+	},
+	addNewProject = function (e) {
+		console.log(e.target);
+		$.ajax("/api/dataset", { type: "POST" }).done(function (data) {
+			var dataset = JSON.parse(data);
+			console.log(dataset);
+			projectsList.appendChild(function () {
+				var li = document.createElement("li"),
+				a = document.createElement("a");
+				a.dataset.uuid = dataset.UUID;
+				a.innerText = dataset.name;
+				li.appendChild(a);
+				console.log(li);
+				return li;
+			}());
+			initHandlers();
+		});
+	},
 	initHandlers = function () {
+		createNewProject.addEventListener("click", addNewProject);
 		addRowBtn.addEventListener("click", addRow);
 		rmRowBtn.addEventListener("click", rmRow);
 		addColBtn.addEventListener("click", addCol);
 		rmColBtn.addEventListener("click", rmCol);
 		saveChangesBtn.addEventListener("click", saveChanges);
+		$("aside > menu > ul > li > a").each(function (i, e) {
+			e.addEventListener("click", showProject);
+		});
 	};
 	window.addEventListener("DOMContentLoaded", function () {
 		i = $("#data-table th").size();
