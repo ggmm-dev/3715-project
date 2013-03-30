@@ -1,17 +1,18 @@
 package com.kittens.controller;
 
 import com.google.gson.Gson;
-import com.google.gson.JsonParser;
-import com.google.gson.JsonObject;
+import com.google.gson.GsonBuilder;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonElement;
+import com.google.gson.JsonObject;
+import com.google.gson.JsonParser;
 
 import com.kittens.database.Dataset;
 import com.kittens.database.User;
 import com.kittens.Utils;
 
-import java.io.PrintWriter;
 import java.io.IOException;
+import java.io.PrintWriter;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Date;
@@ -26,7 +27,7 @@ public class AjaxAPI extends BaseController {
 	private static final long serialVersionUID = 0L;
 	// JSON serilaizers/deserializers
 	private static final JsonParser parser = new JsonParser();
-	private static final Gson gson = new Gson();
+	private static final Gson gson = new GsonBuilder().excludeFieldsWithoutExposeAnnotation().create();
 
 	/**
 	 * Returns the user from the requests, check to ensure authorization,

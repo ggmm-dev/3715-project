@@ -10,6 +10,7 @@
 	addColBtn = document.getElementById("add-col"),
 	rmColBtn = document.getElementById("rm-col"),
 	dataTable = document.getElementById("data-table"),
+	downloadBtn = document.getElementById("download"),
 	addRow = function (e) {
 		console.log(e.target);
 		var newRow = dataTable.insertRow(-1),
@@ -92,6 +93,15 @@
 			console.log(data);
 		});
 	},
+	downloadDataset = function (e) {
+		console.log(e.target);
+		$.get("/api/dataset", {
+			"uuid": document.getElementById("data").dataset.uuid
+		}).done(function (data) {
+			var dataset = JSON.parse(data);
+			console.log(dataset);
+		});
+	},
 	showProject = function (e) {
 		console.log(e.target);
 		$.get("/api/dataset", {
@@ -148,6 +158,7 @@
 	window.addEventListener("DOMContentLoaded", function () {
 		i = $("#data-table th").size();
 		initHandlers();
+		downloadBtn.addEventListener("click", downloadDataset);
 	});
 
 }(window, window.document);

@@ -330,7 +330,6 @@ time {
 #data table thead {
 	background: #c1bfbf;
 	color: #555;
-	text-transform: uppercase;
 	font: 14pt "Avenir Heavy";
 	text-shadow: 1px 1px 0px rgba(255,255,255,0.5);
 	text-align: left;

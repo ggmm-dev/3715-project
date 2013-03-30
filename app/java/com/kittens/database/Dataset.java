@@ -1,6 +1,7 @@
 package com.kittens.database;
 
 import com.google.common.base.Joiner;
+import com.google.gson.annotations.Expose;
 
 import com.kittens.Utils;
 
@@ -17,7 +18,7 @@ public class Dataset extends Object {
 	public static final class Row extends Object {
 
 		// the array of values in this row
-		private String[] values;
+		@Expose private String[] values;
 
 		/**
 		 * Creates a new dataset row with the values contained in the given {@code ArrayList<String>}.
@@ -81,21 +82,21 @@ public class Dataset extends Object {
 		);
 	}
 	// uuid
-	private final String UUID;
+	@Expose private final String UUID;
 	// the owner of this dataset
-	private User owner;
+	@Expose private User owner;
 	// the dataset name
-	protected String name;
+	@Expose protected String name;
 	// the dataset description
-	protected String description;
+	@Expose protected String description;
 	// at what time this dataset was created
-	protected Date dateOfCreation;
+	@Expose protected Date dateOfCreation;
 	// the list of other users with access to this dataset
-	protected ArrayList<User> collaborators = new ArrayList<User>(/* 16 */);
+	@Expose protected ArrayList<User> collaborators = new ArrayList<User>(/* 16 */);
 	// the headers of the dataset
-	protected ArrayList<String> headers = new ArrayList<String>(/* 16 */);
+	@Expose protected ArrayList<String> headers = new ArrayList<String>(/* 16 */);
 	// the rows of data
-	protected ArrayList<Row> rows = new ArrayList<Row>(/* 16 row default */);
+	@Expose protected ArrayList<Row> rows = new ArrayList<Row>(/* 16 row default */);
 
 	/**
 	 * Creates the dataset given the UUID, name, and desc.

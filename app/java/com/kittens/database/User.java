@@ -1,5 +1,7 @@
 package com.kittens.database;
 
+import com.google.gson.annotations.Expose;
+
 import com.kittens.BCrypt;
 import com.kittens.Utils;
 
@@ -9,11 +11,11 @@ import java.lang.String;
 public class User extends Object {
 
 	// fields
-	private String username;
-	private String email;
+	@Expose private String username;
+	@Expose private String email;
 	private String password;
 	private boolean isAdmin;
-	private final String UUID;
+	@Expose private final String UUID;
 
 	/**
 	 * Creates a user with the given values.
