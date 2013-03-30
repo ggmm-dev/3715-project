@@ -278,18 +278,36 @@ public class Dataset extends Object {
 		return true;
 	}
 	/**
-	 * Returns the headers and values contained in this dataset as a String.
+	 * Returns the dataset formatted as a TSV list.
 	 */
-	@Override public String toString() {
+	public String toTSV() {
 		StringBuilder s = new StringBuilder();
-		s.append(name + Utils.NEWLINE);
-		s.append(description + Utils.NEWLINE);
+		Joiner.on("\t").appendTo(s, headers);
+		s.append(Utils.NEWLINE);
+		for (Row row : rows) {
+			Joiner.on("\t").appendTo(s, row.getValues());
+			s.append(Utils.NEWLINE);
+		}
+		return s.toString();
+	}
+	/**
+	 * Returns the dataset formatted as a CSV list.
+	 */
+	public String toCSV() {
+		StringBuilder s = new StringBuilder();
 		Joiner.on(",").appendTo(s, headers);
 		s.append(Utils.NEWLINE);
 		for (Row row : rows) {
-			s.append(row + Utils.NEWLINE);
+			Joiner.on(",").appendTo(s, row.getValues());
+			s.append(Utils.NEWLINE);
 		}
 		return s.toString();
+	}
+	/**
+	 * Returns the headers and values contained in this dataset as a String.
+	 */
+	@Override public String toString() {
+		return toCSV();
 	}
 
 }

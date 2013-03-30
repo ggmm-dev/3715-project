@@ -21,7 +21,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.ServletException;
 
-public class AjaxAPI extends BaseController {
+public class AjaxDatasetAPIController extends BaseController {
 
 	// the version of this object
 	private static final long serialVersionUID = 0L;
