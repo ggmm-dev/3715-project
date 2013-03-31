@@ -99,9 +99,14 @@
 		-->
 		<!-- delete all the class and database files -->
 		<delete>
+			<fileset dir="." includes="**/*.class"/>
+		</delete>
+	</target>
+
+	<target name="rmdb">
+		<delete>
 			<fileset dir="." includes="**/*.sqlite3" />
 			<fileset dir="." includes="**/*.db" />
-			<fileset dir="." includes="**/*.class"/>
 		</delete>
 	</target>
 
