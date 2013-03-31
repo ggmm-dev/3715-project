@@ -11,6 +11,7 @@
 	rmColBtn = document.getElementById("rm-col"),
 	dataTable = document.getElementById("data-table"),
 	downloadBtn = document.getElementById("download"),
+	dropZone = document.getElementById("drop-zone"),
 	addRow = function (e) {
 		console.log(e.target);
 		var newRow = dataTable.insertRow(-1),
@@ -153,8 +154,12 @@
 		var files = event.dataTransfer.files,
 		numberOfFiles = files.length,
 		reader = new FileReader(),
-		file = files[0]; // only read one file
+		file = files[0], // only read one file
+		separator = !!function endsWith(str, suffix) {
+			return str.indexOf(suffix, str.length - suffix.length) !== -1;
+		}(file.name, ".csv") ? "," : "\t";
 		// begin the read operation
+		console.log(separator);
 		reader.readAsText(file, "UTF-8");
 		// init the reader event handlers
 		reader.onload = function (event) {
@@ -164,8 +169,8 @@
 			}).map(function (line, index) {
 				return "<tr>" +
 				(index === 0 ?
-				line.split(",").map(function (v, i) { return "<th><h6 contenteditable=\"true\">" + v + "</h6></th>"; }).join("") :
-				line.split(",").map(function (v, i) { return "<td contenteditable=\"true\">" + v + "</td>"; }).join("")) +
+				line.split(separator).map(function (v, i) { return "<th><h6 contenteditable=\"true\">" + v + "</h6></th>"; }).join("") :
+				line.split(separator).map(function (v, i) { return "<td contenteditable=\"true\">" + v + "</td>"; }).join("")) +
 				"</tr>";
 			}),
 			head = document.querySelector("#data-table thead"),
@@ -174,12 +179,12 @@
 			console.log(lines);
 			head.innerHTML = lines[0];
 			tbody.innerHTML = lines.slice(1).join("");
+			dropZone.style.display = "none";
 		};
 	};
 	window.addEventListener("DOMContentLoaded", function () {
 		i = $("#data-table th").size();
 		initHandlers();
-		var dropZone = document.getElementById("drop-zone");
 		document.getElementById("upload").addEventListener("click", function(event) {
 			console.log(event.target);
 			dropZone.style.display = "block";
