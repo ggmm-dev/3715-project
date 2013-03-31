@@ -159,6 +159,34 @@ public class ApplicationDatabase extends Object {
 		}
 	}
 	/**
+	 * Returns all the users in the database.
+	 */
+	public ArrayList<User> getAllUsers() throws SQLException {
+		ArrayList<User> users = new ArrayList<User>();
+		try {
+			openConnection();
+			PreparedStatement ps = database.prepareStatement(String.format(
+				"SELECT %s FROM %s;",
+				"uuid, name, email, password, admin",
+				"users"
+			));
+			ResultSet rs = ps.executeQuery();
+			while (rs.next()) {
+				users.add(new User(
+					rs.getString(1),
+					rs.getString(2),
+					rs.getString(3),
+					rs.getString(4),
+					rs.getBoolean(5)
+				));
+			}
+		}
+		finally {
+			closeConnection();
+		}
+		return users;
+	}
+	/**
 	 * Returns the user with the given UUID.
 	 */
 	private User getUserForUUID(final String UUID) throws SQLException {

@@ -33,6 +33,7 @@ public class DownloadAPIController extends BaseAPIController {
 			return;
 		}
 		try {
+			response.setContentType("application/zip");
 			ServletOutputStream servletOut = response.getOutputStream();
 			ZipOutputStream zipOut = new ZipOutputStream(servletOut);
 			// add the CSV file to the Zip file
@@ -49,7 +50,6 @@ public class DownloadAPIController extends BaseAPIController {
 			zipOut.closeEntry();
 			// write it out
 			zipOut.close();
-			response.setContentType("application/zip");
 			servletOut.flush();
 		}
 		catch (SQLException e) {

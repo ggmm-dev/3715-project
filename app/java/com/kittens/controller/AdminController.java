@@ -59,6 +59,13 @@ public class AdminController extends BaseController {
 		final HashMap<String, Object> values = new HashMap<String, Object>();
 		values.put("title", "Group Data - All Users");
 		values.put("logo", "Group Data");
+		try {
+			values.put("users", database.getAllUsers());
+		}
+		catch (SQLException e) {
+			e.printStackTrace();
+			return;
+		}
 		// render the view
 		response.setContentType("text/html");
 		ViewRenderer.render(response, "admin/users", values);
