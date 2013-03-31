@@ -68,6 +68,7 @@ public class AjaxDatasetAPIController extends BaseAPIController {
 		final String databaseUUID = request.getParameter("uuid");
 		try {
 			Dataset dataset = database.getDataset(databaseUUID);
+			response.setContentType("application/json");
 			response.getWriter().print(gson.toJson(dataset));
 		}
 		catch (SQLException e) {
@@ -91,6 +92,7 @@ public class AjaxDatasetAPIController extends BaseAPIController {
 			response.sendError(HttpServletResponse.SC_BAD_REQUEST);
 			return;
 		}
+		response.setContentType("application/json");
 		response.getWriter().print(gson.toJson(newDataset));
 	}
 	/**
@@ -127,6 +129,7 @@ public class AjaxDatasetAPIController extends BaseAPIController {
 			response.sendError(HttpServletResponse.SC_BAD_REQUEST);
 			return;
 		}
+		response.setContentType("application/json");
 		response.getWriter().print(json);
 	}
 

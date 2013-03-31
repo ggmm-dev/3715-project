@@ -271,16 +271,14 @@ time {
 #collaborators {
 	float: left;
 	width: -webkit-calc(100% - 421px);
+	width: calc(100% - 421px);
 	padding-left: 20px;
 	margin: 60px 0 0 -1px;
 	border-left: 1px solid #e6e5e5;
 }
 
 #collaborators ul {
-	border: 1px solid #c6c6c6,
-	        1px solid #c6c6c6,
-	        1px solid #c6c6c6,
-	        2px solid #c6c6c6;
+	border: 1px solid #c6c6c6;
 	background: #f0efef;
 	text-shadow: 1px 1px 0 #fff;
 	padding: 0;

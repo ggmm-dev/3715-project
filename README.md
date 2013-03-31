@@ -34,3 +34,4 @@ Still to be done
 - Error messages (and error-checking).
     - When adding peers fails
     - When editing tables (all the restrictions)
+- Test on Firefox

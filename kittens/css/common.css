@@ -105,7 +105,11 @@ menu {
 	box-shadow: none;
 }
 
-.projects-page .projects-link:hover {
+.projects-page .projects-link:hover,
+.data-page .data-link:hover,
+.stats-page .stats-link:hover,
+.admin-projects .admin-projects-tab:hover,
+.admin-users .admin-users-tab:hover {
 	color: #656565;
 	background-color: #f6f6f6;
 }

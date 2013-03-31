@@ -27,16 +27,19 @@ public class AjaxCollaboratorsAPIController extends BaseAPIController {
 		String[] data = gson.fromJson(json, String[].class);
 		try {
 			if (data.length != 2 || !database.emailInDatabase(data[1])) {
+				response.setContentType("application/json");
 				gson.toJson(new Boolean(false), response.getWriter());
 				return;
 			}
 			User newCollaborator = database.getUserForEmail(data[1]);
 			if (newCollaborator.getUUID().equals(currentSessionUser.getUUID())) {
 				// the user is trying to add themself
+				response.setContentType("application/json");
 				gson.toJson(new Boolean(false), response.getWriter());
 				return;
 			}
 			database.addCollaborator(newCollaborator.getUUID(), data[0]);
+			response.setContentType("application/json");
 			gson.toJson(newCollaborator, response.getWriter());
 		}
 		catch (SQLException e) {
@@ -59,6 +62,7 @@ public class AjaxCollaboratorsAPIController extends BaseAPIController {
 			response.sendError(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
 			return;
 		}
+		response.setContentType("application/json");
 		gson.toJson(new Boolean(true), response.getWriter());
 	}
 
