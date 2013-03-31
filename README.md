@@ -27,6 +27,5 @@ Still to be done
 ----------------
 
 - Text at the bottom of the homepage
-- Add/remove collaborators
 - Statistics
 - Import dataset (will be difficult).
