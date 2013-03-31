@@ -26,7 +26,8 @@ Ideas for improvement
 Still to be done
 ----------------
 
-- Text at the bottom of the homepage
+- Text at the bottom of the homepage.
+- Text in the admin sidebar.
 - Admin add/delete users.
 - Sorting columns.
 - Reports (show `select` to choose column).
