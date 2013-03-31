@@ -120,11 +120,6 @@ public class ApplicationDatabase extends Object {
 				"user_dataset",
 				"access(user, dataset)"
 			));
-			s.executeUpdate(String.format(
-				"CREATE UNIQUE INDEX %s ON %s;",
-				"dataset_owner",
-				"access(dataset, owner)" // only one owner per
-			));
 		}
 		finally {
 			if (s != null) {
@@ -164,7 +159,7 @@ public class ApplicationDatabase extends Object {
 		}
 	}
 	/**
-	 *
+	 * Returns the user with the given UUID.
 	 */
 	private User getUserForUUID(final String UUID) throws SQLException {
 		// no need to open connection
@@ -181,6 +176,29 @@ public class ApplicationDatabase extends Object {
 		ResultSet rs = ps.executeQuery();
 		if (rs.next()) {
 			return new User(UUID, rs.getString(1), rs.getString(2), rs.getString(3), rs.getBoolean(4));
+		}
+		return null;
+	}
+	/**
+	 * Returns the user with the given email address.
+	 */
+	public User getUserForEmail(final String email) throws SQLException {
+		try {
+			openConnection();
+			PreparedStatement ps = database.prepareStatement(String.format(
+				"SELECT %s FROM %s WHERE %s;",
+				"uuid, name, email, password, admin",
+				"users",
+				"email = ?"
+			));
+			ps.setString(1, email);
+			ResultSet rs = ps.executeQuery();
+			if (rs.next()) {
+				return new User(rs.getString(1), rs.getString(2), rs.getString(3), rs.getString(4), rs.getBoolean(5));
+			}
+		}
+		finally {
+			closeConnection();
 		}
 		return null;
 	}
@@ -435,6 +453,7 @@ public class ApplicationDatabase extends Object {
 			User user = getUserForUUID(rs.getString(1));
 			if (rs.getBoolean(2)) {
 				dataset.setOwner(user);
+				continue;
 			}
 			dataset.addCollaborators(user);
 		}
@@ -474,6 +493,27 @@ public class ApplicationDatabase extends Object {
 				ps.executeUpdate();
 			}
 			s.close();
+			ps.close();
+		}
+		finally {
+			closeConnection();
+		}
+	}
+	/**
+	 * Grants the given user access to the dataset.
+	 */
+	public void addCollaborator(String userUUID, String datasetUUID) throws SQLException {
+		try {
+			openConnection();
+			PreparedStatement ps = database.prepareStatement(String.format(
+				"INSERT INTO %s %s;",
+				"access(user, dataset, owner)",
+				"VALUES(?, ?, ?)"
+			));
+			ps.setString(1, userUUID);
+			ps.setString(2, datasetUUID);
+			ps.setBoolean(3, false);
+			ps.executeUpdate();
 			ps.close();
 		}
 		finally {

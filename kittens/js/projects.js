@@ -8,6 +8,7 @@
 	saveChanges = document.getElementById("save"),
 	collaboratorList = document.querySelector("#collaborators > ul"),
 	addCollaboratorBtn = document.getElementById("add-c"),
+	addCollaboratorInput = document.getElementById("add-c-input"),
 	rmCollaboratorsBtn = document.getElementById("rm-c"),
 	saveNameDescription = function (e) {
 		console.log(e.target);
@@ -63,6 +64,30 @@
 	},
 	addCollaborators = function (e) {
 		console.log(e.target);
+		var uuid =  document.querySelector("#description").dataset.uuid;
+		$.ajax("/api/user", {
+			type: "PUT",
+			data: JSON.stringify([uuid, addCollaboratorInput.textContent])
+		}).done(function (data) {
+			var user = JSON.parse(data),
+			li = (function () {
+				var li = document.createElement("li"),
+				checkbox = document.createElement("input");
+				checkbox.type = "checkbox";
+				li.appendChild(checkbox);
+				return li;
+			}());
+			console.log(li);
+			console.log(user);
+			if (user === false) {
+			}
+			else {
+				console.log(user.username);
+				li.appendChild(document.createTextNode(user.username));
+				collaboratorList.insertBefore(li, collaboratorList.firstChild);
+				addCollaboratorInput.textContent = "";
+			}
+		});
 	},
 	rmCollaborators = function (e) {
 		console.log(e.target);

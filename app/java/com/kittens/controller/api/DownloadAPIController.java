@@ -1,4 +1,4 @@
-package com.kittens.controller;
+package com.kittens.controller.api;
 
 import com.kittens.database.User;
 import com.kittens.Utils;
@@ -15,7 +15,7 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.ServletException;
 import javax.servlet.ServletOutputStream;
 
-public class DownloadAPIController extends BaseController {
+public class DownloadAPIController extends BaseAPIController {
 
 	// the version of this object
 	private static final long serialVersionUID = 0L;
@@ -24,15 +24,8 @@ public class DownloadAPIController extends BaseController {
 	 * Handle GET requests.
 	 */
 	@Override public void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		if (database == null) {
-			response.sendError(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
-			return;
-		}
-		final User currentSessionUser = Utils.getUserFromRequest(request);
-		if (currentSessionUser == null) {
-			response.sendRedirect(Utils.APP_ROOT);
-			return;
-		}
+		User currentSessionUser = getUserOrSendError(request, response);
+		if (currentSessionUser == null) return;
 		final String UUID = request.getParameter("uuid");
 		if (UUID == null) {
 			// bad request
@@ -63,7 +56,6 @@ public class DownloadAPIController extends BaseController {
 			e.printStackTrace();
 			response.sendError(HttpServletResponse.SC_BAD_REQUEST);
 		}
-		// return;
 	}
 
 }

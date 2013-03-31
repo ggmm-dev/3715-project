@@ -28,4 +28,5 @@ Still to be done
 
 - Text at the bottom of the homepage
 - Add/remove collaborators
-- Export dataset (import will be difficult.)
+- Statistics
+- Import dataset (will be difficult).

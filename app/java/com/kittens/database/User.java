@@ -29,7 +29,7 @@ public class User extends Object {
 	}
 	/**
 	 * Creates a user with the given values for the fields.
-	 * CAUTION! Passing {@code false} for hash results in the password not being hashed.
+	 * CAUTION! This method DOES NOT HASH THE PASSWORD.
 	 */
 	User(String UUID, String username, String email, String password, boolean isAdmin) {
 		this.UUID = UUID;

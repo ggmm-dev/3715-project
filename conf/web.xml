@@ -98,7 +98,7 @@
 
 	<servlet>
 		<servlet-name>AjaxDatasetAPIController</servlet-name>
-		<servlet-class>com.kittens.controller.AjaxDatasetAPIController</servlet-class>
+		<servlet-class>com.kittens.controller.api.AjaxDatasetAPIController</servlet-class>
 	</servlet>
 
 	<servlet-mapping>
@@ -108,19 +108,19 @@
 
 	<servlet>
 		<servlet-name>AjaxUsersAPIController</servlet-name>
-		<servlet-class>com.kittens.controller.AjaxUsersAPIController</servlet-class>
+		<servlet-class>com.kittens.controller.api.AjaxUsersAPIController</servlet-class>
 	</servlet>
 
 	<servlet-mapping>
 		<servlet-name>AjaxUsersAPIController</servlet-name>
-		<url-pattern>/api/users</url-pattern>
+		<url-pattern>/api/user</url-pattern>
 	</servlet-mapping>
 
 	<!-- downloads -->
 
 	<servlet>
 		<servlet-name>DownloadAPIController</servlet-name>
-		<servlet-class>com.kittens.controller.DownloadAPIController</servlet-class>
+		<servlet-class>com.kittens.controller.api.DownloadAPIController</servlet-class>
 	</servlet>
 
 	<servlet-mapping>

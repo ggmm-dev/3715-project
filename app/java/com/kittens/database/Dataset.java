@@ -181,7 +181,14 @@ public class Dataset extends Object {
 		return headers;
 	}
 	/**
-	 * Adds collaborators to the project.
+	 * Sets the collaborators for this dataset.
+	 */
+	public Dataset setCollaborators(ArrayList<User> users) {
+		collaborators = users;
+		return this;
+	}
+	/**
+	 * Adds collaborators to the dataset.
 	 */
 	public Dataset addCollaborators(User ... users) {
 		for (User user : users) {

@@ -1,50 +1,26 @@
-package com.kittens.controller;
+package com.kittens.controller.api;
 
-import com.google.gson.Gson;
-import com.google.gson.GsonBuilder;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
-import com.google.gson.JsonParser;
 
 import com.kittens.database.Dataset;
 import com.kittens.database.User;
 import com.kittens.Utils;
 
 import java.io.IOException;
-import java.io.PrintWriter;
 import java.sql.SQLException;
 import java.util.ArrayList;
-import java.util.Date;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.ServletException;
 
-public class AjaxDatasetAPIController extends BaseController {
+public class AjaxDatasetAPIController extends BaseAPIController {
 
 	// the version of this object
 	private static final long serialVersionUID = 0L;
-	// JSON serilaizers/deserializers
-	private static final JsonParser parser = new JsonParser();
-	private static final Gson gson = new GsonBuilder().excludeFieldsWithoutExposeAnnotation().create();
 
-	/**
-	 * Returns the user from the requests, check to ensure authorization,
-	 * sends an error in the case of no user/auth.
-	 */
-	private User getUserOrSendError(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		if (database == null) {
-			response.sendError(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
-			return null;
-		}
-		final User user = Utils.getUserFromRequest(request);
-		if (user == null) {
-			response.sendError(HttpServletResponse.SC_UNAUTHORIZED);
-			return null;
-		}
-		return user;
-	}
 	/**
 	 * Parses a {@code JSONObject} into a dataset.
 	 * <pre>
@@ -92,8 +68,7 @@ public class AjaxDatasetAPIController extends BaseController {
 		final String databaseUUID = request.getParameter("uuid");
 		try {
 			Dataset dataset = database.getDataset(databaseUUID);
-			PrintWriter out = response.getWriter();
-			out.print(gson.toJson(dataset));
+			response.getWriter().print(gson.toJson(dataset));
 		}
 		catch (SQLException e) {
 			response.sendError(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
@@ -116,8 +91,7 @@ public class AjaxDatasetAPIController extends BaseController {
 			response.sendError(HttpServletResponse.SC_BAD_REQUEST);
 			return;
 		}
-		PrintWriter out = response.getWriter();
-		out.print(gson.toJson(newDataset));
+		response.getWriter().print(gson.toJson(newDataset));
 	}
 	/**
 	 * Handle PUT requests.

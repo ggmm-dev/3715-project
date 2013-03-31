@@ -93,15 +93,6 @@
 			console.log(data);
 		});
 	},
-	downloadDataset = function (e) {
-		console.log(e.target);
-		$.get("/api/dataset", {
-			"uuid": document.getElementById("data").dataset.uuid
-		}).done(function (data) {
-			var dataset = JSON.parse(data);
-			console.log(dataset);
-		});
-	},
 	showProject = function (e) {
 		console.log(e.target);
 		$.get("/api/dataset", {
@@ -125,6 +116,7 @@
 			}).join("");
 			$("#data > h2").text(dataset.name);
 			document.getElementById("data").dataset.uuid = dataset.UUID;
+			downloadBtn.href = "/download/dataset?uuid=" + dataset.UUID;
 		});
 	},
 	addNewProject = function (e) {
@@ -158,7 +150,6 @@
 	window.addEventListener("DOMContentLoaded", function () {
 		i = $("#data-table th").size();
 		initHandlers();
-		downloadBtn.addEventListener("click", downloadDataset);
 	});
 
 }(window, window.document);
