@@ -90,6 +90,7 @@ nav logout:hover {
 #main {
 	width: 684px;
 	float: right;
+	min-height: 250px;
 	background: #f6f6f6;
 	margin-top: -51px;
 	border: 1px solid #9b9a9a;
@@ -435,6 +436,7 @@ time {
 
 #chart {
 	box-sizing: border-box;
+	box-sizing: -moz-border-box;
 	background: #edebeb;
 	border: 1px solid #a5a4a4;
 	min-height: 342px;
@@ -461,6 +463,7 @@ time {
 	background: #e8e8e8;
 	width: 200px;
 	box-sizing: border-box;
+	box-sizing: -moz-border-box;
 	border: 1px solid #6b6b6b;
 }
 

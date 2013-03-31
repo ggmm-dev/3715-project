@@ -43,7 +43,7 @@
 				th = document.createElement("th");
 				h6 = document.createElement("h6");
 				h6.contentEditable = true;
-				h6.innerText = "NewColumn";
+				h6.textContent = "NewColumn";
 				th.appendChild(h6);
 				dataTable.rows[j].appendChild(th);
 				continue;
@@ -99,37 +99,38 @@
 		$.get("/api/dataset", {
 			"uuid": e.target.dataset.uuid
 		}).done(function (data) {
-			var dataset = JSON.parse(data),
-			newRowCount = dataset.rows.length,
+			console.log(data);
+			var newRowCount = data.rows.length,
 			headers,
 			rows,
 			head = document.querySelector("#data-table thead tr"),
 			tbody = document.querySelector("#data-table tbody"),
 			j = 0;
 			// set the headers
-			head.innerHTML = dataset.headers.map(function (v) {
+			head.innerHTML = data.headers.map(function (v) {
 				return "<th><h6 contenteditable=\"true\">" + v + "</h6></th>";
 			}).join("");
-			tbody.innerHTML = dataset.rows.map(function (r) {
+			tbody.innerHTML = data.rows.map(function (r) {
 				return "<tr>" + r.values.map(function (v) {
 					return "<td contenteditable=\"true\">" + v + "</td>";
 				}).join("") + "</tr>";
 			}).join("");
-			$("#data > h2").text(dataset.name);
-			document.getElementById("data").dataset.uuid = dataset.UUID;
-			downloadBtn.href = "/download/dataset?uuid=" + dataset.UUID;
+			$("#data > h2").text(data.name);
+			document.getElementById("data").dataset.uuid = data.UUID;
+			downloadBtn.href = "/download/dataset?uuid=" + data.UUID;
 		});
 	},
 	addNewProject = function (e) {
 		console.log(e.target);
-		$.ajax("/api/dataset", { type: "POST" }).done(function (data) {
-			var dataset = JSON.parse(data);
-			console.log(dataset);
+		$.ajax("/api/dataset", {
+			type: "POST"
+		}).done(function (data) {
+			console.log(data);
 			projectsList.appendChild(function () {
 				var li = document.createElement("li"),
 				a = document.createElement("a");
-				a.dataset.uuid = dataset.UUID;
-				a.innerText = dataset.name;
+				a.dataset.uuid = data.UUID;
+				a.textContent = data.name;
 				li.appendChild(a);
 				console.log(li);
 				return li;
