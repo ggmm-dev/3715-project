@@ -107,6 +107,16 @@
 	</servlet-mapping>
 
 	<servlet>
+		<servlet-name>AjaxCollaboratorsAPIController</servlet-name>
+		<servlet-class>com.kittens.controller.api.AjaxCollaboratorsAPIController</servlet-class>
+	</servlet>
+
+	<servlet-mapping>
+		<servlet-name>AjaxCollaboratorsAPIController</servlet-name>
+		<url-pattern>/api/collaborators</url-pattern>
+	</servlet-mapping>
+
+	<servlet>
 		<servlet-name>AjaxUsersAPIController</servlet-name>
 		<servlet-class>com.kittens.controller.api.AjaxUsersAPIController</servlet-class>
 	</servlet>

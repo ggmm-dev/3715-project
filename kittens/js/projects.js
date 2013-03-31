@@ -52,8 +52,7 @@
 			"uuid": e.target.dataset.uuid
 		}).done(function (data) {
 			var dataset = JSON.parse(data),
-			description = document.getElementById("description"),
-			collaborators = document.getElementById("collaborators");
+			description = document.getElementById("description");
 			console.log(dataset);
 			description.dataset.uuid = dataset.UUID;
 			$(description).find("h2").text(dataset.name);
@@ -65,7 +64,7 @@
 	addCollaborators = function (e) {
 		console.log(e.target);
 		var uuid =  document.querySelector("#description").dataset.uuid;
-		$.ajax("/api/user", {
+		$.ajax("/api/collaborators", {
 			type: "PUT",
 			data: JSON.stringify([uuid, addCollaboratorInput.textContent])
 		}).done(function (data) {
@@ -84,13 +83,38 @@
 			else {
 				console.log(user.username);
 				li.appendChild(document.createTextNode(user.username));
+				li.dataset.uuid = user.UUID;
 				collaboratorList.insertBefore(li, collaboratorList.firstChild);
-				addCollaboratorInput.textContent = "";
+				addCollaboratorInput.textContent = "Add someone else";
 			}
 		});
 	},
 	rmCollaborators = function (e) {
 		console.log(e.target);
+		var uuid = document.querySelector("#description").dataset.uuid,
+		toBeRemovedjQ = $(collaboratorList).find(":checked"),
+		toBeRemoved = $.makeArray(toBeRemovedjQ).map(function (e) {
+			return e.parentNode;
+		}),
+		toBeRemovedUuids = toBeRemoved.map(function (e) {
+			return e.dataset.uuid;
+		}),
+		list = [uuid].concat(toBeRemovedUuids);
+		if (toBeRemoved.length == 0) {
+			return;
+		}
+		console.log(list);
+		$.ajax("/api/collaborators", {
+			type: "DELETE",
+			data: JSON.stringify(list)
+		}).done(function (data) {
+			var success = JSON.parse(data);
+			console.log(success);
+			if (success === true) {
+				console.log("Yes.");
+				toBeRemovedjQ.parent().remove();
+			}
+		});
 	},
 	initHandlers = function () {
 		saveChanges.addEventListener("click", saveNameDescription);

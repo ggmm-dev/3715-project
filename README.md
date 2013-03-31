@@ -28,4 +28,7 @@ Still to be done
 
 - Text at the bottom of the homepage
 - Statistics
+- Error messages (and error-checking).
+    - When adding peers fails
+    - When editing tables (all the restrictions)
 - Import dataset (will be difficult).

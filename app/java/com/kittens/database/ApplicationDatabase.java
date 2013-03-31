@@ -520,5 +520,31 @@ public class ApplicationDatabase extends Object {
 			closeConnection();
 		}
 	}
+	/**
+	 * Removes access to the dataset with the UUID given at {@code ids[0]},
+	 * from the users with UUIDs given at {@code ids[1]} to {@code ids[ids.length - 1]}.
+	 */
+	public void rmCollaborators(String[] ids) throws SQLException {
+		if (ids.length < 2) {
+			return;
+		}
+		try {
+			openConnection();
+			PreparedStatement ps = database.prepareStatement(String.format(
+				"DELETE FROM %s WHERE %s;",
+				"access",
+				"dataset = ? AND user = ?"
+			));
+			for (int i = 1; i < ids.length; i++) {
+				ps.setString(1, ids[0]);
+				ps.setString(2, ids[i]);
+				ps.executeUpdate();
+			}
+			ps.close();
+		}
+		finally {
+			closeConnection();
+		}
+	}
 
 }
