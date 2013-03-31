@@ -146,10 +146,50 @@
 		$("aside > menu > ul > li > a").each(function (i, e) {
 			e.addEventListener("click", showProject);
 		});
+	},
+	handleFileImport = function (event) {
+		event.stopPropagation();
+		event.preventDefault();
+		var files = event.dataTransfer.files,
+		numberOfFiles = files.length,
+		reader = new FileReader(),
+		file = files[0]; // only read one file
+		// begin the read operation
+		reader.readAsText(file, "UTF-8");
+		// init the reader event handlers
+		reader.onload = function (event) {
+			var csv = event.target.result,
+			lines = csv.split(/\r\n|\n/).filter(function (line) {
+				return line.length > 0;
+			}).map(function (line, index) {
+				return "<tr>" +
+				(index === 0 ?
+				line.split(",").map(function (v, i) { return "<th><h6 contenteditable=\"true\">" + v + "</h6></th>"; }).join("") :
+				line.split(",").map(function (v, i) { return "<td contenteditable=\"true\">" + v + "</td>"; }).join("")) +
+				"</tr>";
+			}),
+			head = document.querySelector("#data-table thead"),
+			tbody = document.querySelector("#data-table tbody");
+			// set the headers
+			console.log(lines);
+			head.innerHTML = lines[0];
+			tbody.innerHTML = lines.slice(1).join("");
+		};
 	};
 	window.addEventListener("DOMContentLoaded", function () {
 		i = $("#data-table th").size();
 		initHandlers();
+		var dropZone = document.getElementById("drop-zone");
+		document.getElementById("upload").addEventListener("click", function(event) {
+			console.log(event.target);
+			dropZone.style.display = "block";
+		});
+		dropZone.addEventListener("dragover", function (event) {
+			// allow us to drop
+			event.preventDefault();
+			return false;
+		});
+		dropZone.addEventListener("drop", handleFileImport);
 	});
 
 }(window, window.document);

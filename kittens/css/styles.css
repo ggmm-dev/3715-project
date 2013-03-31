@@ -89,7 +89,6 @@ nav logout:hover {
 
 #main {
 	width: 684px;
-	min-height: 400px;
 	float: right;
 	background: #f6f6f6;
 	margin-top: -51px;
@@ -378,6 +377,18 @@ time {
 	border: 1px solid #a4a3a3;
 	font-size: 9pt;
 	width: 100%;
+}
+
+#drop-zone {
+	display: none;
+	border: 2px dashed #bbb;
+	margin-top: 10px;
+	border-radius: 4px;
+	text-align: center;
+	font: 20pt "Avenir Heavy";
+	padding: 50px 0;
+	color: #bbb;
+	box-shadow: inset 0px 5px 10px -1px rgba(0, 0, 0, .5);
 }
 
 #data table ~ a {
