@@ -9,12 +9,14 @@
 			<div id="main" role="main">
 				{{#datasets}}
 				{{#-first}}
-				<section id="data" class="clearfix" data-uuid="{{this.UUID}}">
+				<section id="data" class="clearfix" data-uuid="{{this.UUID}}" data-intro="Use the list on the left to go between projects." data-step="5">
 					<h2>{{name}}</h2>
-					<a id="upload" class="cloud hint--left" data-hint="Import dataset"><i class="icon-cloud-upload"></i></a>
+					<a id="upload" class="cloud hint--left" data-hint="Import dataset" data-intro="Or import a datafile." data-step="3">
+						<i class="icon-cloud-upload"></i>
+					</a>
 					<a id="rm-col" class="circle-btn hint--left" data-hint="Remove a column"><i class="icon-minus"></i></a>
 					<a id="add-col" class="circle-btn hint--left" data-hint="Add a column"><i class="icon-plus"></i></a>
-					<table id="data-table">
+					<table id="data-table" data-intro="You can edit the table cells!" data-step="2">
 						<thead>
 							<tr>
 								{{#headers}}
@@ -38,7 +40,9 @@
 						<i class="icon-cloud-download"></i>
 					</a>
 					<a id="rm-row" class="circle-btn hint--left" data-hint="Remove bottom row"><i class="icon-minus"></i></a>
-					<a id="add-row" class="circle-btn hint--left" data-hint="Add a row"><i class="icon-plus"></i></a>
+					<a id="add-row" class="circle-btn hint--left" data-hint="Add a row" data-intro="But remember to save your changes." data-step="4">
+						<i class="icon-plus"></i>
+					</a>
 					<a id="save" class="circle-btn hint--left" data-hint="Save changes"><i class="icon-save"></i></a>
 				</section>
 				{{/-first}}

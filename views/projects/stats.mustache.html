@@ -6,7 +6,7 @@
 	<body class="stats-page">
 		{{>uheader}}
 		<div class="wrapper clearfix">
-			<div id="main" role="main">
+			<div id="main" role="main" data-intro="Use the list on the left to go between datasets." data-step="2">
 				{{#datasets}}
 				{{#-first}}
 				<section id="statistics" data-uuid="{{UUID}}">
@@ -14,7 +14,7 @@
 					{{#datasets}}
 					{{#-first}}
 					Row number to generate chart from:
-					<select id="row">
+					<select id="row" data-intro="Choose a row of the datset." data-step="3">
 						{{#rows}}
 						<option value="{{-index}}">{{-index}}</option>
 						{{/rows}}
@@ -23,7 +23,7 @@
 					{{/-first}}
 					{{/datasets}}
 				</section>
-				<section id="chart"></section>
+				<section id="chart" data-intro="And you'll get a pie chart." data-step="4"></section>
 				{{/-first}}
 				{{/datasets}}
 			</div>

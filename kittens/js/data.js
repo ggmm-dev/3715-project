@@ -12,6 +12,7 @@
 	dataTable = document.getElementById("data-table"),
 	downloadBtn = document.getElementById("download"),
 	dropZone = document.getElementById("drop-zone"),
+	dataDiv = document.getElementById("data"),
 	updateRightSide = function (data) {
 		var newRowCount = data.rows.length,
 		headers,
@@ -29,7 +30,7 @@
 			}).join("") + "</tr>";
 		}).join("");
 		$("#data > h2").text(data.name);
-		document.getElementById("data").dataset.uuid = data.UUID;
+		dataDiv.dataset.uuid = data.UUID;
 		downloadBtn.href = "/download/dataset?uuid=" + data.UUID;
 	},
 	addRow = function (e) {
@@ -42,6 +43,7 @@
 			cell.contentEditable = true;
 			cell.appendChild(document.createTextNode(""));
 		}
+		promptWhenLeaving(true);
 	},
 	rmRow = function (e) {
 		console.log(e.target);
@@ -49,6 +51,7 @@
 			return;
 		}
 		dataTable.deleteRow(-1);
+		promptWhenLeaving(true);
 	},
 	addCol = function (e) {
 		console.log(e.target);
@@ -73,6 +76,7 @@
 			cell.appendChild(document.createTextNode("33"));
 		}
 		i = $("#data-table th").size();
+		promptWhenLeaving(true);
 	},
 	rmCol = function (e) {
 		console.log(e.target);
@@ -85,10 +89,11 @@
 			}
 			dataTable.rows[j].deleteCell(-1);
 		}
+		promptWhenLeaving(true);
 	},
 	saveChanges = function (e) {
 		console.log(e.target);
-		var uuid = document.getElementById("data").dataset.uuid,
+		var uuid = dataDiv.dataset.uuid,
 		headers = [],
 		rows = [];
 		$("#data-table thead h6").each(function () {
@@ -112,6 +117,7 @@
 			data: dataset
 		}).done(function (data) {
 			console.log(data);
+			promptWhenLeaving(false);
 		});
 	},
 	showProject = function (e) {
@@ -154,6 +160,13 @@
 			e.addEventListener("click", showProject);
 		});
 	},
+	promptWhenLeaving = function (b) {
+		window.onbeforeunload = (b) ?
+		function () {
+			return "You should save your changes before leaving.";
+		} :
+		undefined;
+	},
 	handleFileImport = function (event) {
 		event.stopPropagation();
 		event.preventDefault();
@@ -164,6 +177,11 @@
 		separator = !!function endsWith(str, suffix) {
 			return str.indexOf(suffix, str.length - suffix.length) !== -1;
 		}(file.name, ".csv") ? "," : "\t";
+		if (separator !== "," && separator !== "\t") {
+			// this is not a *.tsv or *.csv file
+			console.log("Not valid file.");
+			return;
+		}
 		// begin the read operation
 		console.log(separator);
 		reader.readAsText(file, "UTF-8");
@@ -186,6 +204,7 @@
 			head.innerHTML = lines[0];
 			tbody.innerHTML = lines.slice(1).join("");
 			dropZone.style.display = "none";
+			promptWhenLeaving(true);
 		};
 	};
 	window.addEventListener("DOMContentLoaded", function () {
@@ -195,12 +214,21 @@
 			console.log(event.target);
 			dropZone.style.display = "block";
 		});
+		dataDiv.addEventListener("keyup", function (e) {
+			promptWhenLeaving(true);
+		});
 		dropZone.addEventListener("dragover", function (event) {
 			// allow us to drop
 			event.preventDefault();
 			return false;
 		});
 		dropZone.addEventListener("drop", handleFileImport);
+		if (window.localStorage.getItem("needsDataIntro") === "n") {
+			return;
+		}
+		introJs().goToStep(2).start().oncomplete(function () {
+			window.localStorage.setItem("needsDataIntro", "n");
+		});
 	});
 
 }(window, window.document);

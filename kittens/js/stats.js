@@ -6,6 +6,18 @@
 	row = document.getElementById("row"),
 	chartSize = 684,
 	r,
+	errorMsg = function (msg) {
+		if (msg === false) {
+			$("span.error").remove();
+			return;
+		}
+		var span = document.createElement("span");
+		span.style.color = "red";
+		span.style.paddingLeft = "15px";
+		span.textContent = msg;
+		span.classList.add("error");
+		$(statisticsDiv).append(span);
+	},
 	createRaphael = function () {
 		r = Raphael(chartDiv, chartSize, chartSize / 2);
 		updateChart();
@@ -16,6 +28,14 @@
 			"uuid": statisticsDiv.dataset.uuid
 		}).done(function (data) {
 			console.log(data.rows[index].values);
+			if (data.rows[index].values.filter(function (v, i) {
+				return !isNaN(v);
+			}).length === 0) {
+				console.log("This is not a numeric row.");
+				errorMsg("Only numeric rows are allowed.");
+				return;
+			}
+			errorMsg(false);
 			r.clear();
 			r.piechart(
 				chartSize / 2 / 2,
@@ -65,6 +85,12 @@
 			e.addEventListener("click", showNewDataset);
 		});
 		row.addEventListener("change", updateChart);
+		if (window.localStorage.getItem("needsStatsIntro") === "n") {
+			return;
+		}
+		introJs().goToStep(2).start().oncomplete(function () {
+			window.localStorage.setItem("needsStatsIntro", "n");
+		});
 	});
 
 }(window, window.document);
