@@ -31,3 +31,4 @@ Still to be done
     - When adding peers fails.
     - Non-numeric dataset for charts.
     - When editing tables (all the restrictions)
+- Export SVG as image

@@ -288,6 +288,10 @@ time {
 	padding: 0;
 }
 
+#collaborators ul li input[type="checkbox"] {
+	margin-right: 15px;
+}
+
 #collaborators ul li {
 	list-style-type: none;
 	padding: 8px 0px 8px 33px;
