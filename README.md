@@ -28,10 +28,11 @@ Still to be done
 
 - Text at the bottom of the homepage.
 - Text in the admin sidebar.
-- Admin add/delete users.
+- Admin add/delete users and datasets.
 - Sorting columns.
-- Reports (show `select` to choose column).
 - Error messages (and error-checking).
-    - When adding peers fails
+    - When adding peers fails.
+    - Unsaved changes.
+    - Non-numeric dataset for charts.
     - When editing tables (all the restrictions)
 - Test on Firefox
