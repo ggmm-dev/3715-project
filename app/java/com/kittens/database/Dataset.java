@@ -67,8 +67,8 @@ public class Dataset extends Object {
 	public static final Dataset newSampleDataset(final User user) {
 		return new Dataset(
 			user,
-			"Sample Dataset",
-			"This is a sample dataset just for you. You can go ahead and delete this whenever you\'re ready, or modify it to suit your needs.",
+			"New Dataset",
+			"This is a new dataset just for you. THIS IS JUST FILLER DATA. You can go ahead and modify this to suit your needs.",
 			new Date()
 		).setHeaders(
 			"People",
@@ -77,8 +77,8 @@ public class Dataset extends Object {
 		).setRows(
 			new Dataset.Row("33", "43", "12"),
 			new Dataset.Row("12", "10", "42"),
-			new Dataset.Row("R", "G", "B"),
-			new Dataset.Row("Red", "Blue", "Green")
+			new Dataset.Row("91", "11", "42"),
+			new Dataset.Row("32", "42", "12")
 		);
 	}
 	// uuid

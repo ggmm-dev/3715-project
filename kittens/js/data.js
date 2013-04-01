@@ -12,6 +12,26 @@
 	dataTable = document.getElementById("data-table"),
 	downloadBtn = document.getElementById("download"),
 	dropZone = document.getElementById("drop-zone"),
+	updateRightSide = function (data) {
+		var newRowCount = data.rows.length,
+		headers,
+		rows,
+		head = document.querySelector("#data-table thead tr"),
+		tbody = document.querySelector("#data-table tbody"),
+		j = 0;
+		// set the headers
+		head.innerHTML = data.headers.map(function (v) {
+			return "<th><h6 contenteditable=\"true\">" + v + "</h6></th>";
+		}).join("");
+		tbody.innerHTML = data.rows.map(function (r) {
+			return "<tr>" + r.values.map(function (v) {
+				return "<td contenteditable=\"true\">" + v + "</td>";
+			}).join("") + "</tr>";
+		}).join("");
+		$("#data > h2").text(data.name);
+		document.getElementById("data").dataset.uuid = data.UUID;
+		downloadBtn.href = "/download/dataset?uuid=" + data.UUID;
+	},
 	addRow = function (e) {
 		console.log(e.target);
 		var newRow = dataTable.insertRow(-1),
@@ -100,24 +120,7 @@
 			"uuid": e.target.dataset.uuid
 		}).done(function (data) {
 			console.log(data);
-			var newRowCount = data.rows.length,
-			headers,
-			rows,
-			head = document.querySelector("#data-table thead tr"),
-			tbody = document.querySelector("#data-table tbody"),
-			j = 0;
-			// set the headers
-			head.innerHTML = data.headers.map(function (v) {
-				return "<th><h6 contenteditable=\"true\">" + v + "</h6></th>";
-			}).join("");
-			tbody.innerHTML = data.rows.map(function (r) {
-				return "<tr>" + r.values.map(function (v) {
-					return "<td contenteditable=\"true\">" + v + "</td>";
-				}).join("") + "</tr>";
-			}).join("");
-			$("#data > h2").text(data.name);
-			document.getElementById("data").dataset.uuid = data.UUID;
-			downloadBtn.href = "/download/dataset?uuid=" + data.UUID;
+			updateRightSide(data);
 		});
 	},
 	addNewProject = function (e) {
@@ -136,6 +139,7 @@
 				return li;
 			}());
 			initHandlers();
+			updateRightSide(data);
 		});
 	},
 	initHandlers = function () {

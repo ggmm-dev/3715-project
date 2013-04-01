@@ -10,6 +10,14 @@
 	addCollaboratorBtn = document.getElementById("add-c"),
 	addCollaboratorInput = document.getElementById("add-c-input"),
 	rmCollaboratorsBtn = document.getElementById("rm-c"),
+	updateRightSide = function (data) {
+		var description = document.getElementById("description");
+		description.dataset.uuid = data.UUID;
+		$(description).find("h2").text(data.name);
+		momentCreated = moment(data.dateOfCreation, "MMM DD, YYYY h:m:s A");
+		dateOfCreation.textContent = "Created " + momentCreated.fromNow();
+		$(description).find("p").text(data.description);
+	},
 	saveNameDescription = function (e) {
 		console.log(e.target);
 		var newName = document.querySelector("#description > h2").textContent,
@@ -45,6 +53,7 @@
 				return li;
 			}());
 			initHandlers();
+			updateRightSide(data);
 		});
 	},
 	showProject = function (e) {
@@ -52,12 +61,7 @@
 			"uuid": e.target.dataset.uuid
 		}).done(function (data) {
 			console.log(data);
-			var description = document.getElementById("description");
-			description.dataset.uuid = data.UUID;
-			$(description).find("h2").text(data.name);
-			momentCreated = moment(data.dateOfCreation, "MMM DD, YYYY h:m:s A");
-			dateOfCreation.textContent = "Created " + momentCreated.fromNow();
-			$(description).find("p").text(data.description);
+			updateRightSide(data);
 		});
 	},
 	addCollaborators = function (e) {
