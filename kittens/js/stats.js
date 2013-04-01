@@ -40,9 +40,29 @@
 				}
 			});
 		});
+	},
+	showNewDataset = function (e) {
+		console.log(e.target);
+		$.get("/api/dataset", {
+			"uuid": e.target.dataset.uuid
+		}).done(function (data) {
+			console.log(data);
+			$(statisticsDiv).find("h2").text(data.name);
+			statisticsDiv.dataset.uuid = data.UUID;
+			row.innerHTML = data.rows.map(function (v, i) {
+				return "<option value=\"" + (i + 1) + "\">" + (i + 1) + "</option>";
+			}).join("");
+			updateChart();
+		});
 	};
+	window.addEventListener("DOMContentLoaded", function () {
+		document.getElementById("new-project").style.cursor = "not-allowed";
+	});
 	window.addEventListener("load", function(event) {
 		createRaphael();
+		$("aside > menu > ul > li > a").each(function (i, e) {
+			e.addEventListener("click", showNewDataset);
+		});
 		row.addEventListener("change", updateChart);
 	});
 
