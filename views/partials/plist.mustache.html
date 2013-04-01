@@ -1,8 +1,10 @@
 <aside>
 	<menu>
 		<h6>Welcome {{user.username}}!</h6>
-		<a class="grey-add-btn" id="new-project">Create New Project</a>
-		<ul id="projects-list">
+		<a class="grey-add-btn" id="new-project">
+			Create New Project
+		</a>
+		<ul id="projects-list" data-intro="Hi there! These are all your projects. Stars indicate that you own it!" data-step="1">
 			{{#datasets}}
 			<li class="{{#manage}}{{UUID}}{{/manage}}">
 				<a data-uuid="{{UUID}}">{{name}}</a>

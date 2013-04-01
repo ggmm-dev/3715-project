@@ -2,6 +2,7 @@
 	<head>
 		{{>meta}}
 		<link rel="stylesheet" href="/css/styles.css" />
+		<link rel="stylesheet" href="/css/introjs.min.css" />
 	</head>
 	<body class="projects-page">
 		{{>uheader}}
@@ -10,14 +11,16 @@
 				{{#datasets}}
 				{{#-first}}
 				<section id="description" data-uuid="{{UUID}}">
-					<h2 contenteditable="true">{{name}}</h2>
+					<h2 contenteditable="true" data-intro="You can edit your project name by clicking in here." data-step="2">{{name}}</h2>
 					<time id="created" datetime="{{datetime}}">{{datetime}}</time>
-					<p contenteditable="true">{{description}}</p>
-					<a id="save" class="circle-btn align-right hint--left" data-hint="Save all changes"><i class="icon-save"></i></a>
+					<p contenteditable="true" data-intro="You can edit your project description by editing this." data-step="3">{{description}}</p>
+					<a id="save" class="circle-btn align-right hint--left" data-hint="Save all changes" data-intro="Always save your changes!" data-step="4">
+						<i class="icon-save"></i>
+					</a>
 				</section>
 				<section id="collaborators">
 					<h3>Collaborators</h3>
-					<ul>
+					<ul data-intro="Enter a friend's email address." data-step="5">
 						{{#collaborators}}
 						<li data-uuid="{{this.UUID}}">
 							<input type="checkbox" />
@@ -26,8 +29,12 @@
 						{{/collaborators}}
 						<li id="add-c-input" contenteditable="true">Add someone</li>
 					</ul>
-					<a id="rm-c" class="circle-btn align-right hint--left" data-hint="Remove selected collaborators"><i class="icon-minus"></i></a>
-					<a id="add-c" class="circle-btn align-right hint--left" data-hint="Add a collaborator"><i class="icon-plus"></i></a>
+					<a id="rm-c" class="circle-btn align-right hint--left" data-hint="Remove selected collaborators" data-intro="You can also remove selected friends' collaborator status." data-step="7">
+						<i class="icon-minus"></i>
+					</a>
+					<a id="add-c" class="circle-btn align-right hint--left" data-hint="Add a collaborator" data-intro="And add them as a collaborator." data-step="6">
+						<i class="icon-plus"></i>
+					</a>
 				</section>
 				{{/-first}}
 				{{/datasets}}

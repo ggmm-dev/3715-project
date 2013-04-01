@@ -151,6 +151,13 @@
 		}();
 		createNewProject.addEventListener("click", addNewProject);
 		initHandlers();
+		if (window.localStorage.getItem("needsIndexIntro") === "n") {
+			return;
+		}
+		// show an introduction
+		introJs().start().oncomplete(function () {
+			window.localStorage.setItem("needsIndexIntro", "n");
+		});
 	});
 
 }(window, window.document);
