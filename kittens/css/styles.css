@@ -398,40 +398,13 @@ time {
 	margin-top: 20px;
 }
 
-#statistics dt,
-#statistics dd {
-	width: 300px;
-	display: inline-block;
-	margin: 0;
-	font: 13pt "Avenir Heavy";
+#statistics h2 {
+	display: block;
+	margin-bottom: 20px;
 }
 
-#statistics dt {
-	text-transform: uppercase;
-	text-align: right;
-	padding-right: 5px;
-}
-
-#statistics dd {
-	padding-left: 5px;
-	text-align: left;
-}
-
-#charts a.tab {
-	display: inline-block;
-	background: #edebeb;
-	border: 1px solid #a5a4a4;
-	font-size: 12pt;
-	text-shadow: 1px 1px 0px #fff;
-	padding: 5px 10px;
-	margin-right: -5px;
-	text-decoration: none;
-	color: #000;
-}
-
-#charts a.inactive {
-	background: #dad9d9;
-	box-shadow: inset 0px -1px 0px #a5a4a4;
+#statistics label {
+	padding-right: 10px;
 }
 
 #chart {
@@ -439,8 +412,7 @@ time {
 	-moz-box-sizing: border-box;
 	background: #edebeb;
 	border: 1px solid #a5a4a4;
-	min-height: 342px;
-	margin-top: -1px;
+	margin-top: 20px;
 }
 
 /***************************

@@ -9,27 +9,29 @@
 			<div id="main" role="main">
 				{{#datasets}}
 				{{#-first}}
-				<section id="statistics">
+				<section id="statistics" data-uuid="{{UUID}}">
 					<h2>{{name}}</h2>
-					<dl>
-						<dt>Mean</dt>
-						<dd>30.0</dd>
-						<dt>Medium</dt>
-						<dd>3.50</dd>
-						<dt>Standard Deviation</dt>
-						<dd>3.00</dd>
-					</dl>
+					{{#datasets}}
+					{{#-first}}
+					<label for="row">Row number to generate chart from:</label>
+					<select id="row">
+						{{#rows}}
+						<option value="{{-index}}">{{-index}}</option>
+						{{/rows}}
+					</select>
+					{{/-first}}
+					{{/datasets}}
 				</section>
-				<section id="charts">
-					<a class="tab">Apple Pie</a>
-					<a class="tab">Some Lines</a>
-					<div id="chart"></div>
-				</section>
+				<section id="chart"></section>
 				{{/-first}}
 				{{/datasets}}
 			</div>
 			{{>plist}}
 		</div>
 		{{>jslibs}}
+		<script src="/js/raphael.min.js"></script>
+		<script src="/js/g.raphael.min.js"></script>
+		<script src="/js/g.pie.min.js"></script>
+		<script src="/js/stats.js"></script>
 	</body>
 </html>
