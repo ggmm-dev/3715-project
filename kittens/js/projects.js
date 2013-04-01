@@ -112,6 +112,14 @@
 			}
 		});
 	},
+	promptWhenLeaving = function (b) {
+		window.onbeforeunload = (b) ?
+		function () {
+			return "You have unsaved changes.";
+		} :
+		undefined;
+		console.log(window.onbeforunload);
+	},
 	initHandlers = function () {
 		saveChanges.addEventListener("click", saveNameDescription);
 		$("aside > menu > ul > li > a").each(function (i, e) {
