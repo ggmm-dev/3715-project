@@ -4,7 +4,9 @@
 		<a class="grey-add-btn" id="new-project">Create New Project</a>
 		<ul id="projects-list">
 			{{#datasets}}
-			<li><a data-uuid="{{UUID}}">{{name}}</a></li>
+			<li class="{{#manage}}{{UUID}}{{/manage}}">
+				<a data-uuid="{{UUID}}">{{name}}</a>
+			</li>
 			{{/datasets}}
 		</ul>
 	</menu>

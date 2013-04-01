@@ -133,7 +133,7 @@ public class Dataset extends Object {
 	 * Sets the owner of the dataset.
 	 */
 	public Dataset setOwner(User user) {
-		this.owner = owner;
+		this.owner = user;
 		return this;
 	}
 	/**

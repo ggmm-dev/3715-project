@@ -49,6 +49,7 @@
 				a.dataset.uuid = data.UUID;
 				a.textContent = data.name;
 				li.appendChild(a);
+				li.classList.add("manage");
 				console.log(li);
 				return li;
 			}());

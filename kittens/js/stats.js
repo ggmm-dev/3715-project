@@ -1,5 +1,6 @@
 !function (window, document, undefined) {
 
+	"use strict";
 	var chartDiv = document.getElementById("chart"),
 	statisticsDiv = document.getElementById("statistics"),
 	row = document.getElementById("row"),

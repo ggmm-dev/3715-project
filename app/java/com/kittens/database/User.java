@@ -89,5 +89,17 @@ public class User extends Object {
 		isAdmin = true;
 		return this;
 	}
+	/**
+	 * Compares two users for equality.
+	 */
+	@Override public boolean equals(Object other) {
+		if (other == this) {
+			return true;
+		}
+		if (other == null || !(other instanceof User)) {
+			return false;
+		}
+		return ((User) other).getUUID().equals(UUID);
+	}
 
 }
