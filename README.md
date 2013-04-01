@@ -35,4 +35,6 @@ Still to be done
     - Unsaved changes.
     - Non-numeric dataset for charts.
     - When editing tables (all the restrictions)
+- Leave page confirm.
+- Unsaved data.
 - Test on Firefox
