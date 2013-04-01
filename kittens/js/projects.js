@@ -10,8 +10,8 @@
 	addCollaboratorBtn = document.getElementById("add-c"),
 	addCollaboratorInput = document.getElementById("add-c-input"),
 	rmCollaboratorsBtn = document.getElementById("rm-c"),
+	description = document.getElementById("description"),
 	updateRightSide = function (data) {
-		var description = document.getElementById("description");
 		description.dataset.uuid = data.UUID;
 		$(description).find("h2").text(data.name);
 		momentCreated = moment(data.dateOfCreation, "MMM DD, YYYY h:m:s A");
@@ -39,6 +39,7 @@
 		}).done(function (data) {
 			console.log(data);
 			$(projectsList).find("a[data-uuid=\"" + data.uuid +  "\"]").text(data.name);
+			promptWhenLeaving(false);
 		});
 	},
 	addNewProject = function (e) {
@@ -71,7 +72,7 @@
 	},
 	addCollaborators = function (e) {
 		console.log(e.target);
-		var uuid =  document.querySelector("#description").dataset.uuid;
+		var uuid =  description.dataset.uuid;
 		$.ajax("/api/collaborators", {
 			type: "PUT",
 			data: JSON.stringify([uuid, addCollaboratorInput.textContent])
@@ -97,7 +98,7 @@
 	},
 	rmCollaborators = function (e) {
 		console.log(e.target);
-		var uuid = document.querySelector("#description").dataset.uuid,
+		var uuid = description.dataset.uuid,
 		toBeRemovedjQ = $(collaboratorList).find(":checked"),
 		toBeRemoved = $.makeArray(toBeRemovedjQ).map(function (e) {
 			return e.parentNode;
@@ -124,10 +125,9 @@
 	promptWhenLeaving = function (b) {
 		window.onbeforeunload = (b) ?
 		function () {
-			return "You have unsaved changes.";
+			return "You should save your changes before leaving.";
 		} :
 		undefined;
-		console.log(window.onbeforunload);
 	},
 	initHandlers = function () {
 		saveChanges.addEventListener("click", saveNameDescription);
@@ -136,6 +136,9 @@
 		});
 		addCollaboratorBtn.addEventListener("click", addCollaborators);
 		rmCollaboratorsBtn.addEventListener("click", rmCollaborators);
+		description.addEventListener("keyup", function () {
+			promptWhenLeaving(true);
+		});
 	};
 	window.addEventListener("DOMContentLoaded", function () {
 		// update the date of creation
