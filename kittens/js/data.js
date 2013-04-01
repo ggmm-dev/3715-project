@@ -20,7 +20,7 @@
 		for (j = 0; j < i; j++) {
 			cell = newRow.insertCell(-1);
 			cell.contentEditable = true;
-			cell.appendChild(document.createTextNode("33"));
+			cell.appendChild(document.createTextNode(""));
 		}
 	},
 	rmRow = function (e) {
