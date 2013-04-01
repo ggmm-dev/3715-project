@@ -19,8 +19,6 @@ Eventually there'll be something here.
 Ideas for improvement
 ---------------------
 
-- [Intro.js](http://usablica.github.com/intro.js/)
-- [Cornify](http://www.cornify.com/)
 - Realtime via <https://github.com/videlalvaro/gifsockets>?
 
 Still to be done
@@ -31,9 +29,5 @@ Still to be done
 - Admin add/delete users and datasets.
 - Error messages (and error-checking).
     - When adding peers fails.
-    - Unsaved changes.
     - Non-numeric dataset for charts.
     - When editing tables (all the restrictions)
-- Leave page confirm.
-- Unsaved data.
-- Test on Firefox
