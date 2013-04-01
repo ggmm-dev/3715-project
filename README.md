@@ -14,7 +14,7 @@ Getting started
 How do I use the application?
 -----------------------------
 
-Eventually there'll be something here.
+There is a brief tutorial when first using the app.
 
 Ideas for improvement
 ---------------------
@@ -26,7 +26,7 @@ Still to be done
 
 - Text at the bottom of the homepage.
 - Text in the admin sidebar.
-- Admin add/delete users and datasets.
+- **Admin add/delete users and datasets.**
 - Error messages (and error-checking).
     - When adding peers fails.
     - Non-numeric dataset for charts.
