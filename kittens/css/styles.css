@@ -406,8 +406,8 @@ time {
 	margin-bottom: 20px;
 }
 
-#statistics label {
-	padding-right: 10px;
+#statistics select {
+	margin: 0 15px;
 }
 
 #chart {

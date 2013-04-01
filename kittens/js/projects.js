@@ -17,6 +17,10 @@
 		momentCreated = moment(data.dateOfCreation, "MMM DD, YYYY h:m:s A");
 		dateOfCreation.textContent = "Created " + momentCreated.fromNow();
 		$(description).find("p").text(data.description);
+		$(collaboratorList).find("input").parent().remove();
+		collaboratorList.innerHTML = data.collaborators.map(function (v, i) {
+			return "<li data-uuid=\"" + v.UUID + "\"><input type=\"checkbox\" />" + v.username + "</li>";
+		}).join("") + ((data.collaborators.length === 0) ? "<li>Add someone</li>" : "<li>Add someone else</li>");
 	},
 	saveNameDescription = function (e) {
 		console.log(e.target);

@@ -29,7 +29,6 @@ Still to be done
 - Text at the bottom of the homepage.
 - Text in the admin sidebar.
 - Admin add/delete users and datasets.
-- Sorting columns.
 - Error messages (and error-checking).
     - When adding peers fails.
     - Unsaved changes.

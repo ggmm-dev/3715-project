@@ -13,12 +13,13 @@
 					<h2>{{name}}</h2>
 					{{#datasets}}
 					{{#-first}}
-					<label for="row">Row number to generate chart from:</label>
+					Row number to generate chart from:
 					<select id="row">
 						{{#rows}}
 						<option value="{{-index}}">{{-index}}</option>
 						{{/rows}}
 					</select>
+					({{rows.size}} rows to choose from.)
 					{{/-first}}
 					{{/datasets}}
 				</section>
