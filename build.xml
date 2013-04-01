@@ -63,6 +63,9 @@
 
 	<!-- compile our server-side stuff -->
 	<target name="compile">
+		<delete>
+			<fileset dir="." includes="**/*.class"/>
+		</delete>
 		<javac debug="true" includeantruntime="false" srcdir="${src.dir}" destdir="${war.dir}/WEB-INF/classes">
 			<classpath>
 				<path refid="all-jars" />
@@ -93,20 +96,10 @@
 	</target>
 
 	<target name="clean">
-		<!-- delete the WAR folder -->
-		<!--
-		<delete dir="${war.dir}" />
-		-->
-		<!-- delete all the class and database files -->
-		<delete>
-			<fileset dir="." includes="**/*.class"/>
-		</delete>
-	</target>
-
-	<target name="rmdb">
 		<delete>
 			<fileset dir="." includes="**/*.sqlite3" />
 			<fileset dir="." includes="**/*.db" />
+			<fileset dir="." includes="**/*.class"/>
 		</delete>
 	</target>
 
