@@ -46,6 +46,7 @@ nav .right {
 	text-align: left;
 	left: 40px;
 	z-index: 500;
+	margin: -1px 0 0 0;
 }
 
 nav .tab {
@@ -106,6 +107,7 @@ nav logout:hover {
 	line-height: 20px;
 	margin: 0;
 	display: inline-block;
+	font-weight: normal;
 }
 
 #main h2 {
@@ -229,7 +231,7 @@ a.green-add-btn:hover {
 	border-radius: 20px;
 	width: 15px;
 	height: 15px;
-	padding: 3px 3px 5px 5px;
+	padding: 2px 3px 6px 5px;
 	display: inline-block;
 	color: #f6f6f6;
 	text-decoration: none;
