@@ -16,6 +16,12 @@ How do I use the application?
 
 There is a brief tutorial when first using the app.
 
+Default Administrator Account
+-----------------------------
+
+- Email address is `admin@localhost`
+- Password is `password`
+
 Ideas for improvement
 ---------------------
 
