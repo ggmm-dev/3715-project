@@ -189,13 +189,96 @@ a.logout:hover {
 
 /*** BUTTONS ***/
 
+.admin-right fieldset {
+    font-size: 1em;
+    padding: 0.5em;
+    border-radius: 1em;
+    font-family: sans-serif;
+    border-width: 0;
+}
+
+.admin-right label, 
+.admin-right select, 
+.admin-right button {
+    font-size: inherit;
+	font-family: inherit;
+    padding: 0.3em 0.4em;
+    margin: 0.1em 0.2em;
+    -moz-box-sizing: content-box;
+    -webkit-box-sizing: content-box;
+    box-sizing: content-box;
+    border: 1px solid #f90;
+    background-color: #fff;
+}
+
+.admin-right select {
+    margin-right: 0;
+    border-radius: 0.6em 0 0 0.6em;
+}
+
+.admin-right select:focus {
+    outline: none;
+    background-color: #ffa;
+    background-color: rgba(255,255,210,0.5);
+}
+
+.admin-right button {
+    margin-left: 0;
+    border-radius: 0 0.6em 0.6em 0;
+    background-color: #aef;
+}
+.admin-right button:active,
+.admin-right button:focus {
+    background-color: #acf;
+    outline: none;
+}
+
+/*admin-right select {
+	-moz-box-sizing: content-box;
+    -webkit-box-sizing: content-box;
+    box-sizing: content-box;
+	font-size: inherit;
+	padding: 2px 2px 2px 10px;
+    margin: 1px 2px;
+	border-top-left-radius: 25px;
+	border-bottom-left-radius: 25px;
+	font-family: avenirheavy;
+	text-transform: uppercase;
+	border: 1px solid #6b6b6b;
+	background-color: #dcdcdc;
+	color: #000000;
+	text-shadow: 1px 1px 0px rgba(255, 255, 255, 0.8);
+	background-image: url(../images/select2.png);
+	background-repeat: no-repeat;
+	background-position: right;
+	width: 230px;
+	height: 26px;
+}
+
+.admin-right button {
+	-moz-box-sizing: content-box;
+    -webkit-box-sizing: content-box;
+    box-sizing: content-box;
+	font-size: inherit;
+	padding: 2px;
+    margin: 0px 2px 0px -30px;
+	border-top-right-radius: 25px;
+	border-bottom-right-radius: 25px;
+	background: #c1bfbf;
+	color: #000000;
+	border: 1px solid #6b6b6b;
+	text-shadow: 1px 1px 0px rgba(255, 255, 255, 0.6);
+	height: 26px;
+	width: 30px;
+}
+
 .admin-right select {
 	border-top-left-radius: 25px;
 	border-bottom-left-radius: 25px;
 	height: 31px;
 	font-size: 12pt;
-	padding: 5px 0 0 10px;
-	width: 235px;
+	padding: 4px 0 0 10px;
+	width: 230px;
 	font-family: avenirheavy;
 	text-transform: uppercase;
 	border: 1px solid #6b6b6b;
@@ -216,14 +299,16 @@ a.logout:hover {
 	border-top-right-radius: 25px;
 	border-bottom-right-radius: 25px;
 	height: 31px;
-	padding: 0 10px 0 10px;
+	padding: 2px 10px 0 10px;
 	font-size: 14pt;
 	background: #c1bfbf;
 	color: #000000;
 	border: 1px solid #6b6b6b;
 	text-shadow: 1px 1px 0px rgba(255, 255, 255, 0.6);
 	margin: 0 0 0 -22px;
-}
+}*/
+
+
 
 .admin-right button:hover {
 	background: #d0cece;
