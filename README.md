@@ -20,6 +20,8 @@ Ideas for improvement
 ---------------------
 
 - Realtime via <https://github.com/videlalvaro/gifsockets>?
+- <http://raphaeljs.com/pie.html>
+- <http://heelhook.github.com/chardin.js/>
 
 Still to be done
 ----------------
@@ -31,4 +33,13 @@ Still to be done
     - When adding peers fails.
     - Non-numeric dataset for charts.
     - When editing tables (all the restrictions)
-- Export SVG as image
+- Export SVG as images.
+- Prevent certain key codes.
+
+Things
+------
+
+- 15foundation.tar
+- Play is a bad idea.
+- Chrome developer tools!
+- <http://jshint.com>
