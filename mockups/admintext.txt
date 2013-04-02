@@ -1,0 +1,1 @@
+Here you can manage all projects and user accounts in the database. Through here, projects can be deleted, and user accounts can either be deleted or upgraded to administrators.

@@ -41,7 +41,6 @@ body {
 	width: 966px;
 	margin: 0 auto;
 	font-family: sans-serif;
-	font-size: 10pt;
 }
 
 .clear {
@@ -175,7 +174,7 @@ nav button {
 	border-top: 1px solid #c9cccb;
 	box-shadow: 0px -1px 30px rgba(0, 0, 0, 0.1);
 	height: 500px;
-	padding-top: 50px;
+	padding: 50px 0 50px 0;
 }
 
 #about h1 {
@@ -194,4 +193,40 @@ nav button {
 	font-weight: normal;
 	line-height: 20px;
 	margin-bottom: 50px;
+}
+
+.info {
+	width: 100%;
+	font-size: 12pt;
+}
+
+.info .left {
+	float: left;
+	width: 45%;
+	padding: 0 4% 0 0;
+	border-right: 1px solid #c9cccb;
+}
+
+.info .right {
+	float: left;
+	width: 45%;
+	margin: 0 0 0 5%;
+}
+
+.info i {
+	font-size: 40pt;
+	display: inline-block;
+	float: left;
+	width: 80px;
+	height: 70px;
+	color: #adadad;
+	text-shadow: 1px 1px 0px #ffffff;
+}
+
+.info p {
+	margin: 0 0 30px 0;
+}
+
+#about > .container > p:nth-child(4) {
+	margin: 0 0 60px 0;
 }
