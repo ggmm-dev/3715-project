@@ -113,6 +113,8 @@
 			}
 			dataTable.rows[j].deleteCell(-1);
 		}
+		// update col count
+		i = $("#data-table th").size();
 		// needs to be saved
 		promptWhenLeaving(true);
 	},
@@ -225,17 +227,16 @@
 		numberOfFiles = files.length,
 		reader = new FileReader(),
 		file = files[0], // only read one file
-		separator = !!function endsWith(str, suffix) {
+		endsWith = function (str, suffix) {
 			return str.indexOf(suffix, str.length - suffix.length) !== -1;
-		}(file.name, ".csv") ? "," : "\t";
-		// ignore the drop if it was not a valid file
-		if (separator !== "," && separator !== "\t") {
-			// this is not a *.tsv or *.csv file
-			console.log("Not valid file.");
+		},
+		invalid = (!endsWith(file.name, ".tsv") && !endsWith(file.name, ".csv"));
+		// if not valid
+		if (invalid) {
 			return;
 		}
+		var separator = endsWith(file.name, ".csv") ? "," : "\t";
 		// begin the read operation
-		console.log(separator);
 		reader.readAsText(file, "UTF-8");
 		// init the reader event handlers
 		reader.onload = function (event) {
@@ -257,7 +258,6 @@
 			// set the headers
 			head.innerHTML = lines[0];
 			tbody.innerHTML = lines.slice(1).join("");
-			dropZone.style.display = "none";
 			// refresh column count
 			i = $("#data-table th").size();
 			// the dataset needs saving

@@ -40,7 +40,7 @@ public class UsersController extends BaseController {
 			// error
 			return null;
 		}
-		return new User(username, email, password, /* is admin */ false);
+		return new User(username, email.toLowerCase(), password, /* is admin */ false);
 	}
 	/**
 	 * Returns the appropriate user from the given credentials.
