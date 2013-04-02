@@ -29,7 +29,7 @@ header h1 {
 	overflow: hidden;
 }
 
-nav, #main, aside {
+nav, #main {
 	font: 11pt sans-serif;
 	width: 966px;
 	margin: 0 auto;
@@ -175,30 +175,69 @@ nav input[type="submit"] {
 	border-color: #eed3d7;
 }
 
-#about {
-	background: #f6f6f6;
+aside {
+	font: 11pt sans-serif;
 	width: 100%;
+	background: #f6f6f6;
+	padding: 0 0 50px;
 	border-top: 1px solid #c9cccb;
 	box-shadow: 0px -1px 30px rgba(0, 0, 0, 0.1);
-	padding: 50px 0 100px;
+}
+
+#about {
+	width: 966px;
+	margin: 0 auto;
+	padding: 50px 0 50px 0;
+}
+
+#about h2 {
+	font: 26pt "Avenir Heavy";
+	text-shadow: 1px 1px 0px #fff;
+	color: #2e2e2e;
+	line-height: 20px;
 }
 
 #about h3 {
-	font: 26pt/20px "Avenir Heavy";
+	font: 18pt "Avenir Light";
 	text-shadow: 1px 1px 0px #fff;
 	color: #2e2e2e;
-}
-
-#about h4 {
-	font: 18pt/20px "Avenir Light";
-	text-shadow: 1px 1px 0px #fff;
-	color: #2e2e2e;
+	font-weight: normal;
+	line-height: 20px;
 	margin-bottom: 50px;
 }
 
-#about > aside > img.sheet {
-	width: 250px;
-	height: 250px;
-	padding: 5px;
-	float: right;
+#about > p:last-of-type {
+	margin-bottom: 60px;
+}
+
+.info {
+	width: 100%;
+	font-size: 12pt;
+}
+
+.info .left {
+	float: left;
+	width: 45%;
+	padding: 0 4% 0 0;
+	border-right: 1px solid #c9cccb;
+}
+
+.info .right {
+	float: left;
+	width: 45%;
+	margin: 0 0 0 5%;
+}
+
+.info i {
+	font-size: 40pt;
+	display: inline-block;
+	float: left;
+	width: 80px;
+	height: 70px;
+	color: #adadad;
+	text-shadow: 1px 1px 0px #fff;
+}
+
+.info p {
+	margin: 0 0 30px 0;
 }

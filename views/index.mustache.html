@@ -1,6 +1,7 @@
 {{>html5}}
 	<head>
 		{{>meta}}
+		<link rel="stylesheet" href="/css/font-awesome.min.css" />
 		<link rel="stylesheet" href="/css/index.css" />
 	</head>
 	<body>
@@ -39,55 +40,59 @@
 				<input type="submit" value="Sign Up" />
 			</form>
 		</div>
-		<div id="about">
-			<aside>
-				<h3>{{about}}</h1>
-				<h4>{{tagline}}</h2>
-				<img class="sheet" src="/imgs/sheet.png" alt="Image of a spreadsheet" />
+		<aside class="clearfix">
+			<div id="about" class="clearfix">
+				<h2>Data management made simple</h2>
+				<h3>Collaborate with groups and report on results</h3>
 				<p>
-					Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-					Duis sit amet eros metus, a fermentum risus. Vestibulum
-					viverra mollis rutrum. Class aptent taciti sociosqu ad
-					litora torquent per conubia nostra, per inceptos himenaeos.
-					Aenean tortor sem, sagittis et consectetur ac, tempus
-					egestas mauris. Aenean consectetur pellentesque augue
-					quis adipiscing. Sed eget est non velit porttitor euismod.
-					Cras ultrices velit vitae lectus facilisis laoreet.
+					Group Data includes everything you
+					need to get your collaborative data
+					project up and running.
+					Using familiar spreadsheet formats
+					and an easy-to-use interface, you
+					are minutes away from sharing
+					important data with those who need it.
 				</p>
 				<p>
-					Pellentesque imperdiet scelerisque risus non egestas.
-					Integer ut justo nulla. Sed aliquam imperdiet graida.
-					Vestibulum vel augue quis dui porta pellentesque nam
-					eget ornare urna. Nam id justo lectus. Nam scelerisque
-					condimentum tincidunt. Cras eleifend metus vitae orci
-					congue iaculis. Nulla laoreet felis ut nisi blandit vel
-					hendrerit metus volutpat. Nullam eleifend viverra purus,
-					in commodo turpis lobortis in. Curabitur velit diam,
-					pulvinar ac posuere eu, lobortis vel quam.
+					All you need is an email address to
+					sign up and start creating important
+					data projects. Once logged in, you
+					will have the ability to add other
+					users to your projects as well as
+					generate reports based on collaborative data input.
 				</p>
-				<p>
-					Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-					Duis sit amet eros metus, a fermentum risus. Vestibulum
-					viverra mollis rutrum. Class aptent taciti sociosqu ad
-					litora torquent per conubia nostra, per inceptos himenaeos.
-					Aenean tortor sem, sagittis et consectetur ac, tempus
-					egestas mauris. Aenean consectetur pellentesque augue
-					quis adipiscing. Sed eget est non velit porttitor euismod.
-					Cras ultrices velit vitae lectus facilisis laoreet.
-				</p>
-				<p>
-					Pellentesque imperdiet scelerisque risus non egestas.
-					Integer ut justo nulla. Sed aliquam imperdiet graida.
-					Vestibulum vel augue quis dui porta pellentesque nam
-					eget ornare urna. Nam id justo lectus. Nam scelerisque
-					condimentum tincidunt. Cras eleifend metus vitae orci
-					congue iaculis. Nulla laoreet felis ut nisi blandit vel
-					hendrerit metus volutpat. Nullam eleifend viverra purus,
-					in commodo turpis lobortis in. Curabitur velit diam,
-					pulvinar ac posuere eu, lobortis vel quam.
-				</p>
-			</aside>
-		</div>
+				<div class="info clearfix">
+					<div class="left">
+						<p>
+							<i class="icon-group"></i>
+							Group Data is completely free to use.
+							All we require is a valid email address
+							to start collaborating with other users.
+						</p>
+						<p>
+							<i class="icon-question-sign"></i>
+							Upon your first login, you will be guided
+							step-by-step through the process of adding
+							and editing projects, adding data, adding
+							users, and generating reports.
+						</p>
+					</div>
+					<div class="right">
+						<p>
+							<i class="icon-cloud"></i>
+							Easily import existing spreadsheets to projects.
+							Your Group Data projects can also be downloaded
+							for use on the spreadsheet editor of your choice.
+						</p>
+						<p>
+							<i class="icon-bar-chart"></i>
+							Generate interactive pie charts automatically according
+							to the data you and your team mates have entered.
+						</p>
+					</div>
+				</div>
+			</div>
+		</aside>
 		{{>jslibs}}
 		<script src="/js/index.js"></script>
 	</body>
