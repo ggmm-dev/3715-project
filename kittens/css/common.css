@@ -12,6 +12,10 @@ strong {
 	font-weight: bold;
 }
 
+[placeholder]::-webkit-input-placeholder {
+	text-transform: lowercase;
+}
+
 [placeholder]:focus::-webkit-input-placeholder {
 	transition: text-indent 0.5s 3s ease;
 	text-indent: -100%;

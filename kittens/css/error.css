@@ -1,0 +1,115 @@
+@charset "utf-8";
+
+@font-face {
+	font-family: 'Avenir Heavy';
+	src: url('fonts/avenir-heavy-webfont.eot');
+	src: url('fonts/avenir-heavy-webfont.eot?#iefix') format('embedded-opentype'),
+		 url('fonts/avenir-heavy-webfont.woff') format('woff'),
+		 url('fonts/avenir-heavy-webfont.ttf') format('truetype'),
+		 url('fonts/avenir-heavy-webfont.svg#avenir_85_heavyregular') format('svg');
+	font-weight: normal;
+	font-style: normal;
+}
+
+.clearfix:before,
+.clearfix:after {
+	content: " ";
+	display: table;
+}
+
+.clearfix:after {
+	clear: both;
+}
+
+strong {
+	font-weight: bold;
+}
+
+body {
+	background: #abcdbf;
+	margin: 0;
+	height: 100%;
+}
+
+header {
+	background: rgba(0, 0, 0, 0.7);
+	height: 94px;
+	width: 100%;
+	border-bottom: 1px solid #000;
+	text-align: center;
+	margin-bottom: 100px;
+	box-shadow: inset 0px -1px 0px rgba(255, 255, 255, 0.3);
+}
+
+header h1 {
+	width: 202px;
+	height: 0;
+	margin: 0;
+	padding: 116px 0 0 0;
+	background: url("/imgs/logo.png") no-repeat;
+	overflow: hidden;
+}
+
+nav {
+	font: 11pt sans-serif;
+	width: 966px;
+	margin: 0 auto;
+}
+
+nav .left {
+	float: left;
+	width: 200px;
+}
+
+.top {
+	background: #c4e5d6;
+	height: 300px;
+	margin: -50px 0 0 0;
+	padding: 70px 0 0 0;
+}
+
+#main {
+	width: 850px;
+	margin: 0 auto 100px;
+	z-index: 4;
+}
+
+#main h1 {
+	float: left;
+	width: 310px;
+	height: 0;
+	margin: 0;
+	padding: 454px 0 0 0;
+	background: url("/imgs/kittens.png") no-repeat;
+	overflow: hidden;
+}
+
+p {
+	width: 350px;
+	float: right;
+	margin: 80px 0 0 50px;
+	background: #e2f5ed;
+	padding: 60px 60px 60px 65px;
+	border-radius: 200px;
+	font-family: "Avenir Heavy";
+	color: #696969;
+	text-transform: uppercase;
+	text-shadow: 1px 1px 0px rgba(255, 255, 255, 0.8);
+	text-align: center;
+}
+
+p > span {
+	display: block;
+	font-size: 20pt;
+}
+
+P > span:first-child {
+	margin: 0 0 15px 0;
+	padding: 0;
+	font: normal 45pt "Avenir Heavy";
+	border-bottom: 5px solid #696969;
+}
+
+p > span:last-child {
+	font-size: 13pt;
+}

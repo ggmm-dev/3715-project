@@ -1,16 +1,23 @@
 {{>html5}}
 	<head>
 		{{>meta}}
-		<style type="text/css">.grey { color: gray; }</style>
+		<link rel="stylesheet" href="/css/error.css" />
 	</head>
 	<body>
-		<p>
-			404. <span class="grey">That&apos;s an error.</span>
-		</p>
-		<p>
-			The requested resource was not found on this server.
-			<br />
-			That&apos;s all we know.
-		</p>
+		<header>
+			<nav class="clearfix">
+				<div class="left">
+					<h1>{{logo}}</h1>
+				</div>
+			</nav>
+		</header>
+		<div id="main" class="clearfix" role="main">
+			<h1>Meowth the Sad Kitty</h1>
+			<p>
+				<span>Error 404</span>
+				<span>This kitten is sad&nbsp;</span>
+				<span>(and you should be too)</span>
+			</p>
+		</div>
 	</body>
 </html>

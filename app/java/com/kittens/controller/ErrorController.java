@@ -25,6 +25,7 @@ public class ErrorController extends BaseController {
 		// map all the values
 		final HashMap<String, String> values = new HashMap<String, String>();
 		values.put("title", "Error 404 (Not Found)!!1");
+		values.put("logo", "Group Data");
 		// render the view
 		response.setContentType("text/html");
 		ViewRenderer.render(response, "error", values);
