@@ -21,18 +21,4 @@ Default Administrator Account
 
 - Email address is `admin@localhost`
 - Password is `password`
-
-Ideas for improvement
----------------------
-
-- Realtime via <https://github.com/videlalvaro/gifsockets>?
-- <http://raphaeljs.com/pie.html>
-- <http://heelhook.github.com/chardin.js/>
-
-Things
-------
-
-- 15foundation.tar
-- Play is a bad idea.
-- Chrome developer tools!
-- <http://jshint.com>
+- The admin section can be accessed via <http://localhost:8888/admin>.
