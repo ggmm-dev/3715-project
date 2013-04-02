@@ -21,6 +21,8 @@
 			event.target.submit();
 		}
 		else {
+			$("p.error").remove();
+			$("p.warn").remove();
 			form.insertBefore(warn, form.firstChild);
 		}
 		return false;
