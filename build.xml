@@ -32,26 +32,6 @@
 		<pathelement path="${views.dir}"/>
 	</path>
 
-	<!--
-	By commenting this out, we no longer create the WAR
-	folder structure when compiling our application.
-	This allows us to edit HTML/CSS/JS directly in said
-	folder, and see the live feedback we all love.
-	WARNING: Always know what file you are editing (or
-	delete the `html` folder and keep a single copy of
-	your files).
-
-	<target name="mkwar">
-		<mkdir dir="${war.dir}" />
-		<mkdir dir="${war.dir}/WEB-INF" />
-		<mkdir dir="${war.dir}/WEB-INF/classes" />
-		<mkdir dir="${war.dir}/WEB-INF/lib" />
-	</target>
-
-	We also removed the `war-dir` dependancy from the `jetty` task.
-	Put that back if this gets uncommented out.
-	-->
-
 	<!-- because Git won't commit empty folders -->
 	<target name="git-fix">
 		<!-- recreate all the folders -->
@@ -62,7 +42,7 @@
 	</target>
 
 	<!-- compile our server-side stuff -->
-	<target name="compile">
+	<target name="compile" depends="git-fix">
 		<delete>
 			<fileset dir="." includes="**/*.class"/>
 		</delete>
