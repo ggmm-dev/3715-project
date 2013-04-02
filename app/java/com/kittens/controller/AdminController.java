@@ -24,29 +24,9 @@ public class AdminController extends BaseController {
 	public static final long serialVersionUID = 0L;
 
 	/**
-	 * Displays the list of all the projects.
+	 * Displays the list of all the users and datasets.
 	 */
-	private void displayProjects(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// ask for this response to not be cached
-		Utils.pleaseDontCache(response);
-		// only if the user is logged in
-		final User currentSessionUser = Utils.getUserFromRequest(request);
-		if (currentSessionUser == null || !currentSessionUser.isAdmin()) {
-			response.sendRedirect(Utils.ADMIN_ROOT);
-			return;
-		}
-		// set some values
-		final HashMap<String, Object> values = new HashMap<String, Object>();
-		values.put("title", "Group Data - All Projects");
-		values.put("logo", "Group Data");
-		// render the view
-		response.setContentType("text/html");
-		ViewRenderer.render(response, "admin/projects", values);
-	}
-	/**
-	 * Displays the list of all the users.
-	 */
-	private void displayUsers(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+	private void main(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// ask for this response to not be cached
 		Utils.pleaseDontCache(response);
 		// only if the user is logged in
@@ -59,8 +39,10 @@ public class AdminController extends BaseController {
 		final HashMap<String, Object> values = new HashMap<String, Object>();
 		values.put("title", "Group Data - All Users");
 		values.put("logo", "Group Data");
+		values.put("user", currentSessionUser);
 		try {
 			values.put("users", database.getAllUsers());
+			values.put("datasets", database.getAllDatasets());
 		}
 		catch (SQLException e) {
 			e.printStackTrace();
@@ -68,11 +50,10 @@ public class AdminController extends BaseController {
 		}
 		// render the view
 		response.setContentType("text/html");
-		ViewRenderer.render(response, "admin/users", values);
+		ViewRenderer.render(response, "admin/index", values);
 	}
 	/**
-	 * Shows the login page for administrators (the index page) if they are not logged in,
-	 * shows the list of all users if an administrator is logged in.
+	 * Shows the login page for administrators.
 	 */
 	private void index(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// ask for this response to not be cached
@@ -95,7 +76,7 @@ public class AdminController extends BaseController {
 		ViewRenderer.render(response, "admin/login", values);
 	}
 	/**
-	 *
+	 * Logs out the administrator.
 	 */
 	private void logout (HttpServletRequest request, HttpServletResponse response) throws IOException {
 		// no cache please
@@ -108,11 +89,10 @@ public class AdminController extends BaseController {
 	 */
 	@Override public void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		final String cmd = request.getRequestURI().substring(1);
-		if (cmd.equals("admin"))               { index(request, response); }
-		else if (cmd.equals("admin/projects")) { displayProjects(request, response); }
-		else if (cmd.equals("admin/users"))    { displayUsers(request, response); }
+		if (cmd.equals("admin"))             { index(request, response); }
+		else if (cmd.equals("admin/main"))   { main(request, response); }
 		else if (cmd.equals("admin/logout")) { logout(request, response); }
-		// a lot more urls are mapped to this controller
+		// anything else is wrong
 		else { response.sendError(HttpServletResponse.SC_NOT_FOUND); }
 	}
 	/**
@@ -151,7 +131,7 @@ public class AdminController extends BaseController {
 		// attach the user to the session
 		session.setAttribute(Utils.CURRENT_SESSION_USER, user);
 		// show them their projects
-		response.sendRedirect(Utils.ADMIN_ROOT + "/projects");
+		response.sendRedirect(Utils.ADMIN_ROOT + "/main");
 	}
 	/**
 	 * Handle POST requests.

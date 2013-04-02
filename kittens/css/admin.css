@@ -1,0 +1,299 @@
+@charset "utf-8";
+
+@font-face {
+    font-family: "Avenir Light";
+    src: url('fonts/avenirlight-webfont.eot');
+    src: url('fonts/avenirlight-webfont.eot?#iefix') format('embedded-opentype'),
+         url('fonts/avenirlight-webfont.woff') format('woff'),
+         url('fonts/avenirlight-webfont.ttf') format('truetype'),
+         url('fonts/avenirlight-webfont.svg#avenirlight') format('svg');
+    font-weight: normal;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: "Avenir Heavy";
+    src: url('fonts/avenir-heavy-webfont.eot');
+    src: url('fonts/avenir-heavy-webfont.eot?#iefix') format('embedded-opentype'),
+         url('fonts/avenir-heavy-webfont.woff') format('woff'),
+         url('fonts/avenir-heavy-webfont.ttf') format('truetype'),
+         url('fonts/avenir-heavy-webfont.svg#avenir_85_heavyregular') format('svg');
+    font-weight: normal;
+    font-style: normal;
+}
+
+a {
+	cursor: pointer;
+	color: inherit;
+}
+
+body {
+	background: #e2e1e1;
+	margin: 0;
+	background-image: url("/imgs/abg.png");
+}
+
+.container {
+	width: 966px;
+	margin: 0 auto;
+	font: 10pt sans-serif;
+}
+
+nav {
+	background: rgba(0, 0, 0, 0.7);
+	height: 94px;
+	width: 100%;
+	border-bottom: 1px solid #000;
+	text-align: center;
+	margin-bottom: 50px;
+	box-shadow: inset 0px -1px 0px rgba(255, 255, 255, 0.3);
+}
+
+nav .left {
+	float: left;
+	width: 200px;
+}
+
+nav .right {
+	width: 920px;
+	position: relative;
+	padding-top: 47px;
+	text-align: left;
+	left: 40px;
+	z-index: 500;
+}
+
+nav .active {
+	padding: 10px 20px 10px 20px;
+	background: #f6f6f6;
+	display: inline-block;
+	font: 16pt "Avenir Heavy";
+	text-transform: uppercase;
+	color: #2e2e2e;
+	margin-right: 10px;
+	border-bottom: 1px solid #f6f6f6;
+	border-left: 1px solid #9b9a9a;
+	border-right: 1px solid #9b9a9a;
+	border-top: 1px solid #9b9a9a;
+	text-shadow: 1px 1px 0px #ffffff;
+	text-decoration: none;
+}
+
+nav a.active:hover {
+	color: #656565;
+}
+
+nav .inactive {
+	padding: 10px 20px 10px 20px;
+	background: #edebeb;
+	display: inline-block;
+	font: 16pt "Avenir Heavy";
+	text-transform: uppercase;
+	color: #9a9a9a;
+	margin-right: 10px;
+	border-bottom: 1px solid #9b9a9a;
+	text-shadow: 1px 1px 0px #fff;
+	box-shadow: inset 0px -3px 15px rgba(0, 0, 0, 0.1);
+	text-decoration: none;
+}
+
+nav a.inactive:hover {
+	color: #757575;
+	background-color: #e5e3e3;
+}
+
+.logout {
+	padding: 20px 20px 10px 20px;
+	display: inline-block;
+	font: 13pt "Avenir Heavy";
+	text-transform: uppercase;
+	color: #f6f6f6;
+	margin-right: 10px;
+	text-shadow: 1px 1px 0px #000;
+	float: right;
+	text-decoration: none;
+}
+
+a.logout:hover {
+	color: #e4e4e4;
+}
+
+#content .left {
+	width: 220px;
+	float: left;
+	padding: 0 20px 0 0;
+}
+
+#content .right {
+	width: 660px;
+	float: left;
+	background: #f6f6f6;
+	margin-top: -50px;
+	border: 1px solid #9b9a9a;
+	box-shadow: 0px 0px 40px rgba(0, 0, 0, 0.2);
+	padding: 25px 0px 50px 40px;
+}
+
+#content h1 {
+	font: 22pt "Avenir Heavy";
+	text-shadow: 1px 1px 0px #fff;
+	color: #2e2e2e;
+	line-height: 20px;
+	margin: 0;
+	display: inline-block;
+}
+
+#content h3 {
+	font: 13pt "Avenir Heavy";
+	text-shadow: 1px 1px 0px #fff;
+	color: #2e2e2e;
+	line-height: 20px;
+	margin: 0;
+	text-transform: uppercase;
+}
+
+.admin-left {
+	float: left;
+	width: 300px;
+	margin: 0 50px 0 0;
+}
+
+.admin-right {
+	float: left;
+	width: 300px;
+}
+
+#content .left h2 {
+	font: 16pt "Avenir Heavy";
+	text-shadow: 1px 1px 0px #fff;
+	color: #2e2e2e;
+	line-height: 20px;
+	margin: 0px 0px 20px 0;
+	text-transform: uppercase;
+}
+
+.admin-right fieldset {
+    font-size: 1em;
+    padding: 0.5em;
+    border-radius: 1em;
+    font-family: sans-serif;
+    border-width: 0;
+}
+
+.admin-right label,
+.admin-right select,
+.admin-right button {
+    font-size: inherit;
+	font-family: inherit;
+    padding: 0.3em 0.4em;
+    margin: 0.1em 0.2em;
+    -moz-box-sizing: content-box;
+    -webkit-box-sizing: content-box;
+    box-sizing: content-box;
+    border: 1px solid #f90;
+    background-color: #fff;
+}
+
+.admin-right select {
+    margin-right: 0;
+    border-radius: 0.6em 0 0 0.6em;
+}
+
+.admin-right select:focus {
+    outline: none;
+    background-color: #ffa;
+    background-color: rgba(255, 255, 210, 0.5);
+}
+
+.admin-right button {
+    margin-left: 0;
+    border-radius: 0 0.6em 0.6em 0;
+    background-color: #aef;
+}
+.admin-right button:active,
+.admin-right button:focus {
+    background-color: #acf;
+    outline: none;
+}
+
+.admin-right button:hover {
+	background: #d0cece;
+}
+
+.grey {
+	border: 1px solid #6b6b6b;
+	background: #dcdcdc;
+	color: #000;
+	box-shadow: 1px 1px 0px #fff;
+	font: 12pt "Avenir Heavy";
+	padding: 5px 0px 5px 0px;
+	margin-right: 5px;
+	text-shadow: 1px 1px 0px rgba(255, 255, 255, 0.8);
+	text-transform: uppercase;
+	border-radius: 15px;
+	display: inline-block;
+	height: 18px;
+	text-decoration: none;
+	width: 250px;
+	text-align: center;
+	margin-bottom: 10px;
+}
+
+a.grey:hover {
+	background-color: #e9e9e9;
+}
+
+table.admin {
+	border-collapse: collapse;
+	background: #e8e8e8;
+	width: 250px;
+	margin: 0;
+	border: 1px solid #6b6b6b;
+}
+
+table.admin th:first-child,
+table.admin td:first-child {
+	border-right: 1px solid #6b6b6b;
+	background: #dcdcdc;
+	padding: 0 5px 0 5px;
+	width: 20px;
+}
+
+table.admin th:last-child {
+	background: #c1bfbf;
+	font: 13pt "Avenir Heavy";
+	padding: 5px 10px 5px 10px;
+	text-transform: uppercase;
+	text-shadow: 1px 1px 0px rgba(255, 255, 255, 0.5);
+}
+
+table.admin thead tr {
+	border-bottom: 1px solid #6b6b6b;
+}
+
+table.admin tr:nth-child(odd) {
+	background: #efefef;
+}
+
+table.admin td {
+	padding: 7px 0px 7px 0px;
+}
+
+table.admin td:last-child {
+	padding-left: 10px;
+}
+
+.admin a:link,
+.admin a:active,
+.admin a:visited {
+	color: #000;
+	text-decoration: none;
+}
+
+.admin a:hover {
+	color: #5d5d5d;
+}
+
+.left p {
+	width: 80%;
+}

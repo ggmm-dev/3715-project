@@ -1,0 +1,80 @@
+{{>html5}}
+	<head>
+		{{>meta}}
+		<link rel="stylesheet" href="/css/font-awesome.min.css" />
+		<link rel="stylesheet" href="/css/admin.css" />
+	</head>
+	<body>
+		<nav>
+			<div class="container">
+				<div class="left">
+					<img src="/imgs/logo.png" />
+				</div>
+				<div class="right">
+					<a href="/admin/logout" class="logout">Logout</a>
+				</div>
+			</div>
+		</nav>
+		<div id="content">
+			<div class="container">
+				<div class="left">
+					<h2>Howdy, {{user.username}}!</h2>
+					<p>
+						Here you can manage all projects and user
+						accounts in the database. Through here,
+						projects can be deleted, and user accounts
+						can either be deleted or upgraded to administrators.
+						To delete the default admin account, create a new
+						user account, set it as an administrator, and use it
+						to delete the default account.
+					</p>
+				</div>
+				<div class="right">
+					<div class="admin-left">
+						<a id="delete-users" class="grey">Delete Selected</a>
+						<a id="make-admin" class="grey">Make Administrators</a>
+						<table id="users-list" class="admin">
+							<thead>
+								<tr>
+									<th></th>
+									<th>Users</th>
+								</tr>
+							</thead>
+							<tbody>
+								{{#users}}
+								{{^this.isAdmin}}
+								<tr>
+									<td><input type="checkbox" /></td>
+									<td data-uuid="{{UUID}}">{{username}}</td>
+								</tr>
+								{{/this.isAdmin}}
+								{{/users}}
+							</tbody>
+						</table>
+					</div>
+					<div class="admin-right">
+						<a id="delete-datasets" class="grey">Delete Selected</a>
+						<table id="datasets-list" class="admin">
+							<thead>
+								<tr>
+									<th></th>
+									<th>Datasets</th>
+								</tr>
+							</thead>
+							<tbody>
+								{{#datasets}}
+								<tr>
+									<td><input type="checkbox" /></td>
+									<td data-uuid="{{UUID}}">{{name}}</td>
+								</tr>
+								{{/datasets}}
+							</tbody>
+						</table>
+					</div>
+				</div>
+			</div>
+		</div>
+		{{>jslibs}}
+		<script src="/js/admin.js"></script>
+	</body>
+</html>

@@ -29,19 +29,6 @@ Ideas for improvement
 - <http://raphaeljs.com/pie.html>
 - <http://heelhook.github.com/chardin.js/>
 
-Still to be done
-----------------
-
-- Text at the bottom of the homepage.
-- Text in the admin sidebar.
-- **Admin add/delete users and datasets.**
-- Error messages (and error-checking).
-    - When adding peers fails.
-    - Non-numeric dataset for charts.
-    - When editing tables (all the restrictions)
-- Export SVG as images.
-- Prevent certain key codes.
-
 Things
 ------
 

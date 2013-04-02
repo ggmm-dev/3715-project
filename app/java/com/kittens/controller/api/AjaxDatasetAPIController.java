@@ -132,5 +132,26 @@ public class AjaxDatasetAPIController extends BaseAPIController {
 		response.setContentType("application/json");
 		response.getWriter().print(json);
 	}
+	/**
+	 * Handle DELETE requests.
+	 * Deletes the given user.
+	 */
+	@Override public void doDelete(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		User currentSessionUser = getUserOrSendError(request, response);
+		if (currentSessionUser == null) return;
+		final String json = Utils.readStream(request.getInputStream());
+		String[] uuids = gson.fromJson(json, String[].class);
+		ArrayList<String> deleted = new ArrayList<String>();
+		for (String uuid : uuids) {
+			try {
+				// delete user
+				database.deleteDataset(uuid);
+				deleted.add(uuid);
+			}
+			catch (SQLException e) { e.printStackTrace(); }
+		}
+		response.setContentType("application/json");
+		gson.toJson(deleted, response.getWriter());
+	}
 
 }

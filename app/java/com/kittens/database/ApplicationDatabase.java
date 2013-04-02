@@ -273,6 +273,116 @@ public class ApplicationDatabase extends Object {
 		return (user != null && BCrypt.checkpw(password, user.getPassword())) ? user : null;
 	}
 	/**
+	 * Deletes the user given by the UUID.
+	 */
+	public void deleteUser(String uuid) throws SQLException {
+		ArrayList<String> datasetsOwned = new ArrayList<String>();
+		try {
+			openConnection();
+			// delete them
+			PreparedStatement ps = database.prepareStatement(String.format(
+				"DELETE FROM %s WHERE %s;",
+				"users",
+				"uuid = ?"
+			));
+			ps.setString(1, uuid);
+			ps.executeUpdate();
+			// remove them from all projects
+			ps = database.prepareStatement(String.format(
+				"DELETE FROM %s WHERE %s;",
+				"access",
+				"user = ?"
+			));
+			ps.setString(1, uuid);
+			ps.executeUpdate();
+			ps.close();
+		}
+		finally {
+			closeConnection();
+		}
+	}
+	/**
+	 * Makes the given user an administrator.
+	 */
+	public void makeAdmin(String uuid) throws SQLException {
+		try {
+			openConnection();
+			PreparedStatement ps = database.prepareStatement(String.format(
+				"UPDATE %s SET %s WHERE %s;",
+				"users",
+				"admin = ?",
+				"uuid = ?"
+			));
+			ps.setBoolean(1, true);
+			ps.setString(2, uuid);
+			ps.close();
+		}
+		finally {
+			closeConnection();
+		}
+	}
+	/**
+	 * Deletes the dataset given by the uuid.
+	 */
+	public void deleteDataset(String uuid) throws SQLException {
+		try {
+			openConnection();
+			// remove access to the dataset
+			PreparedStatement ps = database.prepareStatement(String.format(
+				"DELETE FROM %s WHERE %s;",
+				"access",
+				"dataset = ?"
+			));
+			ps.setString(1, uuid);
+			ps.executeUpdate();
+			// delete the dataset metadata
+			ps = database.prepareStatement(String.format(
+				"DELETE FROM %s WHERE %s;",
+				"datasets",
+				"uuid = ?"
+			));
+			ps.setString(1, uuid);
+			ps.executeUpdate();
+			// drop the table
+			ps = database.prepareStatement(String.format(
+				"DROP TABLE [%s];", uuid
+			));
+			ps.executeUpdate();
+			ps.close();
+		}
+		finally {
+			closeConnection();
+		}
+	}
+	/**
+	 * Returns the list of all datasets in the database.
+	 */
+	public ArrayList<Dataset> getAllDatasets() throws SQLException {
+		ArrayList<Dataset> datasets = new ArrayList<Dataset>();
+		try {
+			openConnection();
+			PreparedStatement ps = database.prepareStatement(String.format(
+				"SELECT %s FROM %s;",
+				"uuid, name, desc, created",
+				"datasets"
+			));
+			ResultSet rs = ps.executeQuery();
+			while (rs.next()) {
+				datasets.add(new Dataset(
+					rs.getString(1),
+					rs.getString(2),
+					rs.getString(3),
+					new Date(rs.getLong(4))
+				));
+			}
+			ps.close();
+		}
+		finally {
+			closeConnection();
+		}
+		return datasets;
+	}
+	/**
 	 * Returns the dataset that matches the given id.
 	 */
 	public Dataset getDataset(String datasetUUID) throws SQLException {
@@ -294,8 +404,10 @@ public class ApplicationDatabase extends Object {
 					new Date(rs.getLong(3))
 				);
 				populateDataset(dataset);
+				ps.close();
 				return dataset;
 			}
+			ps.close();
 			return null;
 		}
 		finally {
