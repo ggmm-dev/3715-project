@@ -328,7 +328,7 @@ public class ApplicationDatabase extends Object {
 				"CREATE TABLE IF NOT EXISTS [%s](%s);",
 				dataset.getUUID(),
 				// join together the headers from the dataset
-				Joiner.on(" TEXT NOT NULL, ").join(dataset.getHeaders()) + " TEXT NOT NULL"
+				"[" + Joiner.on("] TEXT NOT NULL, [").join(dataset.getHeaders()) + "] TEXT NOT NULL"
 			));
 			// add the row data
 			final ArrayList<Dataset.Row> rows = dataset.getRows();
@@ -505,7 +505,7 @@ public class ApplicationDatabase extends Object {
 				"CREATE TABLE IF NOT EXISTS [%s](%s);",
 				uuid,
 				// join together the headers from the dataset
-				Joiner.on(" TEXT NOT NULL, ").join(headers) + " TEXT NOT NULL"
+				"[" + Joiner.on("] TEXT NOT NULL, [").join(headers) + "] TEXT NOT NULL"
 			));
 			// add the row data
 			for (Dataset.Row row : rows) {
