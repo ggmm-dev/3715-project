@@ -69,25 +69,39 @@ nav .left {
 }
 
 #main {
-	width: 850px;
-	margin: 0 auto 100px;
+	width: 100%;
+	margin: 0 auto;
 	z-index: 4;
+}
+
+#main:before {
+	content: "";
+	background: #c4e5d6;
+	height: 300px;
+	width: 100%;
+	margin: -100px 0 -100px 0;
+	display: block;
 }
 
 #main h1 {
 	float: left;
 	width: 310px;
 	height: 0;
-	margin: 0;
+	margin: -150px 0 0 0;
 	padding: 454px 0 0 0;
 	background: url("/imgs/kittens.png") no-repeat;
 	overflow: hidden;
 }
 
+.center {
+	width: 850px;
+	margin: 0 auto;
+}
+
 p {
 	width: 350px;
 	float: right;
-	margin: 80px 0 0 50px;
+	margin: -50px 0 0 50px;
 	background: #e2f5ed;
 	padding: 60px 60px 60px 65px;
 	border-radius: 200px;
