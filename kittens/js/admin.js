@@ -1,5 +1,7 @@
 !function (window, document, undefined) {
 
+	"use strict";
+
 	var
 	deleteUsersBtn = document.getElementById("delete-users"),
 	deleteDatasetsBtn = document.getElementById("delete-datasets"),
