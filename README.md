@@ -6,10 +6,9 @@ This is the 3715 final (term) project.
 Getting started
 ---------------
 
-1. Run `ant git-fix`. This will recreate a number of empty folders that Git won't add to a repository.
-2. Run `ant`.
-3. Open <http://localhost:8888/> in your browser.
-4. Enjoy.
+1. Run `ant`.
+2. Open <http://localhost:8888/> in your browser.
+3. Enjoy.
 
 How do I use the application?
 -----------------------------
