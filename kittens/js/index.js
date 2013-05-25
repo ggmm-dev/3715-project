@@ -1,5 +1,7 @@
 !function (window, document, undefined) {
 
+	"use strict";
+
 	// the input element to ensure that the user knows
 	// what password they have entered
 	var eConfirmPassword = function () {

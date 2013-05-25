@@ -1,7 +1,7 @@
 Group Data Collection Project
 =============================
 
-This is the 3715 final (term) project.
+COMP 3715 term project submission.
 
 Getting started
 ---------------
@@ -18,6 +18,6 @@ There is a brief tutorial when first using the app.
 Default Administrator Account
 -----------------------------
 
-- Email address is `admin@localhost`
-- Password is `password`
+- Email address is `admin@localhost`.
+- Password is `password`.
 - The admin section can be accessed via <http://localhost:8888/admin>.

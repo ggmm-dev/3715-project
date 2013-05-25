@@ -2,7 +2,6 @@
 <!-- NOTE the base directory -->
 <project name="kittens" default="run" basedir=".">
 
-	<!-- let&quot;s set some vars -->
 	<!-- where is our WAR directory going? -->
 	<property name="war.dir" value="${ant.project.name}" />
 	<!-- where are all our libraries? -->

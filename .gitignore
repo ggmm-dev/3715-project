@@ -2,11 +2,14 @@
 
 .*
 *~
+
 Thumbs.db
+
 .settings/
 .classpath
 .project
 .metadata
+
 tmp/**
 tmp/**/*
 
