@@ -55,7 +55,7 @@ nav .active {
 	border-left: 1px solid #9b9a9a;
 	border-right: 1px solid #9b9a9a;
 	border-top: 1px solid #9b9a9a;
-	text-shadow: 1px 1px 0px #ffffff;
+	text-shadow: 1px 1px 0px #fff;
 	text-decoration: none;
 }
 
@@ -153,47 +153,47 @@ a.logout:hover {
 }
 
 .admin-right fieldset {
-    font-size: 1em;
-    padding: 0.5em;
-    border-radius: 1em;
-    font-family: sans-serif;
-    border-width: 0;
+	font-size: 1em;
+	padding: 0.5em;
+	border-radius: 1em;
+	font-family: sans-serif;
+	border-width: 0;
 }
 
 .admin-right label,
 .admin-right select,
 .admin-right button {
-    font-size: inherit;
+	font-size: inherit;
 	font-family: inherit;
-    padding: 0.3em 0.4em;
-    margin: 0.1em 0.2em;
-    -moz-box-sizing: content-box;
-    -webkit-box-sizing: content-box;
-    box-sizing: content-box;
-    border: 1px solid #f90;
-    background-color: #fff;
+	padding: 0.3em 0.4em;
+	margin: 0.1em 0.2em;
+	   -moz-box-sizing: content-box;
+	-webkit-box-sizing: content-box;
+	        box-sizing: content-box;
+	border: 1px solid #f90;
+	background-color: #fff;
 }
 
 .admin-right select {
-    margin-right: 0;
-    border-radius: 0.6em 0 0 0.6em;
+	margin-right: 0;
+	border-radius: 0.6em 0 0 0.6em;
 }
 
 .admin-right select:focus {
-    outline: none;
-    background-color: #ffa;
-    background-color: rgba(255, 255, 210, 0.5);
+	outline: none;
+	background-color: #ffa;
+	background-color: rgba(255, 255, 210, 0.5);
 }
 
 .admin-right button {
-    margin-left: 0;
-    border-radius: 0 0.6em 0.6em 0;
-    background-color: #aef;
+	margin-left: 0;
+	border-radius: 0 0.6em 0.6em 0;
+	background-color: #aef;
 }
 .admin-right button:active,
 .admin-right button:focus {
-    background-color: #acf;
-    outline: none;
+	background-color: #acf;
+	outline: none;
 }
 
 .admin-right button:hover {
