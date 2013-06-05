@@ -15,9 +15,10 @@ How do I use the application?
 
 There is a brief tutorial when first using the app.
 
-Default Administrator Account
------------------------------
+Default admin account
+---------------------
 
 - Email address is `admin@localhost`.
 - Password is `password`.
 - The admin section can be accessed via <http://localhost:8888/admin>.
+- NOTE: the admin area is **buggy**.
